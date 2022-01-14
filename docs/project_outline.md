@@ -24,6 +24,7 @@ Google Maps API
 1. Shipper
     - Name
     - Phone Number
+    - email
     - Avatar
     - Number of Deliveries
     - User rating
@@ -35,6 +36,7 @@ Google Maps API
 2. Shipee
     - Name
     - Phone Number
+    - email
     - Avatar
     - Number of Orders
     - User rating
