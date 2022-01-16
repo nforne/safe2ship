@@ -6,50 +6,41 @@
 - What will you be working on
 - What hurdles are you facing
 
-Friday, Jan 14
-- Project Setup and Documentation
+#### Schedule
+1. ***Friday, Jan 14***
+    - Project Setup and Documentation
+2. ***Weekend (Jan 15 - Jan 16)***
+3. ***Monday, Jan 17***
+4. ***Tuesday, Jan 18***
+5. ***Wednesday, Jan 19***
+6. ***Thursday, Jan 20***
+7. ***Friday, Jan 21***
 
-Weekend
-Monday
-Tuesday
-Wednesday
-Thursday
-Friday
+-------------- Extra Time --------------
 
------- Extra Time
-
-Weekend
-Monday
-Tuesday- TESTING 
-Wednesday
-Thursday- Project Presentation
+1. ***Weekend (Jan 22 -*** Jan 23)
+2. ***Monday, Jan 24***
+3. ***Tuesday, Jan 25***
+    - TESTING 
+4. ***Wednesday, Jan 26***
+5. ***Thursday, Jan 27***
+    - Project Presentation
 
 
 ### Project Workflow
 
 ##### Project Milestones
 
-We have decided to take a TDD approach to building our app. Testing integration at milestones.
+We have decided to take a TDD approach to building our app. Testing integration at milestones. We will test only major features for test driven approach and mostly focus on integration.
 
-End of Day 1: Project Setup and Documentation complete
-Weekend- Get familiar React Native, work on minor feature (optional)
-
-**Monday - Tuesday:**
-- Backend setup
-- User authentication & User pages
-- Testing and Integration 
-
-**Wednesday - Thursday:**
-- Messaging ( websocket )
-- Google Maps Api
-- Testing and Integration 
-
-**Friday:**
-- App integration, Testing to make app is working
-- Stretch Features
-
-**Weekend:**
-- Catch up and work on stretch features
+| Timeline | Milestones |
+|:-:|:-|
+| Friday, Jan 14 | Project Setup and Documentation complete |
+| Weekend | Get familiar React Native, work on minor feature (optional) |
+| Monday, Jan 17 - Tuesday, Jan 18 | - Backend setup <br> - User authentication & User pages <br> - Testing and Integration |
+| Wednesday, Jan 19 - Thursday, Jan 20 | - Messaging ( websocket ) <br> - Google Maps Api <br> - Testing and Integration |
+| Friday, Jan 21 | - App integration, Testing to make app is working <br> - Stretch Features |
+| Weekend | - Catch up and work on stretch features |
 
 ##### Git Workflow
 
