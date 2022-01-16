@@ -110,5 +110,12 @@ As a shippee, recieve confirmation on delivery
 
 - In app messaging
 
+- Maps feature
 
 
+## Pricing structure
+
+small- < 15 lbs small box, can be handle with one hand --> 2.99 + 0.30 km 
+medium- 15 - 30lbs, requires 2 hands to lift --> 4.99 + 0.30 km
+large- 30lbs+ , requires 2 people to lift --> 7.99 + 0.30 km
+custom- 11.99 + .3 km (plus size/weight fee)
