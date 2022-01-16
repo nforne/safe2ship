@@ -12,6 +12,12 @@
 
 Our app should allow authenticated users to post packages to be delivered (shipee) and picked up and delivered by drivers on the app (shippers).
 
+- user authentication
+- shipee posts packages
+- shipper selects (claims) package for delivery
+- shipee confirms
+- shipper confirms after delivery
+
 ##### Stack Choices:
 Front End- React Native
 Back End- Node & Express
@@ -27,19 +33,19 @@ Google Maps API
     - email
     - Avatar
     - Number of Deliveries
-    - User rating
+    - User rating (max 5 - cumulative rating sum)
     - Bio
     - Company Information (optional) / Personal link
     - Fleet
     - Driving Record
 
-2. Shipee
+2. Customer
     - Name
     - Phone Number
     - email
     - Avatar
     - Number of Orders
-    - User rating
+    - User rating  (max 5 - cumulative rating sum)
     - Bio
     - Company Information (optional) / Personal link
 
@@ -47,15 +53,16 @@ Google Maps API
     - size
     - weight range
     - description
-    - foreign key -> shipee
-
-4. Order
     - source
     - destination
+    - status
+    - foreign key -> customer
+
+4. Order
     - map
     - foreign key -> package
     - foreign key -> shipper
-    - foreign key -> shipee
+    - foreign key -> customer
 
 ## User stories
 
