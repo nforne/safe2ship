@@ -1,29 +1,65 @@
 module.exports = (db) => {
-  const getUsers = () => {
-      const query = {
-          text: 'SELECT * FROM users',
-      };
+ 
+// --------------'/api/users'---------------------
 
-      return db
-          .query(query)
-          .then((result) => result.rows)
-          .catch((err) => err);
-  };
+    // -----------userGET---------------
+    const getUserByEmail = (email) => {
 
-  const getUserByEmail = email => {
+        const query = {
+            text: `SELECT * FROM users WHERE email = $1` ,
+            values: [email]
+        }
 
-      const query = {
-          text: `SELECT * FROM users WHERE email = $1` ,
-          values: [email]
-      }
+        return db
+            .query(query)
+            .then(result => result.rows[0])
+            .catch((err) => err);
+    }
 
-      return db
-          .query(query)
-          .then(result => result.rows[0])
-          .catch((err) => err);
-  }
+    const getPackagesById = (id) => {
+        const query = {
+            text: 'SELECT * FROM packages WHERE id = $1',
+            values: [id]
+        };
 
-  const addUser = (firstName, lastName, email, password) => {
+        return db
+            .query(query)
+            .then((result) => result.rows)
+            .catch((err) => err);
+    };
+    
+    const getOrdersById = (id) => {
+        const query = {
+            text: 'SELECT * FROM packages WHERE id = $1',
+            values: [id],
+        };
+
+        return db
+            .query(query)
+            .then((result) => result.rows)
+            .catch((err) => err);
+    };
+
+    // -----------userPOST---------------
+
+
+
+
+
+    
+const getUsers = () => {
+    const query = {
+        text: 'SELECT * FROM users',
+    };
+
+    return db
+        .query(query)
+        .then((result) => result.rows)
+        .catch((err) => err);
+};
+
+
+  const postUser = (firstName, lastName, email, password) => {
       const query = {
           text: `INSERT INTO users (first_name, last_name, email, password) VALUES ($1, $2, $3, $4) RETURNING *` ,
           values: [firstName, lastName, email, password]
@@ -51,7 +87,10 @@ module.exports = (db) => {
   return {
       getUsers,
       getUserByEmail,
-      addUser,
+      getPackagesById,
+      getOrdersById,
+      postUser,
       getUsersPosts
   };
 };
+

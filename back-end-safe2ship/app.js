@@ -4,14 +4,14 @@ require("dotenv").config();
 // Web server config
 const express = require('express');
 const app = express();
-// const PORT = process.env.API_PORT || 8080;
 const path = require('path');
 const logger = require('morgan');
+// const PORT = process.env.API_PORT || 8080;
 
 // PG database client/connection setup
 const db = require('./db');
-
 const dbHelpers = require('./helpers/dbHelpers')(db);
+
 // -- const sassMiddleware = require("./lib/sass-middleware");
 
 
@@ -55,8 +55,8 @@ app.use(express.urlencoded({ extended: true }));
 // );
 
 // --------------------------------------------------
+
 // Separated Routes for each Resource
-// Note: Feel free to replace the example routes below with your own
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const packagesRouter = require('./routes/packages');
@@ -69,7 +69,7 @@ const reviewsRouter = require('./routes/reviews');
 // Mount all resource routes
 app.use('/', indexRouter); // home page
 
-// --------------------------------------------------
+// APIs
 app.use('/api/users', usersRouter(dbHelpers));
 app.use('/api/packages', packagesRouter(dbHelpers));
 app.use('/api/messages', messagesRouter(dbHelpers));

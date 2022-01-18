@@ -1,19 +1,54 @@
 const express = require('express');
 const router = express.Router();
-const {
-    getPostsByUsers
-} = require('../helpers/dataHelpers');
+const { getPostsByUsers } = require('../helpers/dataHelpers');
+
+
+// NOTES
+// ## Routes userGET
+//     -  query the two tables and userdataHelper(customerTableResponse, shipperTableResponse)
+//     -  On login: with userGetDataHelper, {user: get/ user = res.data, packages: get/ packages by uid = res.data}
+//         - set session cookie / optional authentication is sufficient 
+//         - get/ user
+//         - get/ packages by uid
+//         - get/ orders by uid || not ===> // for shippers only (depends on user status)
+//         - const [state, setState] = useState({user: {...user}, packages: [...packages], orders: [...orders] || null})
+
 
 module.exports = ({
-    getUsers,
     getUserByEmail,
-    addUser,
-    getUsersPosts
+    getPackagesById,
+    getOrdersById
 }) => {
     /* GET users listing. */
-    router.get('/', (req, res) => {
-        getUsers()
-            .then((users) => res.json(users))
+    router.get('/user', (req, res) => {
+        getUserByEmail(req.body.email)
+            .then((user) => {
+                if (user.length === 1 && bcrypt.compareSync(req.body.password, user[0]['password'])) {
+                    req.session.user_id = user[0]['system_id'];
+                    
+                    let userInfo = {"user": user}
+                    getPackagesById(user[0].id)
+                        .then((pks) => {
+                            userInfo["packages"] = pks;
+                        })
+                        .catch((err) => res.json({
+                            error: err.message
+                        }))
+    
+                    getOrdersById(user[0].id)
+                        .then((orders) => {
+                            userInfo["orders"] = orders;
+                            res.json(userInfo)
+                        })
+                        .catch((err) => res.json({
+                            error: err.message
+                        }))
+
+                } else {
+                    res.json({error: "incorrect passward"})
+                }
+                
+            })
             .catch((err) => res.json({
                 error: err.message
             }));
@@ -29,6 +64,11 @@ module.exports = ({
                 error: err.message
             }));
     });
+
+
+
+
+
 
     router.post('/', (req, res) => {
 
