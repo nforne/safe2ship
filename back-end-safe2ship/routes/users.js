@@ -23,29 +23,44 @@ module.exports = ({
     router.get('/user', (req, res) => {
         getUserByEmail(req.body.email)
             .then((user) => {
-                if (user.length === 1 && bcrypt.compareSync(req.body.password, user[0]['password'])) {
+                if (user.length != 0 && user[0].satus != 'deleted' && bcrypt.compareSync(req.body.password, user[0]['password'])) {
                     req.session.user_id = user[0]['system_id'];
                     
                     let userInfo = {"user": user}
-                    getPackagesById(user[0].id)
-                        .then((pks) => {
-                            userInfo["packages"] = pks;
-                        })
-                        .catch((err) => res.json({
-                            error: err.message
-                        }))
-    
-                    getOrdersById(user[0].id)
-                        .then((orders) => {
-                            userInfo["orders"] = orders;
-                            res.json(userInfo)
-                        })
-                        .catch((err) => res.json({
-                            error: err.message
-                        }))
 
+    // ---------------------------------------------------------------------
+
+                    Promise.all([
+                        getPackagesById(user[0].id),
+                        getOrdersById(user[0].id)
+                    ]).then((all) => {
+                        userInfo["packages"] = all[0];
+                        userInfo["orders"] = all[1];
+                        res.json(userInfo)
+                    })
+
+    // ---------------------------------------------------------------------
+                    // getPackagesById(user[0].id)
+                    //     .then((pkgs) => {
+                    //         userInfo["packages"] = pkgs;
+                    //     })
+                    //     .catch((err) => res.json({
+                    //         error: err.message
+                    //     }))
+    
+                    // getOrdersById(user[0].id)
+                    //     .then((orders) => {
+                    //         userInfo["orders"] = orders;
+                    //         res.json(userInfo)
+                    //     })
+                    //     .catch((err) => res.json({
+                    //         error: err.message
+                    //     }))
+
+                } else if (user.length === 0 || user[0].satus != 'deleted'){
+                    res.json({error: "The requested account does not exist. Please go to Sign-Up!", code: "xac"})
                 } else {
-                    res.json({error: "incorrect passward"})
+                    res.json({error: "incorrect passward", code: "xpw"})
                 }
                 
             })
@@ -54,42 +69,27 @@ module.exports = ({
             }));
     });
 
-    router.get('/posts', (req, res) => {
-        getUsersPosts()
-            .then((usersPosts) => {
-                const formattedPosts = getPostsByUsers(usersPosts);
-                res.json(formattedPosts);
-            })
-            .catch((err) => res.json({
-                error: err.message
-            }));
-    });
+
+// NOTES
+// ## Routes userPOST
+// -  On SignUp: with userPostDataHelper, {user: req.body, } // forms managed by controlled elements
+//     - set session cookie
+//     - post/ user (depends on req.params.status)
 
 
+    router.post('/user', (req, res) => {
 
-
-
-
-    router.post('/', (req, res) => {
-
-        const {
-            first_name,
-            last_name,
-            email,
-            password
-        } = req.body;
+        const { email } = req.body;
 
         getUserByEmail(email)
             .then(user => {
-
-                if (user) {
+                if (user.length != 0) {
                     res.json({
                         msg: 'Sorry, a user account with this email already exists'
                     });
                 } else {
-                    return addUser(first_name, last_name, email, password)
+                    return postUser(req.body)
                 }
-
             })
             .then(newUser => res.json(newUser))
             .catch(err => res.json({
@@ -97,6 +97,40 @@ module.exports = ({
             }));
 
     })
+
+    router.patch('/user/update', (req, res) => {
+        const { email } = req.body;
+            updateUser(req.body)
+                .then(newUser => res.json(newUser))
+                .catch(err => {
+                    res.json({error: err.message})
+                })     
+    });
+    
+    router.put('/user/upgrade', (req, res) => {
+        const { email } = req.body;
+        getUserByEmail(email)
+            .then(user => 
+                upgradeUser(req.body)
+                    .then(newUser => {
+                        deleteUserByStatus(req.body); // soft delete
+                        res.json(newUser);
+                    })
+                    .catch(err => {
+                        res.json({error: err.message})
+                    })
+            ) 
+            .catch(err => {
+                res.json({error: err.message})
+            }) 
+    });
+    
+    router.delete('/user/delete', (req, res) => {
+        deleteUserByStatus(req.body) // soft delete
+            .catch(err => {
+                res.json({error: err.message})
+            }) 
+    });
 
     return router;
 };
