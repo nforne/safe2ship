@@ -11,27 +11,26 @@ module.exports = ({
     getUserBySystem_id
 }) => {
    
-// ----------------------------## Routes userGET-----------------------------
+// ----------------------------## Routes userGET----------------------------------
     router.get('/user', (req, res) => {
         getUserByEmail(req.body.email)
             .then((user) => {
-                if (user.length != 0 && user[0].satus != 'deleted' && bcrypt.compareSync(req.body.password, user[0]['password'])) {
+                if (user.rows.length != 0 && user.rows[0].satus != 'deleted' && bcrypt.compareSync(req.body.password, user[0]['password'])) {
                     req.session.user_id = user[0]['system_id'];
                     
-                    let userInfo = {"user": user}
+                    let userInfo = {"user": user.rows}
 
-    // ---------------------------------------------------------------------
-
+                // ---------------------------------------------------------------------
                     Promise.all([
-                        getPackagesById(user[0].id),
-                        getOrdersById(user[0].id)
+                        getPackagesById(user.rows[0].id),
+                        getOrdersById(user.rows[0].id)
                     ]).then((all) => {
                         userInfo["packages"] = all[0].rows;
                         userInfo["orders"] = all[1].rows;
                         res.json(userInfo)
                     })
 
-    // ---------------------------------------------------------------------
+                // ---------------------------------------------------------------------
                     // getPackagesById(user[0].id)
                     //     .then((pkgs) => {
                     //         userInfo["packages"] = pkgs;
@@ -71,7 +70,7 @@ module.exports = ({
             .then(user => {
                 if (user.length != 0) {
                     res.json({
-                        msg: 'Sorry, a user account with this email already exists'
+                        msg: 'Sorry, a user account with this email already exists. Try another'
                     });
                 } else {
                     return postUser(req.body)
@@ -116,6 +115,7 @@ module.exports = ({
         //         res.json({error: err.message})
         //     }) 
     });
+
 
 // ----------------------------## Routes userDELETE-----------------------------
     router.delete('/user/delete', (req, res) => {

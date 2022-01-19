@@ -733,7 +733,7 @@ module.exports = (db) => {
 
 
 
-   
+
     // -----------Admin---------------
     const getUsers = () => {
         const queryVars = (table) => {
@@ -778,6 +778,8 @@ module.exports = (db) => {
     updateOrder,
     updateRating,
     postMessage,
+    editMessage,
+    deleteMessage,
     getUsers
     };
 };
