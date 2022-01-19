@@ -7,7 +7,8 @@ module.exports = ({
     getUserByEmail,
     getPackagesById,
     getOrdersById,
-    getSystem_ids
+    getSystem_ids,
+    getUserBySystem_id
 }) => {
    
 // ----------------------------## Routes userGET-----------------------------
@@ -25,8 +26,8 @@ module.exports = ({
                         getPackagesById(user[0].id),
                         getOrdersById(user[0].id)
                     ]).then((all) => {
-                        userInfo["packages"] = all[0];
-                        userInfo["orders"] = all[1];
+                        userInfo["packages"] = all[0].rows;
+                        userInfo["orders"] = all[1].rows;
                         res.json(userInfo)
                     })
 
@@ -119,6 +120,53 @@ module.exports = ({
 // ----------------------------## Routes userDELETE-----------------------------
     router.delete('/user/delete', (req, res) => {
         deleteUserByStatus(req.body) // soft delete
+            .catch(err => {
+                res.json({error: err.message})
+            }) 
+    });
+
+
+
+
+// ----------------------------## Routes getOtherUser-----------------------------
+    router.get('/user/other', (req, res) => {
+        getUserBySystem_id(req.body)
+            .then(otherUser => {
+                const { 
+                    name,
+                    phone,
+                    email,
+                    photo,
+                    address,
+                    number_of_orders,
+                    number_of_packages,
+                    rating_sum,
+                    bio,
+                    status,
+                    system_id,
+                    web_link,
+                    work_schedule 
+                } = otherUser.rows[0];
+                if (status != 'deleted') {
+                    res.json({ 
+                        name,
+                        phone,
+                        email,
+                        photo,
+                        address,
+                        number_of_orders,
+                        number_of_packages,
+                        rating_sum,
+                        bio,
+                        status,
+                        system_id,
+                        web_link,
+                        work_schedule 
+                    })
+                } else {
+                    res.json({msg: 'Oops! Sorry, the requested user deleted the profile!'}) 
+                }
+            })
             .catch(err => {
                 res.json({error: err.message})
             }) 

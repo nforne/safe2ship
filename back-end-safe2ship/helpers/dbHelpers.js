@@ -1,3 +1,5 @@
+const messages = require("../routes/messages");
+
 module.exports = (db) => {
  
 // --------------'/api/users'---------------------
@@ -27,6 +29,23 @@ module.exports = (db) => {
                         })
                     .catch((err) => err);
                 }
+            })
+            .catch((err) => err);
+    }
+    
+    
+    const getUserBySystem_id = (input) => {
+
+        const queryVars = (userTable) => {
+         return   {
+                text: `SELECT * FROM ${userTable} WHERE system_id = $1;` ,
+                values: [input.system_id]
+            }
+        }
+        const table = input.status === 'shipper' ? "shippers" : "customers";
+        return db.query(queryVars(table))
+            .then(result => {
+                    return result.rows;
             })
             .catch((err) => err);
     }
@@ -556,9 +575,165 @@ module.exports = (db) => {
 
 
 // --------------'/api/messages'---------------------
+    // messages === { 1:  <<<<< input >>>>>> }   //--msg save morph, where:
+    // input === {msg: 'text', status: 'deleted'/'not', from: [id, status], to: [id, status]}
+    
+    // -----------msgPOST---------------
+    const postMessage = (input) => {
+        
+        const msgUser = (id, status, msg) => {
+            const qUvars = () => {
+                const table = status === 'shipper' ? 'shippers' : 'customers';
+                return   {
+                       text: `SELECT * FROM ${table} WHERE id = $1;` ,
+                       values: [id]
+                   }
+               }
+
+            db.query(qUvars())
+                .then(result => {
+                    let msgs = JSON.parse(result.rows[0].messages);
+                    const keys = Object.keys(msgs);
+                    msgs[keys.length + 1] = msg;
+
+                    const newMsgBody = JSON.stringify(msgs);
+                    const newMsgs = {
+                        text: `UPDATE ${table} SET 
+                            messages = $1,
+                            time_updated = $2 
+                            WHERE id = ${id} RETURNING *;` ,
+                        values: [newMsgBody,  new Date(Date.now())] 
+                    }
+        
+                    db.query(newMsgs)
+                        .then((result) => {
+                            //websocket to update recipient to: [id, status]
+                        })
+                        .catch((err) => err);
+
+                })
+                .catch((err) => err);
+
+        }
+       msgUser(input.from[0], input.from[1], input);
+       msgUser(input.to[0], input.to[1], input);
+    };
+    
+    
+    // -----------msgUpdate---------------
+    const editMessage = (input) => {
+
+        const updateMsgUser = (id, status, msg) => {
+            const qUvars = () => {
+                const table = status === 'shipper' ? 'shippers' : 'customers';
+                return   {
+                       text: `SELECT * FROM ${table} WHERE id = $1;` ,
+                       values: [id]
+                   }
+               }
+
+            db.query(qUvars())
+                .then(result => {
+                    let messages = JSON.parse(result.rows[0].messages);
+                    const key = Object.keys(msg);
+                    messages[key[0]] = msg[key[0]];
+
+                    const newMsgBody = JSON.stringify(messages);
+                    const newMsgs = {
+                        text: `UPDATE ${table} SET 
+                            messages = $1,
+                            time_updated = $2 
+                            WHERE id = ${id} RETURNING *;` ,
+                        values: [newMsgBody,  new Date(Date.now())] 
+                    }
+        
+                    db.query(newMsgs)
+                        .then((result) => {
+                            //websocket to update recipient to: [id, status]
+                        })
+                        .catch((err) => err);
+
+                })
+                .catch((err) => err);
+
+        }
+       updateMsgUser(input.from[0], input.from[1], input);
+       updateMsgUser(input.to[0], input.to[1], input);
+    };
+
+
+    // -----------msgDelete---------------
+    // messages === { 1:  <<<<< input >>>>>> }   //--msg save morph, where:
+    // input === {msg: 'text', status: 'deleted'/'not', from: [id, status], to: [id, status], deleletType: fromMe/fromEvr1}
+
+   const deleteMessage = (input) => {
+
+     const deleteMsgUser = (id, status, msg) => {
+            const qUvars = () => {
+                const table = status === 'shipper' ? 'shippers' : 'customers';
+                return   {
+                       text: `SELECT * FROM ${table} WHERE id = $1;` ,
+                       values: [id]
+                   }
+               }
+
+            db.query(qUvars())
+                .then(result => {
+                    let messages = JSON.parse(result.rows[0].messages);
+                    const key = Object.keys(msg);
+                    messages[key[0]].status = 'deleted';
+
+                    const newMsgBody = JSON.stringify(messages);
+                    const newMsgs = {
+                        text: `UPDATE ${table} SET 
+                            messages = $1,
+                            time_updated = $2 
+                            WHERE id = ${id} RETURNING *;` ,
+                        values: [newMsgBody,  new Date(Date.now())] 
+                    }
+        
+                    db.query(newMsgs)
+                        .then((result) => {
+                            //websocket to update recipient to: [id, status]
+                        })
+                        .catch((err) => err);
+
+                })
+                .catch((err) => err);
+
+        }
+    const key = Object.keys(msg);    
+    if (input.key.deleteType === 'fromeMe') {
+        const qUvars = (table) => {
+            return   {
+                   text: `SELECT id FROM ${table} WHERE system_id = $1;` ,
+                   values: [req.session.user_id]
+               }
+           }
+
+        db.query(qUvars('shippers'))
+           .then(result1 => {
+               if (result1.rows.length != 0) {
+                   updateMsgUser(result1.rows[0], 'shipper', input);
+               } else {
+                 db.query(qUvars('customers'))
+                   .then(result2 => {
+                        updateMsgUser(result2.rows[0], 'customer', input);
+                    })
+                   .catch((err) => err);
+               }
+           })
+           .catch((err) => err);
+    } else {
+        updateMsgUser(input.from[0], input.from[1], input);
+        updateMsgUser(input.to[0], input.to[1], input); 
+    }
+    
+   }
 
 
 
+   
     // -----------Admin---------------
     const getUsers = () => {
         const queryVars = (table) => {
@@ -588,6 +763,7 @@ module.exports = (db) => {
 
   return {
     getUserByEmail,
+    getUserBySystem_id,
     getPackagesById,
     getOrdersById,
     getSystem_ids,
@@ -601,8 +777,8 @@ module.exports = (db) => {
     postOrder,
     updateOrder,
     updateRating,
-    getUsers,
-    world
+    postMessage,
+    getUsers
     };
 };
 
