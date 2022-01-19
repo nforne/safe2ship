@@ -66,7 +66,7 @@ module.exports = (db) => {
                 phone,
                 email,
                 password,
-                image,
+                photo,
                 address,
                 number_of_orders,
                 customer_rating_sum,
@@ -98,7 +98,7 @@ module.exports = (db) => {
                 phone,
                 email,
                 password,
-                image,
+                photo,
                 address,
                 number_of_orders,
                 number_of_packages,
@@ -155,7 +155,7 @@ module.exports = (db) => {
                 phone = $2,
                 email = $3,
                 password = $4, 
-                image = $5,
+                photo = $5,
                 address = $6,
                 number_of_orders = $7,
                 customer_rating_sum = $8,  
@@ -187,7 +187,7 @@ module.exports = (db) => {
                 phone = $2,
                 email = $3,
                 password = $4,
-                image = $5,
+                photo = $5,
                 address = $6,
                 number_of_orders = $7,
                 number_of_packages = $8,
@@ -241,9 +241,9 @@ module.exports = (db) => {
             text: `INSERT INTO customers (
                 name,
                 phone,
-                email,
+                photo,
                 password,
-                image,
+                photo,
                 address,
                 number_of_orders,
                 customer_rating_sum,
@@ -275,7 +275,7 @@ module.exports = (db) => {
                 phone,
                 email,
                 password,
-                image,
+                photo,
                 address,
                 number_of_orders,
                 number_of_packages,
@@ -361,7 +361,52 @@ module.exports = (db) => {
 
     }
 
+// --------------'/api/packages'---------------------
 
+    // -----------pkgPOST---------------    
+    const postPackage = (input) => {
+        // input is req.body
+        const package = {
+            text: `INSERT INTO packages (
+                customer_id,
+                size,
+                weight,
+                description,
+                source,
+                destination,
+                delivery_deadline,
+                status,
+                price,
+                messages,
+                time_created,
+                time_updated,)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING *` ,
+            values: [input.customer_id, input.size, 
+                input.weight, input.description, 
+                input.source, input.destination,
+                input.delivery_deadline, input.status, 
+                input.price, input.messages, 
+                new Date(Date.now()), new Date(Date.now())]
+        }
+        return db.query(package)
+                .then(pkg => pkg.rows)
+                .catch(err => err);
+    };
+    
+    
+    // -----------pkgPOST---------------    
+    const editPackage = (input) => {
+        // input is req.body
+
+    };
+    
+    
+    // -----------pkgPOST---------------    
+    const deletePackage = (input) => {
+        // input is req.body
+
+    };
+  
 
     // -----------Admin---------------
     const getUsers = () => {
@@ -400,14 +445,17 @@ module.exports = (db) => {
 //   }
 
   return {
-      getUserByEmail,
-      getPackagesById,
-      getOrdersById,
-      postUser,
-      updateUser,
-      upgradeUser,
-      deleteUserByStatus,
-      getUsers
+    getUserByEmail,
+    getPackagesById,
+    getOrdersById,
+    postUser,
+    updateUser,
+    upgradeUser,
+    deleteUserByStatus,
+    postPackage,
+    editPackage,
+    deletePackage,
+    getUsers
     };
 };
 

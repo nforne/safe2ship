@@ -1,57 +1,43 @@
 const express = require('express');
 const router = express.Router();
-const {
-    getPostsByUsers
-} = require('../helpers/dataHelpers');
+
 
 module.exports = ({
-    getUsers,
-    getUserByEmail,
-    addUser,
-    getUsersPosts
+    postPackage,
+    editPackage,
+    deletePackage,
 }) => {
-    /* GET users listing. */
-    router.get('/', (req, res) => {
-        getUsers()
-            .then((users) => res.json(users))
-            .catch((err) => res.json({
-                error: err.message
-            }));
-    });
-
-    router.get('/posts', (req, res) => {
-        getUsersPosts()
-            .then((usersPosts) => {
-                const formattedPosts = getPostsByUsers(usersPosts);
-                res.json(formattedPosts);
+   
+    router.post('/pkgs/create', (req, res) => {
+        postPackage(req.body)
+            .then((pkgs) => {
+                res.json(pkgs);
             })
             .catch((err) => res.json({
                 error: err.message
             }));
     });
 
-    router.post('/', (req, res) => {
+    router.patch('/pkgs/update', (req, res) => {
+        const {id, customer_id} = req.body;
 
-        const {
-            first_name,
-            last_name,
-            email,
-            password
-        } = req.body;
-
-        getUserByEmail(email)
-            .then(user => {
-
-                if (user) {
-                    res.json({
-                        msg: 'Sorry, a user account with this email already exists'
-                    });
-                } else {
-                    return addUser(first_name, last_name, email, password)
-                }
-
+        editPackage(id, customer_id)
+            .then(pkgs => {
+                res.json(pkgs);
             })
-            .then(newUser => res.json(newUser))
+            .catch(err => res.json({
+                error: err.message
+            }));
+    })
+    
+    
+    router.delete('/pkgs/delete', (req, res) => {
+        const {id, customer_id} = req.body;
+        
+        deletePackage(id, customer_id)
+            .then(pkgs => {
+                res.json(pkgs);
+            })
             .catch(err => res.json({
                 error: err.message
             }));
@@ -61,12 +47,3 @@ module.exports = ({
     return router;
 };
 
-// const express = require('express');
-// const router = express.Router();
-
-// /* GET users listing. */
-// router.get('/', function(req, res, next) {
-//   res.send('respond with a resource');
-// });
-
-// module.exports = router;
