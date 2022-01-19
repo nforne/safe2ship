@@ -1,25 +1,16 @@
 const express = require('express');
 const router = express.Router();
-const { getPostsByUsers } = require('../helpers/dataHelpers');
 
-
-// NOTES
-// ## Routes userGET
-//     -  query the two tables and userdataHelper(customerTableResponse, shipperTableResponse)
-//     -  On login: with userGetDataHelper, {user: get/ user = res.data, packages: get/ packages by uid = res.data}
-//         - set session cookie / optional authentication is sufficient 
-//         - get/ user
-//         - get/ packages by uid
-//         - get/ orders by uid || not ===> // for shippers only (depends on user status)
-//         - const [state, setState] = useState({user: {...user}, packages: [...packages], orders: [...orders] || null})
-
+// ----------------## Routes userGET-----------------------------------------------
 
 module.exports = ({
     getUserByEmail,
     getPackagesById,
-    getOrdersById
+    getOrdersById,
+    getSystem_ids
 }) => {
-    /* GET users listing. */
+   
+// ----------------------------## Routes userGET-----------------------------
     router.get('/user', (req, res) => {
         getUserByEmail(req.body.email)
             .then((user) => {
@@ -69,13 +60,7 @@ module.exports = ({
             }));
     });
 
-
-// NOTES
-// ## Routes userPOST
-// -  On SignUp: with userPostDataHelper, {user: req.body, } // forms managed by controlled elements
-//     - set session cookie
-//     - post/ user (depends on req.params.status)
-
+// ----------------------------## Routes userPOST-----------------------------
 
     router.post('/user', (req, res) => {
 
@@ -98,6 +83,7 @@ module.exports = ({
 
     })
 
+// ----------------------------## Routes userPATCH-----------------------------
     router.patch('/user/update', (req, res) => {
         const { email } = req.body;
             updateUser(req.body)
@@ -106,25 +92,31 @@ module.exports = ({
                     res.json({error: err.message})
                 })     
     });
+
     
+// ----------------------------## Routes userPUT-----------------------------
     router.put('/user/upgrade', (req, res) => {
-        const { email } = req.body;
-        getUserByEmail(email)
-            .then(user => 
-                upgradeUser(req.body)
-                    .then(newUser => {
-                        deleteUserByStatus(req.body); // soft delete
-                        res.json(newUser);
-                    })
-                    .catch(err => {
-                        res.json({error: err.message})
-                    })
-            ) 
+        upgradeUser(req.body)
+            .then(newUser => {
+                req.body['status'] === 'shipper' ? req.body['status'] = 'customer' : req.body['status'] = 'shipper';
+                deleteUserByStatus(req.body); // soft delete
+                res.json(newUser);
+            })
             .catch(err => {
                 res.json({error: err.message})
-            }) 
+            })
+
+        const { email } = req.body;
+        // getUserByEmail(email)
+        //     .then(user => 
+        //         {return user.rows;}
+        //     ) 
+        //     .catch(err => {
+        //         res.json({error: err.message})
+        //     }) 
     });
-    
+
+// ----------------------------## Routes userDELETE-----------------------------
     router.delete('/user/delete', (req, res) => {
         deleteUserByStatus(req.body) // soft delete
             .catch(err => {

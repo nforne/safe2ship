@@ -5,9 +5,9 @@ module.exports = (db) => {
     // -----------userGET---------------
     const getUserByEmail = (email) => {
 
-        const table = (userTable) => {
+        const queryVars = (userTable) => {
          return   {
-                text: `SELECT * FROM ${userTable} WHERE email = $1` ,
+                text: `SELECT * FROM ${userTable} WHERE email = $1;` ,
                 values: [email]
             }
         }
@@ -33,26 +33,34 @@ module.exports = (db) => {
 
     const getPackagesById = (id) => {
         const query = {
-            text: 'SELECT * FROM packages WHERE id = $1',
-            values: [id]
+            text: 'SELECT * FROM packages WHERE id = $1 AND status != $2;',
+            values: [id, 'deleted']
         };
 
-        return db
-            .query(query)
+        return db.query(query)
             .then((result) => result.rows)
             .catch((err) => err);
     };
     
     const getOrdersById = (id) => {
         const query = {
-            text: 'SELECT * FROM packages WHERE id = $1',
-            values: [id],
+            text: 'SELECT * FROM orders WHERE id = $1 AND status != $2;',
+            values: [id, 'deleted'],
         };
 
-        return db
-            .query(query)
+        return db.query(query)
             .then((result) => result.rows)
             .catch((err) => err);
+    };
+    
+    
+    const getSystem_ids = () => {
+        const queryVars = (table) => {
+            return {text: `SELECT system_id FROM ${table};`}
+        };
+       return Promise.all([db.query(queryVars('shippers')), db.query(queryVars('customers'))])
+                     .then((all) => [...all[0].rows, ...all[1].rows])
+                     .catch((err) => err);
     };
 
     // -----------userPOST---------------
@@ -60,87 +68,115 @@ module.exports = (db) => {
     const postUser = (input) => {
         // input is req.body
 
-        const customer = {
-            text: `INSERT INTO customers (
-                name,
-                phone,
-                email,
-                password,
-                photo,
-                address,
-                number_of_orders,
-                customer_rating_sum,
-                bio,
-                ccard_info,
-                company_infomation,
-                photo_id,
-                status,
-                total_declined,
-                system_id,
-                web_link,
-                time_created,
-                time_updated )
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14 $15 $16, $18) RETURNING *` ,
-            values: [input.name, input.phone, 
-                input.email, input.password, 
-                input.photo, input.address, 
-                input.number_of_orders, input.customer_rating_sum, 
-                input.bio, input.ccard_info, 
-                input.company_infomation, input.photo_id,  
-                input.status, input.total_declined, 
-                input.system_id, input.web_link,
-                new Date(Date.now()), new Date(Date.now())]
-        }
+        const generateRandomString = (N) => {
+            const nums_letters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+            const alphanumeric = nums_letters.split('');
+            let key = "";
+            for (let i = 0; i < N; i++) {
+              const index = Math.floor(Math.random() * 62);
+              key += alphanumeric[index];
+            }
+            return key;
+          };
+
+        return getSystem_ids()
+            .then(systemIds => {
+                while (true) { // a check to make sure there is no userId duplication at auto generate
+                    let randomId = generateRandomString(10);
+                    const passw = [input.password][0];
+                    if (!systemIds.includes(randomId)) {
+                      input['status'] = 'active';
+                      input['password'] = bcrypt.hashSync(passw, 10);
+                      input['system_id'] = randomId
+                      req.session.user_id = randomId;
+                      break;
+                    }
+                }
+                const customer = {
+                    text: `INSERT INTO customers (
+                        name,
+                        phone,
+                        email,
+                        password,
+                        photo,
+                        address,
+                        number_of_orders,
+                        rating_sum,
+                        bio,
+                        ccard_info,
+                        company_infomation,
+                        photo_id,
+                        status,
+                        total_declined,
+                        system_id,
+                        web_link,
+                        time_created,
+                        time_updated )
+                    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14 $15 $16, $18) RETURNING *;` ,
+                    values: [input.name, input.phone, 
+                        input.email, input.password, 
+                        input.photo, input.address, 
+                        input.number_of_orders, input.rating_sum, 
+                        input.bio, input.ccard_info, 
+                        input.company_infomation, input.photo_id,  
+                        input.status, input.total_declined, 
+                        input.system_id, input.web_link,
+                        new Date(Date.now()), new Date(Date.now())]
+                }
+                
+                const shipper = {
+                    text: `INSERT INTO customers (
+                        name,
+                        phone,
+                        email,
+                        password,
+                        photo,
+                        address,
+                        number_of_orders,
+                        number_of_packages,
+                        rating_sum,
+                        bio,
+                        ccard_info,
+                        company_infomation,
+                        driving_record,
+                        photo_id,
+                        status,
+                        total_declined,
+                        system_id,
+                        web_link,
+                        time_created,
+                        time_updated)
+                    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20) RETURNING *;` ,
+                    values: [input.name, input.phone, 
+                        input.email, input.password, 
+                        input.photo, input.address, 
+                        input.number_of_orders, input.rating_sum, 
+                        input.bio, input.ccard_info, 
+                        input.company_infomation, input.driving_record, 
+                        input.photo_id, input.status, 
+                        input.total_declined, input.system_id, 
+                        input.web_link, new Date(Date.now()), new Date(Date.now())] 
+                }
+                
+                if (input.status === 'shipper') {
+                    return db.query(shipper)
+                        .then(result => {
+                            let userInfo = {user: result.rows, packages: [], orders: []};
+                            return userInfo;
+                            })
+                        .catch(err => err);
+                } else {
+                    return db.query(customer)
+                        .then(result => {
+                            let userInfo = {user: result.rows, packages: [], orders: []};
+                            return userInfo;
+                        })
+                        .catch(err => err);                
+                }
+                
+            })
+            .catch((err) => err);
         
-        const shipper = {
-            text: `INSERT INTO customers (
-                name,
-                phone,
-                email,
-                password,
-                photo,
-                address,
-                number_of_orders,
-                number_of_packages,
-                customer_rating_sum,
-                bio,
-                ccard_info,
-                company_infomation,
-                driving_record,
-                photo_id,
-                status,
-                total_declined,
-                system_id,
-                web_link,
-                time_created,
-                time_updated)
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20) RETURNING *` ,
-            values: [input.name, input.phone, 
-                input.email, input.password, 
-                input.photo, input.address, 
-                input.number_of_orders, input.customer_rating_sum, 
-                input.bio, input.ccard_info, 
-                input.company_infomation, input.driving_record, 
-                input.photo_id, input.status, 
-                input.total_declined, input.system_id, 
-                input.web_link, new Date(Date.now()), new Date(Date.now())] 
-        }
-        
-        if (req.body.status === 'shipper') {
-            return db.query(shipper)
-                .then(result => {
-                    let userInfo = {user: result.rows, packages: [], orders: []};
-                    return userInfo;
-                    })
-                .catch(err => err);
-        } else {
-            return db.query(customer)
-                .then(result => {
-                    let userInfo = {user: result.rows, packages: [], orders: []};
-                    return userInfo;
-                })
-                .catch(err => err);                
-        }
 
     }
     
@@ -158,7 +194,7 @@ module.exports = (db) => {
                 photo = $5,
                 address = $6,
                 number_of_orders = $7,
-                customer_rating_sum = $8,  
+                rating_sum = $8,  
                 bio = $9,
                 ccard_info = $10,  
                 company_infomation = $11,
@@ -173,7 +209,7 @@ module.exports = (db) => {
             values: [input.name, input.phone,
                 input.email, input.password,
                 input.photo, input.address,
-                input.number_of_orders, input.customer_rating_sum,
+                input.number_of_orders, input.rating_sum,
                 input.bio, input.ccard_info,
                 input.company_infomation, input.photo_id,
                 input.status, input.total_declined,
@@ -191,7 +227,7 @@ module.exports = (db) => {
                 address = $6,
                 number_of_orders = $7,
                 number_of_packages = $8,
-                customer_rating_sum = $9,
+                rating_sum = $9,
                 bio = $10,
                 ccard_info = $11,
                 company_infomation = $12,
@@ -207,7 +243,7 @@ module.exports = (db) => {
             values: [input.name, input.phone, 
                 input.email, input.password, 
                 input.photo, input.address, 
-                input.number_of_orders, input.customer_rating_sum, 
+                input.number_of_orders, input.rating_sum, 
                 input.bio, input.ccard_info, 
                 input.company_infomation, input.driving_record, 
                 input.photo_id, input.status, 
@@ -215,7 +251,7 @@ module.exports = (db) => {
                 input.web_link, input.time_created, new Date(Date.now())] 
         }
         
-        if (req.body.status === 'shipper') {
+        if (input.status === 'shipper') {
             return db.query(shipper)
                 .then(result => {
                     let userInfo = {user: result.rows, packages: [], orders: []};
@@ -246,7 +282,7 @@ module.exports = (db) => {
                 photo,
                 address,
                 number_of_orders,
-                customer_rating_sum,
+                rating_sum,
                 bio,
                 ccard_info,
                 company_infomation,
@@ -257,11 +293,11 @@ module.exports = (db) => {
                 web_link,
                 time_created,
                 time_updated )
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14 $15 $16, $18) RETURNING *` ,
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14 $15 $16, $18) RETURNING *;` ,
             values: [input.name, input.phone, 
                 input.email, input.password, 
                 input.photo, input.address, 
-                input.number_of_orders, input.customer_rating_sum, 
+                input.number_of_orders, input.rating_sum, 
                 input.bio, input.ccard_info, 
                 input.company_infomation, input.photo_id,  
                 input.status, input.total_declined, 
@@ -279,7 +315,7 @@ module.exports = (db) => {
                 address,
                 number_of_orders,
                 number_of_packages,
-                customer_rating_sum,
+                rating_sum,
                 bio,
                 ccard_info,
                 company_infomation,
@@ -291,11 +327,11 @@ module.exports = (db) => {
                 web_link,
                 time_created,
                 time_updated)
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20) RETURNING *` ,
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20) RETURNING *;` ,
             values: [input.name, input.phone, 
                 input.email, input.password, 
                 input.photo, input.address, 
-                input.number_of_orders, input.customer_rating_sum, 
+                input.number_of_orders, input.rating_sum, 
                 input.bio, input.ccard_info, 
                 input.company_infomation, input.driving_record, 
                 input.photo_id, input.status,
@@ -304,7 +340,7 @@ module.exports = (db) => {
         }
         
         
-        if (req.body.status === 'shipper') {
+        if (input.status === 'shipper') {
             return db.query(shipper)
                 .then(result => {
                     let userInfo = {user: result.rows, packages: [], orders: []};
@@ -343,7 +379,7 @@ module.exports = (db) => {
             values: ["deleted", new Date(Date.now())]
         }
         
-        if (req.body.status === 'shipper') {
+        if (input.status === 'shipper') {
             return db.query(shipper)
                 .then(result => {
                     let userInfo = {user: result.rows, packages: [], orders: []};
@@ -380,7 +416,7 @@ module.exports = (db) => {
                 messages,
                 time_created,
                 time_updated,)
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING *` ,
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING *;` ,
             values: [input.customer_id, input.size, 
                 input.weight, input.description, 
                 input.source, input.destination,
@@ -394,39 +430,145 @@ module.exports = (db) => {
     };
     
     
-    // -----------pkgPOST---------------    
+    // -----------pkgUdate---------------    
     const editPackage = (input) => {
         // input is req.body
+        const package = {
+            text: `UPDATE packages SET
+                customer_id = $1,
+                size = $2,
+                weight = $3,
+                description = $4,
+                source = $5,
+                destination = $6,
+                delivery_deadline = $7,
+                status = $8,
+                price = $9,
+                messages = $10,
+                time_created = $11,
+                time_updated = $12
+            WHERE id = ${input.id} RETURNING *;` ,
+            values: [input.customer_id, input.size, 
+                input.weight, input.description, 
+                input.source, input.destination,
+                input.delivery_deadline, input.status, 
+                input.price, input.messages, 
+                input.time_created, new Date(Date.now())]
+        }
+        return db.query(package)
+                .then(pkg => pkg.rows)
+                .catch(err => err);
 
     };
     
     
-    // -----------pkgPOST---------------    
+    // -----------pkgDelete---------------    
     const deletePackage = (input) => {
         // input is req.body
-
+        const package = {
+            text: `UPDATE packages SET
+                status = $1s,        
+                time_updated = $2
+            WHERE id = ${input.id} RETURNING *;` ,
+            values: ['deleted', new Date(Date.now())]
+        }
+        return db.query(package)
+                .then(pkg => pkg.rows)
+                .catch(err => err);
     };
-  
+
+    
+// --------------'/api/orders'---------------------
+
+    // -----------orderPOST---------------
+    // input is req.body
+
+    const postOrder = (input) => {
+        const order = {
+            text: `INSERT INTO orders (
+                customer_id,
+                shipper_id,
+                package_id,
+                status,
+                map,
+                time_created,
+                time_updated)
+            VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *;` ,
+            values: [input.customer_id, input.shipper_id, 
+                input.package_id, input.status,
+                input.map, new Date(Date.now()), new Date(Date.now())]
+            }; 
+        return db.query(order)
+            .then(pkg => pkg.rows)
+            .catch(err => err);
+        
+    };
+
+    // -----------orderUpdate---------------
+    const updateOrder = (input) => {
+        const order = {
+            text: `UPDATE orders SET
+                status = $1,
+                time_updated = $2
+            WHERE id = ${input.id} RETURNING *;` ,
+            values: [input.status, new Date(Date.now())]
+            }; 
+        return db.query(order)
+            .then(pkg => pkg.rows)
+            .catch(err => err);
+    }
+
+
+// --------------'/api/reviews'---------------------
+
+    const updateRating = (input) => {
+        const { id, status, rating } = input;
+        const customer = {
+            text: `UPDATE customers SET 
+                rating_sum = rating_sum + $1,
+                time_updated = $2 
+                WHERE id = ${id} RETURNING *;` ,
+            values: [rating,  new Date(Date.now())] 
+        }
+        
+        const shipper = {
+            text: `UPDATE shippers SET 
+                rating_sum = rating_sum + $1,
+                time_updated = $2 
+                WHERE id = ${id} RETURNING *;` ,
+            values: [rating,  new Date(Date.now())] 
+        }
+        
+        if (status === 'shipper') {
+            db.query(shipper)
+                .then(result => {
+                    // websocket update reviewd user
+                    })
+                .catch(err => err);
+        } else {
+            db.query(customer)
+                .then(result => {
+                    // websocket update reviewd user
+                })
+                .catch(err => err);                
+        }
+    }
+
+
+// --------------'/api/messages'---------------------
+
+
 
     // -----------Admin---------------
     const getUsers = () => {
         const queryVars = (table) => {
-            text: `SELECT * FROM ${table};`
+            return {text: `SELECT * FROM ${table};`}
         };
 
-        Promise.all([
-            db.query(queryVars('shippers')), 
-            db.query(queryVars('customers'))  
-        ]).then((all) => {
-            res.json([...all[0], ...all[1]]);
-        })
-
-        return db
-            .query(query)
-            .then((result) => result.rows)
-            .catch((err) => err);
-    };
-
+        return Promise.all([db.query(queryVars('shippers')), db.query(queryVars('customers'))])
+                        .then((all) => {res.json([...all[0], ...all[1]]);})
+                        .catch((err) => res.json({error: err.message}));
+    }
 
   
 
@@ -448,6 +590,7 @@ module.exports = (db) => {
     getUserByEmail,
     getPackagesById,
     getOrdersById,
+    getSystem_ids,
     postUser,
     updateUser,
     upgradeUser,
@@ -455,7 +598,11 @@ module.exports = (db) => {
     postPackage,
     editPackage,
     deletePackage,
-    getUsers
+    postOrder,
+    updateOrder,
+    updateRating,
+    getUsers,
+    world
     };
 };
 
