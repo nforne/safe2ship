@@ -5,5 +5,8 @@ CREATE TABLE orders(
   customer_id INTEGER REFERENCES customers(id) ON DELETE CASCADE,
   shipper_id INTEGER REFERENCES shippers(id) ON DELETE CASCADE,
   package_id INTEGER REFERENCES packages(id) ON DELETE CASCADE,
-  map text
+  map text, 
+  status VARCHAR (128),
+  time_created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  time_updated TIMESTAMP
 );

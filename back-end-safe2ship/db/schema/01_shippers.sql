@@ -13,5 +13,9 @@ CREATE TABLE shippers(
   company_information TEXT,
   fleet TEXT,
   driving_record TEXT,
-  total_declined INTEGER
+  total_declined INTEGER,
+  status VARCHAR(20) DEFAULT 'shipper',
+  system_id VARCHAR(10),
+  time_created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  time_updated TIMESTAMP
 );

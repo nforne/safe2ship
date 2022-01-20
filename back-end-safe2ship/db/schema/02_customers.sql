@@ -11,5 +11,9 @@ CREATE TABLE customers(
   customer_rating_sum INTEGER,
   bio TEXT,
   company_information TEXT,
-  total_declined INTEGER
+  total_declined INTEGER,
+  status VARCHAR(20) DEFAULT 'customer',
+  system_id VARCHAR(10),
+  time_created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  time_updated TIMESTAMP
 );

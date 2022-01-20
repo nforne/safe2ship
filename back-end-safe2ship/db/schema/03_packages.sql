@@ -9,5 +9,8 @@ CREATE TABLE packages(
   source TEXT,
   destination TEXT,
   status VARCHAR (128),
-  price_cents INTEGER
+  price_cents INTEGER,
+  delivery_deadline TIMESTAMP,
+  time_created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  time_updated TIMESTAMP
 );
