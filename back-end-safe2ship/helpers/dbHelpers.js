@@ -36,9 +36,9 @@ module.exports = (db) => {
     
     const getUserBySystem_id = (input) => {
 
-        const queryVars = (userTable) => {
+        const queryVars = (table) => {
          return   {
-                text: `SELECT * FROM ${userTable} WHERE system_id = $1;` ,
+                text: `SELECT * FROM ${table} WHERE system_id = $1;` ,
                 values: [input.system_id]
             }
         }
@@ -104,10 +104,9 @@ module.exports = (db) => {
                     let randomId = generateRandomString(10);
                     const passw = [input.password][0];
                     if (!systemIds.includes(randomId)) {
-                      input['status'] = 'active';
+                    //   input['status'] = input.status;
                       input['password'] = bcrypt.hashSync(passw, 10);
                       input['system_id'] = randomId
-                      req.session.user_id = randomId;
                       break;
                     }
                 }
@@ -181,6 +180,7 @@ module.exports = (db) => {
                     return db.query(shipper)
                         .then(result => {
                             let userInfo = {user: result.rows, packages: [], orders: []};
+                            req.session.user_id = result.rows[0].system_id;
                             return userInfo;
                             })
                         .catch(err => err);
@@ -188,6 +188,7 @@ module.exports = (db) => {
                     return db.query(customer)
                         .then(result => {
                             let userInfo = {user: result.rows, packages: [], orders: []};
+                            req.session.user_id = result.rows[0].system_id;
                             return userInfo;
                         })
                         .catch(err => err);                
@@ -688,8 +689,8 @@ module.exports = (db) => {
                         text: `UPDATE ${table} SET 
                             messages = $1,
                             time_updated = $2 
-                            WHERE id = ${id} RETURNING *;` ,
-                        values: [newMsgBody,  new Date(Date.now())] 
+                            WHERE id = $3 RETURNING *;` ,
+                        values: [newMsgBody,  new Date(Date.now()), id] 
                     }
         
                     db.query(newMsgs)
@@ -714,19 +715,19 @@ module.exports = (db) => {
         db.query(qUvars('shippers'))
            .then(result1 => {
                if (result1.rows.length != 0) {
-                   updateMsgUser(result1.rows[0], 'shipper', input);
+                deleteMsgUser(result1.rows[0], 'shipper', input);
                } else {
                  db.query(qUvars('customers'))
                    .then(result2 => {
-                        updateMsgUser(result2.rows[0], 'customer', input);
+                    deleteMsgUser(result2.rows[0], 'customer', input);
                     })
                    .catch((err) => err);
                }
            })
            .catch((err) => err);
     } else {
-        updateMsgUser(input.from[0], input.from[1], input);
-        updateMsgUser(input.to[0], input.to[1], input); 
+        deleteMsgUser(input.from[0], input.from[1], input);
+        deleteMsgUser(input.to[0], input.to[1], input); 
     }
     
    }
