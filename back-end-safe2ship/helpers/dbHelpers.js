@@ -7,21 +7,21 @@ module.exports = (db) => {
     // -----------userGET---------------
     const getUserByEmail = (email) => {
 
-        const queryVars = (userTable) => {
+        const queryVars = (table) => {
          return   {
-                text: `SELECT * FROM ${userTable} WHERE email = $1;` ,
+                text: `SELECT * FROM ${table} WHERE email = $1;` ,
                 values: [email]
             }
         }
 
         return db.query(queryVars('shippers'))
             .then(result1 => {
-                if (result1.rows.length != 0) {
+                if (result1.rows.length !== 0) {
                     return result1.rows;
                 } else {
                     return db.query(queryVars('customers'))
                     .then(result2 => {
-                            if (result2.rows.length != 0) {
+                            if (result2.rows.length !== 0) {
                                 return result2.rows;
                             } else {
                                 return [];                                
@@ -104,7 +104,7 @@ module.exports = (db) => {
                     let randomId = generateRandomString(10);
                     const passw = [input.password][0];
                     if (!systemIds.includes(randomId)) {
-                    //   input['status'] = input.status;
+                    //   input['status'] = input.status; // set on client form //-----------------------------make sure
                       input['password'] = bcrypt.hashSync(passw, 10);
                       input['system_id'] = randomId
                       break;
@@ -255,11 +255,11 @@ module.exports = (db) => {
                 photo_id =  $14, 
                 status = $15, 
                 total_declined = $16,
-                system_id = $17,
+                system_id = $17, //-----------------------------------fixAll
                 web_link = $18,
                 time_created = $19,
                 time_updated = $20 
-                WHERE system_id = ${input.system_id} RETURNING *;` ,
+                WHERE system_id = ${input.system_id} RETURNING *;` , //-----------------------------------fixAll
             values: [input.name, input.phone, 
                 input.email, input.password, 
                 input.photo, input.address, 
@@ -547,7 +547,7 @@ module.exports = (db) => {
             text: `UPDATE customers SET 
                 rating_sum = rating_sum + $1,
                 time_updated = $2 
-                WHERE id = ${id} RETURNING *;` ,
+                WHERE id = ${id} RETURNING *;` , //-----------------------------------fixAll
             values: [rating,  new Date(Date.now())] 
         }
         

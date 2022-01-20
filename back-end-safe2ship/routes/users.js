@@ -15,7 +15,7 @@ module.exports = ({
     router.get('/user', (req, res) => {
         getUserByEmail(req.body.email)
             .then((user) => {
-                if (user.rows.length != 0 && user.rows[0].satus != 'deleted' && bcrypt.compareSync(req.body.password, user[0]['password'])) {
+                if (user.length !== 0 && user[0].satus !== 'deleted' && bcrypt.compareSync(req.body.password, user[0]['password'])) {
                     req.session.user_id = user[0]['system_id'];
                     
                     let userInfo = {"user": user.rows}
@@ -48,7 +48,7 @@ module.exports = ({
                     //         error: err.message
                     //     }))
 
-                } else if (user.length === 0 || user[0].satus != 'deleted'){
+                } else if (user.length === 0 || user[0].satus !== 'deleted'){
                     res.json({error: "The requested account does not exist. Please go to Sign-Up!", code: "xac"})
                 } else {
                     res.json({error: "incorrect passward", code: "xpw"})
@@ -68,7 +68,7 @@ module.exports = ({
 
         getUserByEmail(email)
             .then(user => {
-                if (user.length != 0) {
+                if (user.length !== 0) { //-----------------------------------fixAll != to !==
                     res.json({
                         msg: 'Sorry, a user account with this email already exists. Try another'
                     });
@@ -147,7 +147,7 @@ module.exports = ({
                     web_link,
                     work_schedule 
                 } = otherUser.rows[0];
-                if (status != 'deleted') {
+                if (status !== 'deleted') {  
                     res.json({ 
                         name,
                         phone,

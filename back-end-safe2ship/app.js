@@ -58,7 +58,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Separated Routes for each Resource
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
+const usersRouter = require('./routes/users'); //----------------------------------- split route(s) to customer and shipper
 const packagesRouter = require('./routes/packages');
 const messagesRouter = require('./routes/messages');
 const ordersRouter = require('./routes/orders');
