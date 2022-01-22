@@ -12,24 +12,29 @@ import './signUp.css'
 
 export default function SignUp(props) {
  
-  const [suview, setSUView] = useState({v:'', vtracker: []})
+  const [suview, setSuview] = useState({v:'', vtracker: []})
 
   const suhandler = (suview) => {
-    setSUView(prev => ({...prev, v: suview}));
+    setSuview(prev => ({...prev, v: suview}));
   }
    
    return (
     <div className="signupbtns">
       <div>
-      <img src={Logo1} id="homelogoimg" className="rounded rounded-pill img-fluid" alt={"logo"}/>
+          <img src={Logo1} id="homelogoimg" className="rounded rounded-pill img-fluid" alt={"logo"}/>
         <hr />
-        <Button suhandler={{suhandler, hhandler: props.hhandler}}/>
-        <hr />
-        {suview.v === 'shipper' && <Shippersignup suhandler={suhandler} errorHandler={props.errorHandler}/>}
+        <div className="form-group">
 
+        <Button suhandler={{suhandler: suhandler, hhandler: props.hhandler}}/>
+        <hr />
+        <div>
+        {suview.v === 'shipper' && <Shippersignup suhandler={suhandler} errorHandler={props.errorHandler}/>}
         {suview.v === 'customer' && <Customersignup suhandler={suhandler} errorHandler={props.errorHandler}/>}
+        </div>
         <hr />
       </div>
+      <i id='diffsquare' className="bi bi-square"></i>  
+        </div>
         <hr />
       <Scrollup/>      
     </div>

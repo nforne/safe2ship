@@ -51,12 +51,18 @@ export default function SignIn(props) {
        {sistate.view === 'pending' &&  <Pending/>}
        { sistate.view === 'signIn' && 
       
-        <div className="userform">
-          <div>
+
+      <div>
+
+      
             <div>
             <img src={Logo1} id="homelogoimg" className="rounded rounded-pill img-fluid" alt={"logo"}/>
             </div>
+          <hr />
+            <button onClick={() => props.hhandler('')} type="button" className="btn btn-secondary ">[ <i className="bi bi-reply-all"></i> ]</button>
             <hr />
+        <div className="userform">
+          <div>
             <form  onSubmit={(e) => handleSubmit(sistate.info, e)}>
               <fieldset >
               
@@ -75,13 +81,12 @@ export default function SignIn(props) {
                 <label htmlFor="formSubmitButton"></label>
                 <input type="submit"  name="formSubmitButton" className="btn btn-secondary " onClick={() => signv_handler('pending')}/>
             </form>
-            <hr /><hr />
-            <button onClick={() => props.hhandler('')} type="button" className="btn btn-secondary ">[ <i className="bi bi-reply-all"></i> ]</button>
             <hr />
           </div>
           <Scrollup/> 
         </div>
       
+        </div>
       }
 
      </div>

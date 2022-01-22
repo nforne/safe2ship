@@ -1,20 +1,28 @@
 .signupbtns {
-  display: flex;
-  flex-direction:row;
-  justify-content: space-around;
-  align-content: center;
-  align-items: flex-start;
- 
-  height: 80em;
-  width: 80em;
-}
-
-.userform {
+  
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  justify-items: center;
+  align-items: center;
+}
+
+.userform { 
+  align-items: inherit;
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing:inherit;
   
-  height: 80em;
-  width: 80em;
+  border-radius: 4px;
+
+  background-color: gray;
+  color: black;
+  
+  box-sizing: border-box;
+  border: 3px solid #ccc;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  outline: none;
 }
 
