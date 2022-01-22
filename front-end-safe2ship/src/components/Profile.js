@@ -1,7 +1,7 @@
 import React from "react";
-import "./customer.css";
+import "./profile.css";
 
-export default function Customer(props) {
+export default function Profile(props) {
   return (
     <div class="card">
       <div class="card-body">

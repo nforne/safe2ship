@@ -1,4 +1,4 @@
-import Package from './components/Package';
+import Package from "./pages/PackagePage";
 
 function App() {
   return (

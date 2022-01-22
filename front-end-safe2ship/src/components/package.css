@@ -1,0 +1,19 @@
+.box-size-small {
+  font-size: 3rem;
+  color: #6495ED;
+}
+
+.box-size-medium {
+  font-size: 5rem;
+  color: #6495ED;
+
+}
+
+.box-size-large {
+  font-size: 7rem;
+  color: #6495ED;
+}
+
+.price {
+  color: #118C4F;
+}
