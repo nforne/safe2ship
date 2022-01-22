@@ -1,0 +1,77 @@
+#logo {
+  height: 25px;
+  position: relative;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+}
+
+.logotag {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: space-between;
+  justify-items: flex-end;
+  background-color: gray;
+  border-radius: 2%;
+  align-self: baseline;
+  height: inherit;
+  top: 0.5em;
+}
+
+.logo h1 {
+  color: white;
+  font-style: italic;
+}
+
+.circle {
+  height: 5em;
+  width: 5em;
+  background-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+}
+
+#logoimg {
+  height: inherit;
+  width: inherit;
+}
+
+.App-logo {
+  height: inherit;
+  width: inherit;
+}
+
+#logobtn {
+  height: inherit;
+}
+
+.menu {
+  display: flex;
+  flex-direction: row;
+  justify-content:space-between;
+  align-content: space-between;
+  align-items: baseline;
+}
+
+#diffsquare {
+  color: transparent;
+}
+
+.nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  justify-items: center;
+  align-items: baseline;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  height: 80px;
+  background-color: rgb(56, 54, 54);
+  padding-left: 1.5em;
+  padding-right: 1.5em;
+  z-index: 1000;
+  position: fixed; /* Set the navbar to fixed position */
+  top: 0; /* Position the navbar at the top of the page */
+  width: 100%; /* Full width */
+  left: 0;
+}
