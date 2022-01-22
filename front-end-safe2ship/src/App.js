@@ -1,6 +1,4 @@
 import React from 'react';
-import { useState } from 'react';
-
 
 import Nav from './components/nav';
 import Home from './components/home';
@@ -10,7 +8,13 @@ import './App.css';
 
 
 const App = () => {
-  const [view, setView] = useState({v:'', vtracker: []})
+  let error = ""
+  const errorHandler = (errorMessage) => {
+    error = errorMessage;
+    setTimeout(() => {
+      error = "";
+    }, 120000)
+  }
 
   return (
     <div className="App">
@@ -20,11 +24,12 @@ const App = () => {
       <br></br>
       
         <div className='errmsgs'>
+          <p>`${error}`</p>
         </div>
 
       <hr/>
       <section className='main'>
-        <Home/>
+        <Home errorHandler={errorHandler}/>
         
       </section>
 

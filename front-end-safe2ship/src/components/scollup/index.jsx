@@ -7,7 +7,7 @@ export default function Scrollup(props) {
     <div className="scrollupbtn">
       
         
-        <i id="scrollupbtn" class="fas fa-angle-double-up"></i>
+        <i id="scrollupbtn" className="fas fa-angle-double-up"></i>
        
         
     </div>

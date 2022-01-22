@@ -22,3 +22,14 @@
   height: inherit;
   width: inherit;
 }
+
+.pending {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  justify-self: center;
+  width: 50%;
+  height: 50%;
+  top: 50%;
+  bottom: 50%;
+}

@@ -20,15 +20,16 @@ export default function Home(props) {
 
    return (
     <div className="homebtns">
-      <div>
+      { hview.v === "" && <div>
        <img src={Logo1} id="homelogoimg" className="rounded rounded-pill img-fluid" alt={"logo"}/>
         <h1>Welcome!</h1>
-      </div>
-
         <Button hhandler={hhandler}/>
-       {hview === "signIn" && <SignIn hhandler={hhandler}/>}
-       {hview === "signUp" && <SignUp hhandler={hhandler}/>}
-      <div className="hometx-span">
+      </div> }
+
+       {hview.v === "signIn" && <SignIn hhandler={hhandler} errorHandler={props.errorHandler}/>}
+       {hview.v === "signUp" && <SignUp hhandler={hhandler} errorHandler={props.errorHandler}/>}
+
+      { hview.v === "" && <div className="hometx-span">
         <hr />
         <span>
           <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span>
@@ -38,7 +39,7 @@ export default function Home(props) {
         <span>External Links</span>
         <hr />
         </div>
-      </div>
+      </div> }
     </div>
    );
  }
