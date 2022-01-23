@@ -1,23 +1,39 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+
+import Nav from './components/nav';
+import Home from './components/home';
+
+
 import './App.css';
 
-function App() {
+
+const App = () => {
+
+  const [error, setError] = useState('')
+  const errorHandler = (errorMessage) => {
+    setError(() => errorMessage)
+    setTimeout(() => {
+      setError(() => '');
+    }, 120000)
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      
+      <Nav/>
+      <hr className='line'/>
+      <br></br>
+      
+        <div className='errmsgs'>
+          <p>`${error}`</p>
+        </div>
+
+      <hr/>
+      <section className='main'>
+        <Home errorHandler={errorHandler}/>
+        
+      </section>
+
     </div>
   );
 }

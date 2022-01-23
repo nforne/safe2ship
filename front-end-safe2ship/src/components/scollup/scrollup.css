@@ -1,0 +1,14 @@
+.scrollup {
+  position: fixed;
+  bottom: 0;
+}
+
+#scrollup {
+ position: relative;
+  color: gray;
+  z-index: 5000;
+}
+
+#scrollup:hover {
+  color: white;
+}

@@ -1,5 +1,14 @@
 .App {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-content: center;
   text-align: center;
+  color: white;
+  backface-visibility: visible;
+  background-image: url('./logo.svg');
+  background-color: rgb(26, 27, 27);
+  height: inherit;
 }
 
 .App-logo {
@@ -35,4 +44,10 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.line {
+  top: 80px;
+  border-color: white;
+  height: 0.5em;
 }
