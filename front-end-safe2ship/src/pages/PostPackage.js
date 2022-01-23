@@ -7,11 +7,11 @@ export default function PostPackage(props) {
       <h2 class="text-center">Post New Package</h2>
       <form>
       <div class="row justify-content-center">
-        <div class="col-md-4 mb-3">
+        <div class="col-sm-12 col-md-4 mb-3">
           <label for="source" class="form-label">Source</label>
           <input type="text" class="form-control" id="source" placeholder="123 Main Street, Toronto ON"></input>
         </div>
-        <div class="col-md-4 mb-3">
+        <div class="col-sm-12 col-md-4 mb-3">
           <label for="destination" class="form-label">Destination</label>
           <input type="text" class="form-control" id="destination" placeholder="123 Main Street, Toronto ON"></input>
         </div>
@@ -56,6 +56,17 @@ export default function PostPackage(props) {
                 </span>
             </label>
           </div>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-md-8 mb-3">
+          <label for="description" class="form-label">Desctiption</label>
+          <textarea class="form-control" id="description" rows="2"></textarea>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="d-grid gap-2 col-6">
+          <button class="btn btn-lg btn-primary" type="submit">Get it Delivered</button>
         </div>
       </div>
       </form>
