@@ -39,7 +39,7 @@ VALUES
   (
     'Jane Foster',
     '4165551847',
-    'johndoe@example.com',
+    'john@example.com',
     '$2a$10$gLOuK89SbIaJcphI76XYROCUVP66U2I238kPYsQp3AKNZ0LqwVjAW',
     'https://socoshaping.com/wp-content/uploads/2019/02/unknown-woman.png',
     '1234 Main Street E',
@@ -56,7 +56,7 @@ VALUES
   (
     'Alex Fisher',
     '4165551847',
-    'johndoe@example.com',
+    'peter@example.com',
     '$2a$10$gLOuK89SbIaJcphI76XYROCUVP66U2I238kPYsQp3AKNZ0LqwVjAW',
     'https://www.jdl.co.uk/wp-content/uploads/2016/10/avatar-m.png',
     '1234 Main Street E',

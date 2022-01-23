@@ -1,8 +1,3 @@
-const messages = require("../routes/messages");
-const orders = require("../routes/orders");
-const packages = require("../routes/packages");
-const reviews = require("../routes/reviews");
-const users = require("../routes/users");
 
 module.exports = (db) => {
  
@@ -17,7 +12,6 @@ module.exports = (db) => {
                 values: [email]
             }
         }
-
         return db.query(qVars('shippers'))
             .then(result1 => {
                 if (result1.rows.length !== 0) {

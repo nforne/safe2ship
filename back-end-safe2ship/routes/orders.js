@@ -7,7 +7,11 @@ module.exports = ({
 }) => {
     router.post('/order/create', (req, res) => {
         postOrder(req.body)
-            .then((order) => res.json(order))
+            .then((order) => {
+                res.json(order);
+                //websocket message
+                //update package
+            })
             .catch((err) => res.json({
                 error: err.message
             }));
@@ -17,6 +21,8 @@ module.exports = ({
         updateOrder(read.body)
             .then((order) => {
                 res.json(order);
+                //websocket messages
+                //update package
             })
             .catch((err) => res.json({
                 error: err.message

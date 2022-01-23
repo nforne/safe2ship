@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const bcrypt = require('bcryptjs');
 
 // ----------------## Routes userGET-----------------------------------------------
 
@@ -12,43 +13,30 @@ module.exports = ({
 }) => {
    
 // ----------------------------## Routes userGET----------------------------------
-    router.get('/user', (req, res) => {
+    router.post('/users/signin', (req, res) => {
+        if (req.body.email === '' || req.body.email.split('').includes(' ')) res.json({error: "Incorrect email", code: "xe"});
+        if (req.body.password === '' || req.body.password.split('').includes(' ')) res.json({error: "Incorrect password", code: "xpw"});
+        
         getUserByEmail(req.body.email)
             .then((user) => {
-                if (user.length !== 0 && user[0].satus !== 'deleted' && bcrypt.compareSync(req.body.password, user[0]['password'])) {
+                
+                if (user.length !== 0 && user[0].satus !== 'deleted' && bcrypt.compareSync(req.body.password, user[0].password)) {
                     req.session.user_id = user[0]['system_id'];
                     
-                    let userInfo = {"user": user.rows}
-
+                    let userInfo = {"user": user}
                 // ---------------------------------------------------------------------
                     Promise.all([
-                        getPackagesById(user.rows[0].id),
-                        getOrdersById(user.rows[0].id)
+                        getPackagesById(user[0].id),
+                        getOrdersById(user[0].id)
                     ]).then((all) => {
-                        userInfo["packages"] = all[0].rows;
-                        userInfo["orders"] = all[1].rows;
+                        userInfo["packages"] = all[0];
+                        userInfo["orders"] = all[1];
                         res.json(userInfo)
                     })
 
                 // ---------------------------------------------------------------------
-                    // getPackagesById(user[0].id)
-                    //     .then((pkgs) => {
-                    //         userInfo["packages"] = pkgs;
-                    //     })
-                    //     .catch((err) => res.json({
-                    //         error: err.message
-                    //     }))
-    
-                    // getOrdersById(user[0].id)
-                    //     .then((orders) => {
-                    //         userInfo["orders"] = orders;
-                    //         res.json(userInfo)
-                    //     })
-                    //     .catch((err) => res.json({
-                    //         error: err.message
-                    //     }))
 
-                } else if (user.length === 0 || user[0].satus !== 'deleted'){
+                } else if (user.length !== 0 && user[0].satus === 'deleted' || user.length === 0){
                     res.json({error: "The requested account does not exist. Please go to Sign-Up!", code: "xac"})
                 } else {
                     res.json({error: "incorrect passward", code: "xpw"})
@@ -62,13 +50,13 @@ module.exports = ({
 
 // ----------------------------## Routes userPOST-----------------------------
 
-    router.post('/user', (req, res) => {
+    router.post('/users/signup', (req, res) => {
 
         const { email } = req.body;
 
         getUserByEmail(email)
             .then(user => {
-                if (user.length !== 0) { //-----------------------------------fixAll != to !==
+                if (user.length !== 0) {
                     res.json({
                         msg: 'Sorry, a user account with this email already exists. Try another'
                     });

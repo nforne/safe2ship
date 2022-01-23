@@ -45,15 +45,6 @@ app.use(logger('dev'));
 // -- app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 
-// app.use(
-//   "/styles",
-//   sassMiddleware({
-//     source: __dirname + "/styles",
-//     destination: __dirname + "/public/styles",
-//     isSass: false, // false => scss, true => sass
-//   })
-// );
-
 // --------------------------------------------------
 
 // Separated Routes for each Resource
@@ -70,11 +61,11 @@ const reviewsRouter = require('./routes/reviews');
 app.use('/', indexRouter); // home page
 
 // APIs
-app.use('/api/users', usersRouter(dbHelpers));
-app.use('/api/packages', packagesRouter(dbHelpers));
-app.use('/api/messages', messagesRouter(dbHelpers));
-app.use('/api/orders', ordersRouter(dbHelpers));
-app.use('/api/reviews', reviewsRouter(dbHelpers));
+app.use('/api', usersRouter(dbHelpers));
+app.use('/api', packagesRouter(dbHelpers));
+app.use('/api', messagesRouter(dbHelpers));
+app.use('/api', ordersRouter(dbHelpers));
+app.use('/api', reviewsRouter(dbHelpers));
 
 // --------------------------------------------------
 // app.listen(PORT, () => {

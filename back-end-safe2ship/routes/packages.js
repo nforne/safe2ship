@@ -24,6 +24,8 @@ module.exports = ({
         editPackage(id, customer_id)
             .then(pkgs => {
                 res.json(pkgs);
+                //websocket pkg messages update users
+                //update users if in order and deleting
             })
             .catch(err => res.json({
                 error: err.message
@@ -37,6 +39,8 @@ module.exports = ({
         deletePackage(id, customer_id)
             .then(pkgs => {
                 res.json(pkgs);
+                //websocket pkg messages update users
+                //update users if in order and deleting
             })
             .catch(err => res.json({
                 error: err.message
