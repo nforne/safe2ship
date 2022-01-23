@@ -1,17 +1,19 @@
 .box-size-small {
-  font-size: 3rem;
+  font-size: 2rem;
   color: #6495ED;
+  padding: 0.5rem;
 }
 
 .box-size-medium {
-  font-size: 5rem;
+  font-size: 3.5rem;
   color: #6495ED;
-
+  padding: 0.5rem;
 }
 
 .box-size-large {
-  font-size: 7rem;
+  font-size: 5rem;
   color: #6495ED;
+  padding: 0.5rem;
 }
 
 .price {
@@ -19,7 +21,7 @@
 }
 
 .bi-chevron-right {
-  font-size: 6rem;
+  font-size: 4rem;
   color: hsl(0, 0%, 64%);
 }
 

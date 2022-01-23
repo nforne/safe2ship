@@ -8,7 +8,7 @@ export default function PackageListItem(props) {
         <div class="card package-list-item">
           <div class="card-body">
             <div class="row justify-content-between align-items-center">
-              <div class="col-3">
+              <div class="col-md-3">
                 <div class="text-center">
                   <p>
                     <i class="bi bi-box box-size-small"></i>
@@ -19,11 +19,11 @@ export default function PackageListItem(props) {
                   <p class="price">$12.89</p>
                 </div>
               </div>
-              <div class="col">
+              <div class="col-sm-12 col-md-7">
                 <p><strong>Source:</strong>&nbsp;&nbsp;123 Huntington Street, Toronto, ON</p>
                 <p><strong>Destination:</strong>&nbsp;&nbsp;111 Markham Street, Markham, ON</p>
               </div>
-              <div class="col-2">
+              <div class="col-md-2 d-flex justify-content-center">
                 <div>
                   <i class="bi bi-chevron-right"></i>
                 </div>
