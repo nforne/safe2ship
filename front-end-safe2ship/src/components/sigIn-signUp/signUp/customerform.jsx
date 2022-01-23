@@ -47,7 +47,7 @@ export default function Customersignup(props) {
     event.preventDefault();
     // switch to pending
     cv_handler('pending')
-    if (cinputFormValidation(customerInfo)) {
+    if (cinputFormValidation(customerInfo) === 'good!') {
       axios.post('/api/users', {user: customerInfo})
         .then(userinfo => {
           setCstate(prev => ({...prev, customerInfo: {...customerInfo_init} }));
@@ -56,7 +56,7 @@ export default function Customersignup(props) {
         .catch((error) => props.errorHandler('Oop! Something went wrong. Please Consider trying again shortly!'))
 
     } else {
-      props.errorHandler('Oops! Something is missing or missentered. Please verify and make sure of the right information and resubmit. Thank you!')
+      props.errorHandler(`Oops! Something is missing or missentered: ${cinputFormValidation(customerInfo)}. Please verify and make sure of the right information and resubmit. Thank you!`)
     }
   } 
    

@@ -5,7 +5,7 @@ export default function Pending(props) {
    
    return (
     <div className="pending">
-        <img style={{width: '40%', height: '40%', }}
+        <img style={{width: '50%', height: '50%', }}
             className="App-logo"
             src="./logo.svg"
             alt="logo"

@@ -27,12 +27,15 @@ export default function SignIn(props) {
     setSistate(prev => ({...prev, view: view }))
   }
 
-  const signputFormValidation = () => {
-    return true //---------------------------------
+  const signputFormValidation = (signfo) => {
+    if (signfo.email === '' || signfo.email.split('').includes(' ')) return 'Enter your email, without spaces!';
+    if (signfo.password === '' || signfo.password.split('').includes(' ')) return 'Enter a password, without spaces!';
+    return 'good!'; //------------------------------------------
   }
   const handleSubmit = (info, event) => {
     event.preventDefault();
-    if (signputFormValidation(info)) {
+    signv_handler('pending')
+    if (signputFormValidation(info) === 'good!') {
       axios.get('/api/users', {user: info})
         .then(userinfo => {
           setSistate(prev => ({...prev, info: {...info_init} }));
@@ -41,7 +44,7 @@ export default function SignIn(props) {
         .catch((error) => props.errorHandler('Oop! Something went wrong. Please Consider trying again shortly!'))
 
     } else {
-      props.errorHandler('Oops! Something is missing or missentered. Please verify and make sure of the right information and resubmit. Thank you!')
+      props.errorHandler(`Oops! Something is missing or missentered: ${signputFormValidation(info)}. Please verify and make sure of the right information and resubmit. Thank you!`)
     }
 
   }
@@ -68,27 +71,27 @@ export default function SignIn(props) {
               
                   <p>
                     <label className="form-group row" htmlFor="email">Email:</label>
-                    <input type="email" name='email' id="email" placeholder="test@example.com"/>
+                    <input type="email" name='email' id="email" onChange={(e) => signfo_handler('email', e.target.value)} placeholder="test@example.com"/>
                   </p>
                   
                   <p>
                     <label className="form-group row" htmlFor="password">Password:</label>
-                    <input type="password" name='password' id="password" placeholder="x42x58s5d4s898"/>
+                    <input type="password" name='password' id="password" onChange={(e) => signfo_handler('password', e.target.value)} placeholder="x42x58s5d4s898"/>
                   </p>
               
               </fieldset>
     
                 <label htmlFor="formSubmitButton"></label>
-                <input type="submit"  name="formSubmitButton" className="btn btn-secondary " onClick={() => signv_handler('pending')}/>
+                <input type="submit"  name="formSubmitButton" className="btn btn-secondary " onClick={() => console.log('signing In...')}/>
             </form>
             <hr />
           </div>
-          <Scrollup/> 
         </div>
       
         </div>
       }
 
+      <Scrollup/> 
      </div>
 
   );

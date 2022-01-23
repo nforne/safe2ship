@@ -1,18 +1,12 @@
 .scrollup {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  align-items: flex-end;
-  justify-items: flex-end;
-  background: transparent;
-  color: transparent;
   position: fixed;
   bottom: 0;
 }
 
 #scrollup {
-  background: transparent;
-  color: transparent;
+ position: relative;
+  color: gray;
+  z-index: 5000;
 }
 
 #scrollup:hover {

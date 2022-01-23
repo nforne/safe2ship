@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Nav from './components/nav';
 import Home from './components/home';
@@ -8,11 +8,12 @@ import './App.css';
 
 
 const App = () => {
-  let error = ""
+
+  const [error, setError] = useState('')
   const errorHandler = (errorMessage) => {
-    error = errorMessage;
+    setError(() => errorMessage)
     setTimeout(() => {
-      error = "";
+      setError(() => '');
     }, 120000)
   }
 
