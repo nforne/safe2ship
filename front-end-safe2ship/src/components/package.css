@@ -17,3 +17,12 @@
 .price {
   color: #118C4F;
 }
+
+.bi-chevron-right {
+  font-size: 6rem;
+  color: hsl(0, 0%, 64%);
+}
+
+.package-list-item:hover {
+  box-shadow: 0 0 11px #6495ED; 
+}

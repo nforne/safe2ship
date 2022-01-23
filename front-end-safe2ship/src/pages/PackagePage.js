@@ -2,6 +2,7 @@ import React from "react";
 import Profile from "../components/Profile";
 import Package from "../components/Package";
 import "./package-page.css"
+import PackageListItem from "../components/PackageListItem";
 
 export default function PackagePage(props) {
   return (
@@ -13,6 +14,7 @@ export default function PackagePage(props) {
             <Profile />
           <h4  class="header-info">Package Information</h4>
             <Package />
+            <PackageListItem />
         </div>
       </div>
     </div>
