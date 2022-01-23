@@ -2,6 +2,8 @@ import React from "react";
 import { useState } from "react";
 import axios from 'axios';
 
+import Pending from "../../home/pending";
+
 export default function Customersignup(props) {
 
   const customerInfo_init = {status:'customer',
@@ -30,13 +32,21 @@ export default function Customersignup(props) {
     setCstate(prev => ({...prev, view: view }))
   }
 
-  const cinputFormValidation = (sinfo) => {
-    return true; //------------------------------------------
+  const cinputFormValidation = (cinfo) => {
+    if (cinfo.name === '') return 'Enter your full name!';
+    if (cinfo.phone === '' || cinfo.phone.split('').includes(' ')) return 'Enter your phone number, without spaces!';
+    if (cinfo.email === '' || cinfo.email.split('').includes(' ')) return 'Enter your email, without spaces!';
+    if (cinfo.password === '' || cinfo.password.split('').includes(' ')) return 'Enter a password, without spaces!';
+    if (cinfo.address === '' ) return 'Enter your address, without spaces!';
+    if (cinfo.bio === '' ) return 'Enter a sentence or more about who you are!';
+    return 'good!'; //------------------------------------------
   }
 
   const handleSubmit = (customerInfo, event) => {
     
     event.preventDefault();
+    // switch to pending
+    cv_handler('pending')
     if (cinputFormValidation(customerInfo)) {
       axios.post('/api/users', {user: customerInfo})
         .then(userinfo => {
@@ -53,6 +63,11 @@ export default function Customersignup(props) {
    
  
    return (
+<div>
+
+    {cstate.view === 'pending' && <Pending/>}
+
+    {cstate.view === 'customer' && 
     <div className="userform">
         
       <form onSubmit={event =>  handleSubmit(cstate.customerInfo, event)}>
@@ -117,6 +132,10 @@ export default function Customersignup(props) {
           <input type="submit" name="formSubmitButton" className="btn btn-secondary " onClick={(e) => console.log("not yet customer", e)}/>
   </form>
         
+    </div>
+  }
+
+
     </div>
    );
  }

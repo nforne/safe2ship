@@ -25,7 +25,7 @@ export default function SignUp(props) {
         <hr />
         <div className="form-group">
 
-        <Button suhandler={{suhandler: suhandler, hhandler: props.hhandler}}/>
+        <Button suhandler={{suhandler: suhandler, hhandler: props.hhandler, view: suview.v}}/>
         <hr />
         <div>
         {suview.v === 'shipper' && <Shippersignup suhandler={suhandler} errorHandler={props.errorHandler}/>}

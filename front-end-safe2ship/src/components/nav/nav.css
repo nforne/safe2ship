@@ -10,8 +10,11 @@
   flex-direction: row;
   justify-content: center;
   align-content: space-between;
-  justify-items: flex-end;
+  align-items: center;
   background-color: gray;
+  border-color: rgb(40, 119, 40);
+  padding: 0.5em;
+  border-style:ridge;
   border-radius: 2%;
   align-self: baseline;
   height: inherit;
@@ -19,7 +22,7 @@
 }
 
 .logo h1 {
-  color: white;
+  color: whitesmoke;
   font-style: italic;
 }
 
@@ -35,6 +38,8 @@
 #logoimg {
   height: inherit;
   width: inherit;
+  background-color: black;
+  padding: .05em;
 }
 
 .App-logo {

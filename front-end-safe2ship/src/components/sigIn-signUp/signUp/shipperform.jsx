@@ -2,6 +2,8 @@ import React from "react";
 import { useState } from "react";
 import axios from 'axios';
 
+import Pending from "../../home/pending";
+
 
 export default function Shippersignup(props) {
 
@@ -31,13 +33,21 @@ export default function Shippersignup(props) {
   }
 
   const sinputFormValidation = (sinfo) => {
-    return true; //------------------------------------------
+    if (sinfo.name === '') return 'Enter your full name!';
+    if (sinfo.phone === '' || sinfo.phone.split('').includes(' ')) return 'Enter your phone number, without spaces!';
+    if (sinfo.email === '' || sinfo.email.split('').includes(' ')) return 'Enter your email, without spaces!';
+    if (sinfo.password === '' || sinfo.password.split('').includes(' ')) return 'Enter a password, without spaces!';
+    if (sinfo.address === '' ) return 'Enter your address, without spaces!';
+    if (sinfo.bio === '' ) return 'Enter a sentence or more about who you are!';
+    return 'good!'; //------------------------------------------
   }
 
   const handleSubmit = (shipperInfo, event) => {
     
     event.preventDefault();
-    if (sinputFormValidation(shipperInfo)) {
+    // switch to pending
+    sv_handler('pending')
+    if (sinputFormValidation(shipperInfo) === 'good!') {
       axios.post('/api/users', {user: shipperInfo})
         .then(userinfo => {
           setSstate(prev => ({...prev, customerInfo: {...shipperInfo_init} }))
@@ -46,12 +56,17 @@ export default function Shippersignup(props) {
         .catch((error) => props.errorHandler('Oop! Something went wrong. Please Consider trying again shortly!'))
 
     } else {
-      props.errorHandler('Oops! Something is missing or missentered. Please verify and make sure of the right information and resubmit. Thank you!')
+      props.errorHandler(`Oops! Something is missing or missentered: ${sinputFormValidation(shipperInfo)}. Please verify and make sure of the right information and resubmit. Thank you!`)
     }
   } 
    
  
    return (
+     <div>
+
+      {sstate.view === 'pending' && <Pending/>}
+      
+      {sstate.view === 'shipper' && 
 
       <div className="userform">
           
@@ -131,7 +146,10 @@ export default function Shippersignup(props) {
 
       </div>
 
+      }
 
+
+  </div>
 
    );
  }
