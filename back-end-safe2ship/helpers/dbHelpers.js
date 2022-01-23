@@ -1,3 +1,4 @@
+const bcrypt = require('bcryptjs');
 
 module.exports = (db) => {
  
@@ -84,7 +85,7 @@ module.exports = (db) => {
 
     const postUser = (input) => {
         // input is req.body
-
+        
         const generateRandomString = (N) => {
             const nums_letters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
             const alphanumeric = nums_letters.split('');
@@ -97,105 +98,124 @@ module.exports = (db) => {
           };
 
         return getSystem_ids()
-            .then(systemIds => {
-                while (true) { // a check to make sure there is no userId duplication at auto generate
-                    let randomId = generateRandomString(10);
-                    if (!systemIds.includes(randomId)) {
-                      const passw = [input.password][0];
-                      input['password'] = bcrypt.hashSync(passw, 10);
-                      input['system_id'] = randomId
-                      break;
-                    }
-                }
-                const customer = {
-                    text: `INSERT INTO customers (
-                        name,
-                        phone,
-                        email,
-                        password,
-                        photo,
-                        address,
-                        number_of_packages, 
-                        rating_sum,
-                        bio,
-                        ccard_info,
-                        company_infomation,
-                        photo_id,
-                        status,
-                        total_declined,
-                        system_id,
-                        web_link,
-                        time_created,
-                        time_updated )
-                    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14 $15 $16, $18) RETURNING *;` ,
-                    values: [input.name, input.phone, 
-                        input.email, input.password, 
-                        input.photo, input.address, 
-                        input.number_of_packages, input.rating_sum, 
-                        input.bio, input.ccard_info, 
-                        input.company_infomation, input.photo_id,  
-                        input.status, input.total_declined, 
-                        input.system_id, input.web_link,
-                        new Date(Date.now()), new Date(Date.now())]
-                }
-                
-                const shipper = {
-                    text: `INSERT INTO customers (
-                        name,
-                        phone,
-                        email,
-                        password,
-                        photo,
-                        address,
-                        number_of_orders,
-                        number_of_packages,
-                        rating_sum,
-                        bio,
-                        ccard_info,
-                        company_infomation,
-                        driving_record,
-                        photo_id,
-                        status,
-                        total_declined,
-                        system_id,
-                        web_link,
-                        work_schedule,
-                        time_created,
-                        time_updated)
-                    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20) RETURNING *;` ,
-                    values: [input.name, input.phone, 
-                        input.email, input.password, 
-                        input.photo, input.address, 
-                        input.number_of_orders, input.rating_sum, 
-                        input.bio, input.ccard_info, 
-                        input.company_infomation, input.driving_record, 
-                        input.photo_id, input.status, 
-                        input.total_declined, input.system_id, 
-                        input.web_link, input.work_schedule,
-                        new Date(Date.now()), new Date(Date.now())] 
-                }
-                
-                if (input.status === 'shipper') {
-                    return db.query(shipper)
-                        .then(result => {
-                            let userInfo = {user: result.rows, packages: [], orders: []};
-                            req.session.user_id = result.rows[0].system_id;
-                            return userInfo;
-                            })
-                        .catch(err => err);
-                } else {
-                    return db.query(customer)
-                        .then(result => {
-                            let userInfo = {user: result.rows, packages: [], orders: []};
-                            req.session.user_id = result.rows[0].system_id;
-                            return userInfo;
-                        })
-                        .catch(err => err);                
-                }
-                
-            })
-            .catch((err) => err);
-        
+          .then(systemIds => {
+              
+              let ids = []; 
+              for (let id of systemIds) {
+                  ids.push(id.system_id);
+              }
+
+              while (true) {    // a check to make sure there is no userId duplication at auto generate
+
+                  let randomId = generateRandomString(10);
+
+                  if (!ids.includes(randomId)) {
+                    input['password'] = bcrypt.hashSync(input.password, 10);
+                    input['system_id'] = randomId
+                    
+                    console.log('this input ===>', input) //----------------------------------------------------------
+                    
+                    break;
+                  }
+
+              }
+
+              const customer = {
+                text: `INSERT INTO customers (
+                    name,
+                    phone,
+                    email,
+                    password,
+                    photo,
+                    address,
+                    number_of_packages, 
+                    rating_sum,
+                    bio,
+                    ccard_info,
+                    company_information,
+                    photo_id,
+                    status,
+                    total_declined,
+                    system_id,
+                    web_link,
+                    time_created,
+                    time_updated )
+                VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18) RETURNING *;` ,
+                values: [input.name, input.phone, 
+                    input.email, input.password, 
+                    input.photo, input.address, 
+                    input.number_of_packages, input.rating_sum, 
+                    input.bio, input.ccard_info, 
+                    input.company_infomation, input.photo_id,  
+                    input.status, input.total_declined, 
+                    input.system_id, input.web_link,
+                    new Date(Date.now()), new Date(Date.now())]
+            }
+            
+            const shipper = {
+                text: `INSERT INTO shippers (
+                    name,
+                    phone,
+                    email,
+                    password,
+                    photo,
+                    address,
+                    number_of_orders,
+                    number_of_packages,
+                    rating_sum,
+                    bio,
+                    ccard_info,
+                    company_information,
+                    driving_record,
+                    photo_id,
+                    status,
+                    total_declined,
+                    system_id,
+                    web_link,
+                    work_schedule,
+                    time_created,
+                    time_updated)
+                VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21) RETURNING *;` ,
+                values: [input.name, input.phone, 
+                    input.email, input.password, 
+                    input.photo, input.address, 
+                    input.number_of_orders, input.number_of_packages, input.rating_sum, 
+                    input.bio, input.ccard_info, 
+                    input.company_information, input.driving_record, 
+                    input.photo_id, input.status, 
+                    input.total_declined, input.system_id, 
+                    input.web_link, input.work_schedule,
+                    new Date(Date.now()), new Date(Date.now())] 
+            }
+              
+              if (input.status === 'shipper') {
+                  console.log(input) //----------------------------------------------------
+                  return db.query(shipper)
+                      .then(result => {
+                          let userInfo = {user: result.rows, packages: [], orders: []};
+                          console.log(userInfo) //-----------------------------------------
+                          return userInfo;
+                          })
+                          .catch(err => {
+                            console.log(err.message) //---------------------------------
+                            return {error: err.message};
+                          }); 
+              } else {
+                  return db.query(customer)
+                      .then(result => {
+                          let userInfo = {user: result.rows, packages: [], orders: []};
+                          console.log(userInfo) //-----------------------------------------
+                          return userInfo;
+                      })
+                      .catch(err => {
+                          console.log(err.message) //--------------------------------
+                          return {error: err.message}; 
+                        });                
+              }
+              
+          })
+          .catch((err) => err);
+      
 
     }
     
@@ -309,7 +329,7 @@ module.exports = (db) => {
         const shipperUpgrade = (input) => {
 
             const shipperq = {
-                text: `INSERT INTO customers (
+                text: `INSERT INTO shippers (
                     name,
                     phone,
                     email,

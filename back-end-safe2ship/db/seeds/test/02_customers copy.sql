@@ -5,7 +5,7 @@ INSERT INTO customers(
   password ,
   photo ,
   address ,
-  number_of_packeges ,
+  number_of_packages ,
   rating_sum ,
   bio ,
   company_information , 

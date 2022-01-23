@@ -9,6 +9,7 @@ module.exports = ({
     getPackagesById,
     getOrdersById,
     getSystem_ids,
+    postUser,
     getUserBySystem_id
 }) => {
    
@@ -52,6 +53,14 @@ module.exports = ({
 
     router.post('/users/signup', (req, res) => {
 
+        if (req.body.name === '') res.json({error: 'Enter your full name, please!', code: "xname"});
+        if (req.body.phone === '' || req.body.phone.split('').includes(' ')) res.json({error: 'Enter your phone number, without spaces, please!', code: "xp#"});
+        if (req.body.email === '' || req.body.email.split('').includes(' ')) res.json({error: 'Enter your email, without spaces, please!', code: "xe"});
+        if (req.body.password === '' || req.body.password.split('').includes(' ')) res.json({error: 'Enter a password, without spaces, please!', code: "xpw"});
+        if (req.body.address === '' ) res.json({error: 'Enter your address, without spaces, please!', code: "xAdrs"});
+        if (req.body.bio === '' ) res.json({error: 'Enter a sentence or more about who you are, please!', code: "xbio"});
+        if (req.body.satus === '' ) res.json({error: 'Stop messing with the system!', code: "xsm"});
+
         const { email } = req.body;
 
         getUserByEmail(email)
@@ -64,7 +73,10 @@ module.exports = ({
                     return postUser(req.body)
                 }
             })
-            .then(newUser => res.json(newUser))
+            .then(newUser => {
+                req.session.user_id = newUser.user[0].system_id;
+                res.json(newUser);
+            })
             .catch(err => res.json({
                 error: err.message
             }));

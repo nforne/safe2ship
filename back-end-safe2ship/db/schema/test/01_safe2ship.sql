@@ -51,7 +51,7 @@ CREATE TABLE customers(
   password VARCHAR(255) NOT NULL,
   photo TEXT,
   address VARCHAR(255),
-  number_of_packeges INTEGER,
+  number_of_packages INTEGER,
   rating_sum INTEGER,
   bio TEXT,
   ccard_info TEXT,
