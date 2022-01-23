@@ -1,0 +1,28 @@
+.box-size-small {
+  font-size: 3rem;
+  color: #6495ED;
+}
+
+.box-size-medium {
+  font-size: 5rem;
+  color: #6495ED;
+
+}
+
+.box-size-large {
+  font-size: 7rem;
+  color: #6495ED;
+}
+
+.price {
+  color: #118C4F;
+}
+
+.bi-chevron-right {
+  font-size: 6rem;
+  color: hsl(0, 0%, 64%);
+}
+
+.package-list-item:hover {
+  box-shadow: 0 0 11px #6495ED; 
+}
