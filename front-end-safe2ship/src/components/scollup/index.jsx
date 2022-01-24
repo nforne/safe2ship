@@ -5,11 +5,15 @@ import './scrollup.css';
 export default function Scrollup(props) {
    
    return (
-    <div className="scrollupbtn">
+    <div className="scrollup">
+
+      <div></div>
       
+      <div>
         <a href="nav">
-        <i id="scrollupbtn" className="bi bi-arrow-up-circle" ></i>
+        <i id="scrollup" className="bi bi-arrow-up-circle" ></i>
         </a>
+      </div>
 
        
     </div>

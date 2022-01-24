@@ -7,10 +7,11 @@
 }
 
 .userform { 
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   justify-content: center;
-  width: inherit;
+  justify-self:center;
+  width: inherit; */
 
   align-items: center;
   width: 100%;

@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import Scrollup from "../../scollup";
 import Logo1 from "../../nav/logo.jpg";
-// import './signIn.css'
+import './signIn.css'
 import '../signUp/signUp.css'
 
 export default function SignIn(props) {
@@ -52,7 +52,7 @@ export default function SignIn(props) {
 
    return (
 
-      <div className="signin">
+      <div className="form-group">
 
             <div>
             <img src={Logo1} id="homelogoimg" className="rounded rounded-pill img-fluid" alt={"logo"}/>
@@ -60,12 +60,18 @@ export default function SignIn(props) {
 
             <div>
 
+
+            <div className="signin">
+            
+            <div>
+
+           
+            <div>
             <hr />
             <button onClick={() => props.hv_handler("home")} type="button" className="btn btn-secondary ">[ <i className="bi bi-reply-all"></i> ]</button>
-            
+            </div>
         <div className="userform">
           <div>
-            <hr />
             <form  onSubmit={(e) => handleSubmit(sistate.info, e)}>
               <fieldset >
               
@@ -83,13 +89,15 @@ export default function SignIn(props) {
     
                 <label className="form-group row" htmlFor="formSubmitButton"></label>
                 <input type="submit"  name="formSubmitButton" className="btn btn-secondary " onClick={() => console.log('signing In...')}/>
-            </form>
             <hr />
+            </form>
           </div>
         </div>
-
-        </div>
         
+      </div>
+      </div>
+        </div>
+        <hr /> 
       <Scrollup/> 
      </div>
 

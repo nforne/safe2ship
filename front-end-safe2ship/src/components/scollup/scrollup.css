@@ -1,18 +1,18 @@
 .scrollup {
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
-  align-items: flex-end;
-  align-content: flex-end;
+  justify-content: space-between;
+  align-items: baseline;
+  align-content: space-between;
 
   position: fixed;
   bottom: 0;
 }
 
 #scrollup {
- position: relative;
-  color: gray;
+  color: white;
   z-index: 5000;
+  size: 5em;
 }
 
 #scrollup:hover {
