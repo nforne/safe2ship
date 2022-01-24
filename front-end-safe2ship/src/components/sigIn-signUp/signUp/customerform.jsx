@@ -45,11 +45,12 @@ export default function Customersignup(props) {
   const handleSubmit = (customerInfo, event) => {
     
     event.preventDefault();
-    // switch to pending
+    // switch to pending...
     cv_handler('pending')
     if (cinputFormValidation(customerInfo) === 'good!') {
-      axios.post('/api/users', {user: customerInfo})
+      axios.post('/api/users/signup', {...customerInfo})
         .then(userinfo => {
+          console.log('this customer ===>', userinfo.data) //--------------------------------------
           setCstate(prev => ({...prev, customerInfo: {...customerInfo_init} }));
           //switch to user view with userinfo.rows and set it to state
         })
@@ -129,7 +130,7 @@ export default function Customersignup(props) {
         
       </fieldset>
           <label className="form-group row" htmlFor="formSubmitButton"></label>
-          <input type="submit" name="formSubmitButton" className="btn btn-secondary " onClick={(e) => console.log("not yet customer", e)}/>
+          <input type="submit" name="formSubmitButton" className="btn btn-secondary " onClick={(e) => console.log("not yet customer", e)} />
   </form>
         
     </div>

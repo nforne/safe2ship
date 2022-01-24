@@ -8,8 +8,8 @@
 .logotag {
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  align-content: space-between;
+  justify-content: space-between;
+  
   align-items: center;
   background-color: gray;
   border-color: rgb(40, 119, 40);

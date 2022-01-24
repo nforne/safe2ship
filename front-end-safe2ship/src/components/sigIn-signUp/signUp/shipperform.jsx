@@ -12,7 +12,7 @@ export default function Shippersignup(props) {
     total_declined: 0, system_id: "", messages: {},
     name: "", phone: "",  email: "", password: "", 
     photo: "", address: "",
-    bio:"", ccard_info: {}, company_infomation: {}, 
+    bio:"", ccard_info: {}, company_information: {}, 
     driving_record: {}, photo_id: "", 
     web_link: "", work_schedule: {}};
 
@@ -45,11 +45,12 @@ export default function Shippersignup(props) {
   const handleSubmit = (shipperInfo, event) => {
     
     event.preventDefault();
-    // switch to pending
+    // switch to pending...
     sv_handler('pending')
     if (sinputFormValidation(shipperInfo) === 'good!') {
-      axios.post('/api/users', {user: shipperInfo})
+      axios.post('/api/users/signup', {...shipperInfo})
         .then(userinfo => {
+          console.log(userinfo.data) //-----------------------------
           setSstate(prev => ({...prev, customerInfo: {...shipperInfo_init} }))
           //switch to user view with userinfo.rows and set it to state
         })
@@ -130,7 +131,7 @@ export default function Shippersignup(props) {
           
           <p>
             <label className="form-group row" htmlFor="driving_record">Driving_record:</label>
-            <input type="button" name='driving_record' onClick={(e) => sv_handler('company_infomation')} id="company_infomation" />
+            <input type="button" name='driving_record' onClick={(e) => sv_handler('company_infomation')} id="driving_record" />
           </p>       
           
           <p>

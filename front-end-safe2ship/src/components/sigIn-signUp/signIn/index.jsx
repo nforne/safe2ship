@@ -36,9 +36,10 @@ export default function SignIn(props) {
     event.preventDefault();
     signv_handler('pending')
     if (signputFormValidation(info) === 'good!') {
-      axios.get('/api/users', {user: info})
-        .then(userinfo => {
-          setSistate(prev => ({...prev, info: {...info_init} }));
+      axios.post('/api/users/signin', {...info})
+        .then(user => {
+          console.log(user.data) //---------------------------------
+          setSistate(prev => ({...prev, info: {...info_init} })); //raise state with info from here for access ot other resources
           //switch to user view with userinfo.rows and set it to state // or pks queue view
         })
         .catch((error) => props.errorHandler('Oop! Something went wrong. Please Consider trying again shortly!'))

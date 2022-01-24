@@ -1,5 +1,4 @@
 import React from "react";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default function Menu() {
    return (
@@ -9,7 +8,7 @@ export default function Menu() {
       
       <ul className="dropdown-menu" aria-labelledby="dropdownMenu2">
         <li><hr className="dropdown-divider"/></li>
-        <li><button className="dropdown-item danger" type="button"> <i className="bi bi-eject"></i> logout</button></li>
+        <li><button className="dropdown-item danger" type="button" onClick={(e) => console.log("logout", e)} > <i className="bi bi-eject"></i> logout</button></li>
         <li><hr className="dropdown-divider"/></li>
         <li><button className="dropdown-item" type="button"> <i className="bi bi-chevron-left"></i> order Cart</button></li>
         <li><button className="dropdown-item" type="button"> <i className="bi bi-chevron-left"></i> packages</button></li>
@@ -27,5 +26,4 @@ export default function Menu() {
     </div>
    );
  }
- <i class="fa-thin fa-bars"></i>
 
