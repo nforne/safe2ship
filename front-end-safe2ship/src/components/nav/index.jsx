@@ -11,7 +11,7 @@ export default function Nav(props) {
     
    return (
      <nav className="nav">
-      <Logo/>
+      <Logo hv_handler={props.hv_handler}/>
       <div className="menu">
         <div>
           <button type="button" className="btn btn-outline-success">[<i className="bi bi-unlock-fill"></i> Signed-In as:    ]</button>
@@ -19,7 +19,7 @@ export default function Nav(props) {
         </div>
         <i id='diffsquare' className="bi bi-square"></i>
         <div>
-          <Menu/>
+          <Menu hv_handler={props.hv_handler}/>
         </div>
      </div>
      </nav>

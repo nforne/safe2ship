@@ -20,21 +20,23 @@ export default function SignUp(props) {
    
    return (
     <div className="signupbtns">
-      <div>
+        <div>
           <img src={Logo1} id="homelogoimg" className="rounded rounded-pill img-fluid" alt={"logo"}/>
         <hr />
+        </div>
+
         <div className="form-group">
 
-        <Button suhandler={{suhandler: suhandler, hhandler: props.hhandler, view: suview.v}}/>
+        <Button handlers={{suhandler: suhandler, hv_handler: props.hv_handler, view: suview.v}}/>
         <hr />
         <div>
-        {suview.v === 'shipper' && <Shippersignup suhandler={suhandler} errorHandler={props.errorHandler}/>}
-        {suview.v === 'customer' && <Customersignup suhandler={suhandler} errorHandler={props.errorHandler}/>}
+        {suview.v === 'shipper' && <Shippersignup hv_handler={props.hv_handler} errorHandler={props.errorHandler}/>}
+        {suview.v === 'customer' && <Customersignup hv_handler={props.hv_handler} errorHandler={props.errorHandler}/>}
         </div>
         <hr />
       </div>
-      <i id='diffsquare' className="bi bi-square"></i>  
-        </div>
+       
+      
         <hr />
       <Scrollup/>      
     </div>

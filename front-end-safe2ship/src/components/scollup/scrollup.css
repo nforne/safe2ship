@@ -1,4 +1,10 @@
 .scrollup {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: flex-end;
+  align-content: flex-end;
+
   position: fixed;
   bottom: 0;
 }

@@ -1,16 +1,26 @@
 import { useState } from "react";
+
+import Nav from "./components/nav";
+import Home from "./components/home"
+
+import SignIn from './components/sigIn-signUp/signIn';
+import SignUp from './components/sigIn-signUp/signUp';
+
 import Package from "./pages/PackagePage";
 import ShipperHome from "./pages/ShipperHome";
 import CustomerHome from "./pages/CustomerHome";
 import PostPackage from "./pages/PostPackage";
-import Nav from "./components/nav";
-import Home from "./components/home"
+
 
 
 const App = () => {
   const [hview, setHview] = useState({v: 'home', hvtracker: []})
 
   const [error, setError] = useState('')
+
+  const hv_handler = (view) => {
+    setHview(prev => ({...prev, v: view }))
+  }
 
   const errorHandler = (errorMessage) => {
 
@@ -23,7 +33,7 @@ const App = () => {
   return (
     <div className="App">
       
-      <Nav/>
+      <Nav hv_handler={hv_handler}/>
       <hr className='line'/>
       <br></br>
       
@@ -33,7 +43,10 @@ const App = () => {
 
       <hr/>
       <section className='main'>
-        <Home errorHandler={errorHandler}/>
+        {hview.v === "home" &&<Home  hv_handler={hv_handler} errorHandler={errorHandler}/>}
+
+        {hview.v === "signIn" && <SignIn hv_handler={hv_handler} errorHandler={errorHandler}/>}
+        {hview.v === "signUp" && <SignUp hv_handler={hv_handler} errorHandler={errorHandler}/>}
         
       </section>
 

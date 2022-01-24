@@ -63,7 +63,7 @@ export default function SignIn(props) {
             <img src={Logo1} id="homelogoimg" className="rounded rounded-pill img-fluid" alt={"logo"}/>
             </div>
           <hr />
-            <button onClick={() => props.hhandler('')} type="button" className="btn btn-secondary ">[ <i className="bi bi-reply-all"></i> ]</button>
+            <button onClick={() => props.hv_handler("home")} type="button" className="btn btn-secondary ">[ <i className="bi bi-reply-all"></i> ]</button>
             <hr />
         <div className="userform">
           <div>
@@ -82,7 +82,7 @@ export default function SignIn(props) {
               
               </fieldset>
     
-                <label htmlFor="formSubmitButton"></label>
+                <label className="form-group row" htmlFor="formSubmitButton"></label>
                 <input type="submit"  name="formSubmitButton" className="btn btn-secondary " onClick={() => console.log('signing In...')}/>
             </form>
             <hr />

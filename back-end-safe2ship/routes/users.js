@@ -83,14 +83,14 @@ module.exports = ({
 
     })
 
-// ----------------------------## Routes userPATCH-----------------------------
-        router.post('/user/logout', (req, res) => {
-            req.session.user_id = '';
+// ----------------------------## Routes userLogout-----------------------------
+        router.post('/users/logout', (req, res) => {
+            req.session.user_id = req.body.system_id;
             res.json({message: 'bye 4 now!'})
         });
 
 // ----------------------------## Routes userPATCH-----------------------------
-    router.patch('/user/update', (req, res) => {
+    router.post('/users/update', (req, res) => {
         const { email } = req.body;
             updateUser(req.body)
                 .then(newUser => res.json(newUser))
@@ -101,7 +101,7 @@ module.exports = ({
 
     
 // ----------------------------## Routes userPUT-----------------------------
-    router.put('/user/upgrade', (req, res) => {
+    router.post('/users/upgrade', (req, res) => {
         upgradeUser(req.body)
             .then(newUser => {
                 req.body['status'] === 'shipper' ? req.body['status'] = 'customer' : req.body['status'] = 'shipper';
@@ -124,7 +124,7 @@ module.exports = ({
 
 
 // ----------------------------## Routes userDELETE-----------------------------
-    router.delete('/user/delete', (req, res) => {
+    router.delete('/users/delete', (req, res) => {
         deleteUserByStatus(req.body) // soft delete
             .catch(err => {
                 res.json({error: err.message})
@@ -135,7 +135,7 @@ module.exports = ({
 
 
 // ----------------------------## Routes getOtherUser-----------------------------
-    router.get('/user/other', (req, res) => {
+    router.post('/users/other', (req, res) => {
         getUserBySystem_id(req.body)
             .then(otherUser => {
                 const { 

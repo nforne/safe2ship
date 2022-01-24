@@ -7,7 +7,7 @@ export default function Scrollup(props) {
    return (
     <div className="scrollupbtn">
       
-        <a href="line">
+        <a href="nav">
         <i id="scrollupbtn" className="bi bi-arrow-up-circle" ></i>
         </a>
 
