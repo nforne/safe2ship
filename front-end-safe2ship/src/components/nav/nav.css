@@ -11,10 +11,10 @@
   justify-content: space-between;
   
   align-items: center;
-  background-color: gray;
-  border-color: rgb(40, 119, 40);
+  background-color: whitesmoke;
+  /* border-color: #0065AB; */
   padding: 0.5em;
-  border-style:ridge;
+  /* border-style:ridge; */
   border-radius: 2%;
   align-self: baseline;
   height: inherit;
@@ -38,10 +38,10 @@
 #logoimg {
   height: inherit;
   width: inherit;
-  background-color: silver;
+  /* background-color: silver; */
   padding: .05em;
-  border-color: black;
-  border-style: outset;
+  border-style: none;
+  /* border-style: outset; */
 }
 
 .App-logo {
@@ -51,6 +51,7 @@
 
 #logobtn {
   height: inherit;
+  background-color: #0065AB !important;
 }
 
 .menu {
@@ -73,7 +74,7 @@
   align-items: baseline;
   font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   height: 80px;
-  background-color: rgb(56, 54, 54);
+  background-color: whitesmoke;
   padding-left: 1.5em;
   padding-right: 1.5em;
   z-index: 1000;
@@ -81,4 +82,8 @@
   top: 0; /* Position the navbar at the top of the page */
   width: 100%; /* Full width */
   left: 0;
+}
+
+.btn-primary {
+  background-color: #0065AB;
 }

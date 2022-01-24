@@ -1,5 +1,6 @@
 import React from "react";
-import logo1 from "./logo.svg"
+// import logo1 from "./logo.svg";
+import logo1 from "./logo_2.svg";
 
 
 export default function Logo(props) {

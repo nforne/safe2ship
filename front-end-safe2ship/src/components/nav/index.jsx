@@ -23,7 +23,7 @@ export default function Nav(props) {
       <Logo hv_handler={props.hv_handler} logoutHandler={logoutHandler}/>
       <div className="menu">
         <div>
-          <button type="button" className="btn btn-outline-success">[<i className="bi bi-unlock-fill"></i> Signed-In as:    ]</button>
+          <button type="button" className="btn btn-outline-success btn-lg"><i className="bi bi-unlock-fill"></i> Signed-In as:</button>
           
         </div>
         <i id='diffsquare' className="bi bi-square"></i>
