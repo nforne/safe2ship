@@ -65,11 +65,12 @@ export default function SignIn(props) {
             
             <div>
 
-           
             <div>
-            <hr />
-            <button onClick={() => props.hv_handler("home")} type="button" className="btn btn-secondary ">[ <i className="bi bi-reply-all"></i> ]</button>
+              <hr />
+              <button onClick={() => props.hv_handler("home")} type="button" className="btn btn-secondary ">[ <i className="bi bi-reply-all"></i> ]</button>
+              <hr />
             </div>
+
         <div className="userform">
           <div>
             <form  onSubmit={(e) => handleSubmit(sistate.info, e)}>
@@ -94,10 +95,10 @@ export default function SignIn(props) {
           </div>
         </div>
         
+        <hr /> 
       </div>
       </div>
         </div>
-        <hr /> 
       <Scrollup/> 
      </div>
 

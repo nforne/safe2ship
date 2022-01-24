@@ -22,10 +22,10 @@ export default function SignUp(props) {
     <div className="signupbtns">
         <div>
           <img src={Logo1} id="homelogoimg" className="rounded rounded-pill img-fluid" alt={"logo"}/>
-        <hr />
         </div>
 
         <div className="form-group">
+        <hr />
 
         <Button handlers={{suhandler: suhandler, hv_handler: props.hv_handler, view: suview.v}}/>
         <hr />
