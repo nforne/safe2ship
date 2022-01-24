@@ -2,7 +2,8 @@ import React from "react";
 import { useState } from 'react';
 
 import Button from "./Button";
-import Logo1 from "../nav/logo.jpg";
+// import Logo1 from "../nav/logo.jpg";
+import Logo1 from "../nav/logo_2.png";
 
 import "./home.css";
 
@@ -13,7 +14,7 @@ export default function Home(props) {
     <div className="homebtns">
        <img src={Logo1} id="homelogoimg" className="rounded rounded-pill img-fluid" alt={"logo"}/>
        
-        <h1>Welcome!</h1>
+        <h1 id="welcome-msg">Welcome!</h1>
         <hr />
         <Button hv_handler={props.hv_handler}/>
         <hr />

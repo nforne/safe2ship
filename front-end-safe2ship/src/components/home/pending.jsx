@@ -7,7 +7,7 @@ export default function Pending(props) {
     <div className="pending">
         <img style={{width: '50%', height: '50%', }}
             className="App-logo"
-            src="./logo.svg"
+            src="./logo_2.svg"
             alt="logo"
         />
         <h1 className="text--semi-bold">{"Pending...."}</h1>
