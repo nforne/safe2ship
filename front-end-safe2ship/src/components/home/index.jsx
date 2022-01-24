@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from 'react';
 
 import Button from "./Button";
-import Logo1 from "../nav/logo.svg";
+import Logo1 from "../nav/logo.jpg";
 
 import "./home.css";
 

@@ -57,11 +57,15 @@ export default function SignIn(props) {
             <div>
             <img src={Logo1} id="homelogoimg" className="rounded rounded-pill img-fluid" alt={"logo"}/>
             </div>
-          <hr />
-            <button onClick={() => props.hv_handler("home")} type="button" className="btn btn-secondary ">[ <i className="bi bi-reply-all"></i> ]</button>
+
+            <div>
+
             <hr />
+            <button onClick={() => props.hv_handler("home")} type="button" className="btn btn-secondary ">[ <i className="bi bi-reply-all"></i> ]</button>
+            
         <div className="userform">
           <div>
+            <hr />
             <form  onSubmit={(e) => handleSubmit(sistate.info, e)}>
               <fieldset >
               
@@ -83,7 +87,8 @@ export default function SignIn(props) {
             <hr />
           </div>
         </div>
-      
+
+        </div>
         
       <Scrollup/> 
      </div>

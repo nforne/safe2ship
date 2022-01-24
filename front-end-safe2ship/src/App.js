@@ -11,7 +11,7 @@ import Package from "./pages/PackagePage";
 import ShipperHome from "./pages/ShipperHome";
 import CustomerHome from "./pages/CustomerHome";
 import PostPackage from "./pages/PostPackage";
-
+import './App.css'
 
 
 const App = () => {

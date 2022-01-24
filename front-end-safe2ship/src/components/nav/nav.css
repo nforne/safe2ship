@@ -38,8 +38,10 @@
 #logoimg {
   height: inherit;
   width: inherit;
-  background-color: black;
+  background-color: silver;
   padding: .05em;
+  border-color: black;
+  border-style: outset;
 }
 
 .App-logo {

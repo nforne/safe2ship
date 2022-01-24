@@ -2,8 +2,6 @@ import React from "react";
 import { useState } from "react";
 import axios from 'axios';
 
-import Pending from "../../home/pending";
-
 export default function Customersignup(props) {
 
   const customerInfo_init = {status:'customer',
@@ -64,11 +62,8 @@ export default function Customersignup(props) {
    
  
    return (
-<div>
 
-    {cstate.view === 'pending' && <Pending/>}
 
-    {cstate.view === 'customer' && 
     <div className="userform">
         
       <form onSubmit={event =>  handleSubmit(cstate.customerInfo, event)}>
@@ -134,9 +129,7 @@ export default function Customersignup(props) {
   </form>
         
     </div>
-  }
+  
 
-
-    </div>
    );
  }
