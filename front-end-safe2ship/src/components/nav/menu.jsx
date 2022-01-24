@@ -1,18 +1,9 @@
 import React from "react";
-import axios from "axios";
 
 
 export default function Menu(props) {
  
-  const logoutHandler = (props) => {
-    axios.post('/api/users/logout', {system_id: ""})
-      .then(e => {
-        props.hv_handler('home');
-        console.log(e.data); //----------------------------------
-    });
-  }
-
-
+  
    return (
     <div className='menu'>
       <div className="dropdown">
@@ -20,7 +11,7 @@ export default function Menu(props) {
       
       <ul className="dropdown-menu" aria-labelledby="dropdownMenu2">
         <li><hr className="dropdown-divider"/></li>
-        <li><button className="dropdown-item danger" type="button" onClick={(e) => logoutHandler(props)} > <i className="bi bi-eject"></i> logout</button></li>
+        <li><button className="dropdown-item danger" type="button" onClick={(e) => props.logoutHandler(props)} > <i className="bi bi-eject"></i> logout</button></li>
         <li><hr className="dropdown-divider"/></li>
         <li><button className="dropdown-item" type="button"> <i className="bi bi-chevron-left"></i> order Cart</button></li>
         <li><button className="dropdown-item" type="button"> <i className="bi bi-chevron-left"></i> packages</button></li>

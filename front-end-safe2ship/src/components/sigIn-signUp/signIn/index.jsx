@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import Scrollup from "../../scollup";
 import Logo1 from "../../nav/logo.jpg";
-import Pending from "../../home/pending";
+// import './signIn.css'
 import '../signUp/signUp.css'
 
 export default function SignIn(props) {
@@ -34,7 +34,7 @@ export default function SignIn(props) {
   }
   const handleSubmit = (info, event) => {
     event.preventDefault();
-    signv_handler('pending')
+    props.hv_handler('pending')
     if (signputFormValidation(info) === 'good!') {
       axios.post('/api/users/signin', {...info})
         .then(user => {
@@ -51,14 +51,9 @@ export default function SignIn(props) {
   }
 
    return (
-     <div>
-       {sistate.view === 'pending' &&  <Pending/>}
-       { sistate.view === 'signIn' && 
-      
 
-      <div>
+      <div className="signin">
 
-      
             <div>
             <img src={Logo1} id="homelogoimg" className="rounded rounded-pill img-fluid" alt={"logo"}/>
             </div>
@@ -89,9 +84,7 @@ export default function SignIn(props) {
           </div>
         </div>
       
-        </div>
-      }
-
+        
       <Scrollup/> 
      </div>
 

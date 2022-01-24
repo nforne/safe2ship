@@ -2,8 +2,6 @@ import React from "react";
 import { useState } from "react";
 import axios from 'axios';
 
-import Pending from "../../home/pending";
-
 
 export default function Shippersignup(props) {
 
@@ -46,7 +44,7 @@ export default function Shippersignup(props) {
     
     event.preventDefault();
     // switch to pending...
-    sv_handler('pending')
+    props.hv_handler('pending')
     if (sinputFormValidation(shipperInfo) === 'good!') {
       axios.post('/api/users/signup', {...shipperInfo})
         .then(userinfo => {
@@ -63,11 +61,7 @@ export default function Shippersignup(props) {
    
  
    return (
-     <div>
-
-      {sstate.view === 'pending' && <Pending/>}
       
-      {sstate.view === 'shipper' && 
 
       <div className="userform">
           
@@ -146,11 +140,6 @@ export default function Shippersignup(props) {
 
 
       </div>
-
-      }
-
-
-  </div>
 
    );
  }

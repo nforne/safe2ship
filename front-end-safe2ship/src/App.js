@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import Nav from "./components/nav";
 import Home from "./components/home"
+import Pending from "./components/home/pending";
 
 import SignIn from './components/sigIn-signUp/signIn';
 import SignUp from './components/sigIn-signUp/signUp';
@@ -43,6 +44,7 @@ const App = () => {
 
       <hr/>
       <section className='main'>
+        {hview.v === 'pending' &&  <Pending/>}
         {hview.v === "home" &&<Home  hv_handler={hv_handler} errorHandler={errorHandler}/>}
 
         {hview.v === "signIn" && <SignIn hv_handler={hv_handler} errorHandler={errorHandler}/>}

@@ -46,7 +46,7 @@ export default function Customersignup(props) {
     
     event.preventDefault();
     // switch to pending...
-    cv_handler('pending')
+    props.hv_handler('pending')
     if (cinputFormValidation(customerInfo) === 'good!') {
       axios.post('/api/users/signup', {...customerInfo})
         .then(userinfo => {

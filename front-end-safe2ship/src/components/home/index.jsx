@@ -11,12 +11,12 @@ export default function Home(props) {
 
    return (
     <div className="homebtns">
-       <div>
        <img src={Logo1} id="homelogoimg" className="rounded rounded-pill img-fluid" alt={"logo"}/>
+       
         <h1>Welcome!</h1>
+        <hr />
         <Button hv_handler={props.hv_handler}/>
-      </div> 
-
+        <hr />
      <div className="hometx-span">
         <hr />
         <span>

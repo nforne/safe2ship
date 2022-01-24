@@ -4,7 +4,7 @@
   justify-content: space-around;
   justify-items: center;
   align-items: center;
-
+  position: relative;
 }
 
 .hometx-span {
