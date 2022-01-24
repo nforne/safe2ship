@@ -84,6 +84,12 @@ module.exports = ({
     })
 
 // ----------------------------## Routes userPATCH-----------------------------
+        router.post('/user/logout', (req, res) => {
+            req.session.user_id = '';
+            res.json({message: 'bye 4 now!'})
+        });
+
+// ----------------------------## Routes userPATCH-----------------------------
     router.patch('/user/update', (req, res) => {
         const { email } = req.body;
             updateUser(req.body)
