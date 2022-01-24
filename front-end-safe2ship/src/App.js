@@ -1,10 +1,7 @@
-import React, { useState } from 'react';
-
-import Nav from './components/nav';
-import Home from './components/home';
-
-
-import './App.css';
+import Package from "./pages/PackagePage";
+import ShipperHome from "./pages/ShipperHome";
+import CustomerHome from "./pages/CustomerHome";
+import PostPackage from "./pages/PostPackage";
 
 
 const App = () => {
