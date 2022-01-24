@@ -1,16 +1,22 @@
+import { useState } from "react";
 import Package from "./pages/PackagePage";
 import ShipperHome from "./pages/ShipperHome";
 import CustomerHome from "./pages/CustomerHome";
 import PostPackage from "./pages/PostPackage";
+import Nav from "./components/nav";
+import Home from "./components/home"
 
 
 const App = () => {
   const [hview, setHview] = useState({v: 'home', hvtracker: []})
+
   const [error, setError] = useState('')
+
   const errorHandler = (errorMessage) => {
-    setError(() => errorMessage)
+
+    setError(() => [<p key={'1'}>`${errorMessage}`</p>])
     setTimeout(() => {
-      setError(() => '');
+      setError(() => [<p key={'2'}></p>]);
     }, 120000)
   }
 
@@ -22,7 +28,7 @@ const App = () => {
       <br></br>
       
         <div className='errmsgs'>
-          <p>`${error}`</p>
+          {error}
         </div>
 
       <hr/>
