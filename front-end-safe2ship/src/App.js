@@ -15,7 +15,7 @@ import './App.css'
 
 
 const App = () => {
-  const [hview, setHview] = useState({v: 'home', hvtracker: []})
+  const [hview, setHview] = useState({v: 'customerHome', hvtracker: []})
 
   const [error, setError] = useState('')
 
@@ -49,7 +49,7 @@ const App = () => {
 
         {hview.v === "signIn" && <SignIn hv_handler={hv_handler} errorHandler={errorHandler}/>}
         {hview.v === "signUp" && <SignUp hv_handler={hv_handler} errorHandler={errorHandler}/>}
-        
+        {hview.v === "customerHome" && <CustomerHome />}
       </section>
 
     </div>

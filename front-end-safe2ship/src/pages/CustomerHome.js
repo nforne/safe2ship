@@ -4,18 +4,18 @@ import "./customerHome.css";
 
 export default function CustomerHome(props) {
   return (
-      <div class="container m-5">
-        <div class="row justify-content-between">
-          <div class="col">
+      <div class="m-5">
+        <div class="row justify-content-end">
+          <div class="col-6">
             <h2>My Packages</h2>
           </div>
-          <div class="col d-flex justify-content-end">
+          <div class="col-6">
               <button type="button" class="btn btn-lg btn-primary">+ Post New Package</button>
           </div>
         </div>
         <PackageListItem />
         <div class="row">
-          <div class="col">
+          <div class="col-12">
             <h2>Requests</h2>
             
           </div>

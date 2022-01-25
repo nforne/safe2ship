@@ -5,10 +5,10 @@
   justify-content: space-around;
   align-content: center;
   text-align: center;
-  color: white;
+  color: black;
   backface-visibility: visible;
-  background-image: url('./logo.svg');
-  background-color: rgb(26, 27, 27);
+  /* background-image: url('./logo_2.svg'); */
+  background-color: white;
   height: 100%;
 }
 
