@@ -5,11 +5,9 @@ export default function Pending(props) {
    
    return (
     <div className="pending">
-        <img style={{width: '50%', height: '50%', }}
-            className="App-logo"
-            src="./logo_2.svg"
-            alt="logo"
-        />
+        <div class="spinner-border text-info" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
         <h1 className="text--semi-bold">{"Pending...."}</h1>
     </div>
    );
