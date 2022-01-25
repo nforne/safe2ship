@@ -77,7 +77,7 @@ CREATE TABLE packages(
   description TEXT,
   source TEXT,
   destination TEXT,
-  delivery_deadline TEXT,
+  delivery_deadline TIMESTAMP,
   status VARCHAR(128),
   price INTEGER,
   messages TEXT,

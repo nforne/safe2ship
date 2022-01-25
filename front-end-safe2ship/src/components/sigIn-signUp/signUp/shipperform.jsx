@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from 'axios';
 
 
@@ -40,21 +40,20 @@ export default function Shippersignup(props) {
     return 'good!'; //------------------------------------------
   }
 
-  // useEffect(() => {
-  //  setSstate(prev => ({...prev, customerInfo: {...shipperInfo_init} }))
-  // }, []);
+  useEffect(() => {
+   setSstate(prev => ({...prev, customerInfo: {...shipperInfo_init} }))
+  }, []);
 
   const handleSubmit = (shipperInfo, event) => {
     
     event.preventDefault();
-    
+
     if (sinputFormValidation(shipperInfo) === 'good!') {
       // switch to pending...
       props.hv_handler('pending')
       axios.post('/api/users/signup', {...shipperInfo})
         .then(userinfo => {
           console.log(userinfo.data) //-----------------------------
-          setSstate(prev => ({...prev, customerInfo: {...shipperInfo_init} }))
           //switch to user view with userinfo.rows and set it to state
           props.setUser(prev => ({...prev,  ...userinfo.data }))
           props.hv_handler('shipperHome');

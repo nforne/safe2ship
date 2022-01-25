@@ -95,9 +95,9 @@ export default function PostPackage(props) {
         <div className="col-md-8 mb-3">
           <select className="form-select" onClick={(e) => pkginfo_handler('delivery_deadline', e.target.value)} aria-label="Default select example">
             <option defaultValue >Choose delivery option...</option>
-            <option value="Same Day" >Same Day</option>
-            <option value="Next Day" >Next Day</option>
-            <option value="Within 7 days" >Within 7 days</option>
+            <option value="1" >Same Day</option>
+            <option value="2" >Next Day</option>
+            <option value="3" >Within 7 days</option>
           </select>
         </div>
       </div>

@@ -9,6 +9,7 @@ module.exports = ({
     getPackagesById,
     getOrdersById,
     getSystem_ids,
+    getPackagesInqueue,
     postUser,
     getUserBySystem_id
 }) => {
@@ -26,8 +27,9 @@ module.exports = ({
                     
                     let userInfo = {"user": user}
                 // ---------------------------------------------------------------------
+                    
                     Promise.all([
-                        getPackagesById(user[0].id),
+                        user[0].status === 'customer'? getPackagesById(user[0].id): getPackagesInqueue(),
                         getOrdersById(user[0].id)
                     ]).then((all) => {
                         userInfo["packages"] = all[0];

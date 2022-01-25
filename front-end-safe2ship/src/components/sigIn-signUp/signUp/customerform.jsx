@@ -40,22 +40,21 @@ export default function Customersignup(props) {
     return 'good!'; //------------------------------------------
   }
 
-  // useEffect(() => {
-  //   setCstate(prev => ({...prev, customerInfo: {...customerInfo_init} }));
-  // }, []);
+  useEffect(() => {
+    setCstate(prev => ({...prev, customerInfo: {...customerInfo_init} }));
+  }, []);
 
   const handleSubmit = (customerInfo, event) => {
     
     event.preventDefault();
 
     if (cinputFormValidation(customerInfo) === 'good!') {
-      
+
       // switch to pending...
       props.hv_handler('pending')
       axios.post('/api/users/signup', {...customerInfo})
         .then(userinfo => {
           console.log('this customer ===>', userinfo.data) //--------------------------------------
-          setCstate(prev => ({...prev, customerInfo: {...customerInfo_init} }));
           //switch to user view with userinfo.rows and set it to state
           props.setUser(prev => ({...prev,  ...userinfo.data }))
           props.hv_handler('customerHome');

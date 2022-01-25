@@ -60,6 +60,17 @@ module.exports = (db) => {
             .catch((err) => err);
     };
     
+    const getPackagesInqueue = (user) => { // --------------------------------------------------------********
+        const query = {
+            text: 'SELECT * FROM packages WHERE status = $1;',
+            values: ['ready']
+        };
+
+        return db.query(query)
+            .then((result) => result.rows)
+            .catch((err) => console.log(err)); // ----------------------------------------------------------
+    };
+    
     const getOrdersById = (id) => {
         const query = {
             text: 'SELECT * FROM orders WHERE id = $1 AND status != $2;',
@@ -435,6 +446,10 @@ module.exports = (db) => {
     // -----------pkgPOST---------------    
     const postPackage = (input) => {
         // input is req.body
+        if (input.delivery_deadline === '1') input['delivery_deadline'] =  1440;
+        if (input.delivery_deadline === '2') input['delivery_deadline'] =  2880;
+        if (input.delivery_deadline === '3') input['delivery_deadline'] =  10080;
+
         const package = {
             text: `INSERT INTO packages (
                 customer_id,
@@ -453,7 +468,7 @@ module.exports = (db) => {
             values: [input.customer_id, input.size, 
                 input.weight, input.description, 
                 input.source, input.destination,
-                input.delivery_deadline, 'inqueue', 
+                new Date(Date.now() +  (input.delivery_deadline * 60)), 'ready', 
                 input.price, input.messages, 
                 new Date(Date.now()), new Date(Date.now())]
         }
@@ -757,6 +772,7 @@ module.exports = (db) => {
     getUserByEmail,
     getUserBySystem_id,
     getPackagesById,
+    getPackagesInqueue,
     getOrdersById,
     getSystem_ids,
     postUser,
