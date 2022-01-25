@@ -3,7 +3,7 @@ import "../components/package.css";
 
 export default function PostPackage(props) {
   return (
-    <div class="container m-5">
+    <div class="container  my-5 py-4">
       <h2 class="text-center">Post New Package</h2>
       <form>
       <div class="row justify-content-center">

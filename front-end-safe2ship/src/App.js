@@ -15,7 +15,7 @@ import './App.css'
 
 
 const App = () => {
-  const [hview, setHview] = useState({v: 'packagePage', hvtracker: []})
+  const [hview, setHview] = useState({v: 'postPackage', hvtracker: []})
 
   const [error, setError] = useState('')
 
@@ -52,6 +52,7 @@ const App = () => {
         {hview.v === "customerHome" && <CustomerHome />}
         {hview.v === "shipperHome" && <ShipperHome />}
         {hview.v === "packagePage" && <Package />}
+        {hview.v === "postPackage" && <PostPackage />}
       </section>
 
     </div>
