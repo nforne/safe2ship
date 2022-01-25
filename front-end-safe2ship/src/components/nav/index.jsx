@@ -11,15 +11,12 @@ export default function Nav(props) {
   const logoutHandler = (input) => {
     axios.post('/api/users/logout', {system_id: ""})
       .then(e => {
-        console.log(props.user.email) //-------------------------------
+        console.log(props.user[0].email) //-------------------------------
         props.setUser(prev => ({...prev, ...props.user_init}))
         input.hv_handler('home');
         console.log(e.data); //----------------------------------
     });
   }
-
-  const signInAs = props.user.email;
-  useEffect(() => {}, [signInAs]);
     
    return (
      <nav className="nav">
@@ -27,8 +24,8 @@ export default function Nav(props) {
       <div className="menu">
         <div>
 
-          {signInAs && 
-          <button type="button" className="btn btn-outline-success btn-lg"><i className="bi bi-unlock-fill"></i> Signed-In as: {props.user.user.email}</button>
+          {props.user[0].email && 
+          <button type="button" className="btn btn-outline-success btn-lg"><i className="bi bi-unlock-fill"></i> Signed-In as: {props.user[0].email}</button>
           }
 
         </div>
