@@ -6,10 +6,10 @@ export default function CustomerHome(props) {
   return (
       <div class="m-5">
         <div class="row justify-content-end">
-          <div class="col-6">
+          <div class="col-sm-12 col-md-6">
             <h2>My Packages</h2>
           </div>
-          <div class="col-6">
+          <div class="col-sm-12 col-md-6">
               <button type="button" class="btn btn-lg btn-primary">+ Post New Package</button>
           </div>
         </div>

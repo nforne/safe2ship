@@ -11,11 +11,11 @@ import Package from "./pages/PackagePage";
 import ShipperHome from "./pages/ShipperHome";
 import CustomerHome from "./pages/CustomerHome";
 import PostPackage from "./pages/PostPackage";
-import './App.css'
+import './App.css';
 
 
 const App = () => {
-  const [hview, setHview] = useState({v: 'postPackage', hvtracker: []})
+  const [hview, setHview] = useState({v: 'packagePage', hvtracker: []})
 
   const [error, setError] = useState('')
 
@@ -54,6 +54,8 @@ const App = () => {
         {hview.v === "packagePage" && <Package />}
         {hview.v === "postPackage" && <PostPackage />}
       </section>
+
+
 
     </div>
   );

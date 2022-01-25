@@ -42,7 +42,7 @@ export default function Package(props) {
         </div>
       </div>
       <div class="card-footer d-flex justify-content-end">
-        <button type="button" class="btn btn-primary">Deliver This Package</button>
+        <button type="button" class="btn btn-primary btn-lg">Deliver This Package</button>
       </div>
     </div>
   ); 
