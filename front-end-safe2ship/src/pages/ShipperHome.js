@@ -8,7 +8,12 @@ export default function ShipperHome(props) {
   }
   
   return (
-    <div class="container">
+    <div class="m-5">
+    <div class="row justify-content-center">
+      <div class="col-12">
+        <h2>Packages available for pickup</h2>
+      </div>
+    </div>
       { packageList }
     </div>
   );
