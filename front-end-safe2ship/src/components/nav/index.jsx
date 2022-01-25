@@ -34,7 +34,7 @@ export default function Nav(props) {
         </div>
         <i id='diffsquare' className="bi bi-square"></i>
         <div>
-          <Menu hv_handler={props.hv_handler} logoutHandler={logoutHandler}/>
+          <Menu {...props} logoutHandler={logoutHandler}/>
         </div>
      </div>
      </nav>
