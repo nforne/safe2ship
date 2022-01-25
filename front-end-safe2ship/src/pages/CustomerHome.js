@@ -3,8 +3,9 @@ import PackageListItem from "../components/PackageListItem";
 import "./customerHome.css";
 
 export default function CustomerHome(props) {
-  console.log('this # of pkgs', props.udata.packages.length) //------------------------------
   
+  console.log('this # of pkgs', props.udata.packages.length) //------------------------------
+
   let key = props.udata.packages.length + 1;
   const packages = props.udata.packages.map(pkg => {
     key += 1;
