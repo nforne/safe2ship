@@ -3,8 +3,8 @@ import "./package.css";
 
 export default function PackageListItem(props) {
   return (
-    <div class="row m-5">
-      <div class="col-12">
+    <div class="row my-5">
+      <div class="col-8 mx-auto">
         <div class="card package-list-item">
           <div class="card-body">
             <div class="row justify-content-between align-items-center">

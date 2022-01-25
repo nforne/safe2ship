@@ -3,7 +3,8 @@ import { useState } from "react";
 import axios from 'axios';
 
 import Scrollup from "../../scollup";
-import Logo1 from "../../nav/logo.jpg";
+// import Logo1 from "../../nav/logo.jpg";
+import Logo1 from "../../nav/logo_2.png";
 import './signIn.css'
 import '../signUp/signUp.css'
 
@@ -52,7 +53,7 @@ export default function SignIn(props) {
 
    return (
 
-      <div className="form-group">
+      <div className="form-group ">
 
             <div>
             <img src={Logo1} id="homelogoimg" className="rounded rounded-pill img-fluid" alt={"logo"}/>
@@ -65,11 +66,6 @@ export default function SignIn(props) {
             
             <div>
 
-            <div>
-              <hr />
-              <button onClick={() => props.hv_handler("home")} type="button" className="btn btn-secondary ">[ <i className="bi bi-reply-all"></i> ]</button>
-              <hr />
-            </div>
 
         <div className="userform">
           <div>
@@ -89,13 +85,15 @@ export default function SignIn(props) {
               </fieldset>
     
                 <label className="form-group row" htmlFor="formSubmitButton"></label>
-                <input type="submit"  name="formSubmitButton" className="btn btn-secondary " onClick={() => console.log('signing In...')}/>
-            <hr />
+                <input type="submit"  name="formSubmitButton" className="btn btn-primary btn-lg" onClick={() => console.log('signing In...')}/>
             </form>
           </div>
         </div>
         
-        <hr /> 
+        <div>
+          <hr />
+          <button onClick={() => props.hv_handler("home")} type="button" className="btn btn-primary btn-lg back-button"><i class="bi bi-arrow-left-square-fill"></i></button>
+        </div>
       </div>
       </div>
         </div>

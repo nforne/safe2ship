@@ -5,7 +5,8 @@ import Shippersignup from "./shipperform";
 import Customersignup from "./customerform";
 import Button from "./buttons";
 import Scrollup from "../../scollup";
-import Logo1 from "../../nav/logo.jpg";
+// import Logo1 from "../../nav/logo.jpg";
+import Logo1 from "../../nav/logo_2.svg";
 
 import './signUp.css'
 
@@ -33,7 +34,6 @@ export default function SignUp(props) {
         {suview.v === 'shipper' && <Shippersignup hv_handler={props.hv_handler} errorHandler={props.errorHandler}/>}
         {suview.v === 'customer' && <Customersignup hv_handler={props.hv_handler} errorHandler={props.errorHandler}/>}
         </div>
-        <hr />
       </div>
        
       

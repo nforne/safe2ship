@@ -11,11 +11,11 @@ import Package from "./pages/PackagePage";
 import ShipperHome from "./pages/ShipperHome";
 import CustomerHome from "./pages/CustomerHome";
 import PostPackage from "./pages/PostPackage";
-import './App.css'
+import './App.css';
 
 
 const App = () => {
-  const [hview, setHview] = useState({v: 'home', hvtracker: []})
+  const [hview, setHview] = useState({v: 'packagePage', hvtracker: []})
 
   const [error, setError] = useState('')
 
@@ -49,8 +49,13 @@ const App = () => {
 
         {hview.v === "signIn" && <SignIn hv_handler={hv_handler} errorHandler={errorHandler}/>}
         {hview.v === "signUp" && <SignUp hv_handler={hv_handler} errorHandler={errorHandler}/>}
-        
+        {hview.v === "customerHome" && <CustomerHome />}
+        {hview.v === "shipperHome" && <ShipperHome />}
+        {hview.v === "packagePage" && <Package />}
+        {hview.v === "postPackage" && <PostPackage />}
       </section>
+
+
 
     </div>
   );

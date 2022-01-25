@@ -5,6 +5,7 @@
   justify-items: center;
   align-items: center;
   position: relative;
+  margin: 3rem;
 }
 
 .hometx-span {
@@ -21,6 +22,7 @@
   color: white;
   height: inherit;
   width: inherit;
+  max-width: 17rem;
 }
 
 .pending {
@@ -32,12 +34,20 @@
   
   border-radius: 4px;
 
-  background-color: gray;
+  background-color: whitesmoke;
   color: black;
   
   box-sizing: border-box;
-  border: 3px solid #ccc;
+  border: 3px solid #0065AB;
   -webkit-transition: 0.5s;
   transition: 0.5s;
   outline: none;
+}
+
+#welcome-msg {
+  margin-top: 3rem;
+}
+
+.btn-primary {
+  background-color: #0065AB;
 }
