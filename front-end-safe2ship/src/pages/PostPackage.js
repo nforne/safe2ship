@@ -60,7 +60,7 @@ export default function PostPackage(props) {
       </div>
       <div class="row justify-content-center">
         <div class="col-md-8 mb-3">
-          <label for="description" class="form-label">Desctiption</label>
+          <label for="description" class="form-label">Description</label>
           <textarea class="form-control" id="description" rows="2"></textarea>
         </div>
       </div>
