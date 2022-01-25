@@ -9,7 +9,7 @@ export default function Signupbuttons(props) {
       <i id='diffsquare' className="bi bi-square"></i>  
       <button onClick={() => props.handlers.suhandler('customer')} type="button" className="btn btn-primary btn-lg">Customer</button>
       <i id='diffsquare' className="bi bi-square"></i>  
-      <button onClick={() => props.handlers.hv_handler('home')} type="button" className="btn btn-primary btn-lg"><i class="bi bi-arrow-left-square-fill"></i></button>
+      <button onClick={() => props.handlers.hv_handler('home')} type="button" className="btn btn-primary btn-lg"><i className="bi bi-arrow-left-square-fill"></i></button>
       </div>
     </div>
    );

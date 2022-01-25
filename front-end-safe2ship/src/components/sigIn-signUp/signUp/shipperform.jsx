@@ -40,17 +40,24 @@ export default function Shippersignup(props) {
     return 'good!'; //------------------------------------------
   }
 
+  // useEffect(() => {
+  //  setSstate(prev => ({...prev, customerInfo: {...shipperInfo_init} }))
+  // }, []);
+
   const handleSubmit = (shipperInfo, event) => {
     
     event.preventDefault();
-    // switch to pending...
-    props.hv_handler('pending')
+    
     if (sinputFormValidation(shipperInfo) === 'good!') {
+      // switch to pending...
+      props.hv_handler('pending')
       axios.post('/api/users/signup', {...shipperInfo})
         .then(userinfo => {
           console.log(userinfo.data) //-----------------------------
           setSstate(prev => ({...prev, customerInfo: {...shipperInfo_init} }))
           //switch to user view with userinfo.rows and set it to state
+          props.setUser(prev => ({...prev,  ...userinfo.data }))
+          props.hv_handler('shipperHome');
         })
         .catch((error) => props.errorHandler('Oop! Something went wrong. Please Consider trying again shortly!'))
 

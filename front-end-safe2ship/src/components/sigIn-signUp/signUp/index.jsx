@@ -31,8 +31,8 @@ export default function SignUp(props) {
         <Button handlers={{suhandler: suhandler, hv_handler: props.hv_handler, view: suview.v}}/>
         <hr />
         <div>
-        {suview.v === 'shipper' && <Shippersignup hv_handler={props.hv_handler} errorHandler={props.errorHandler}/>}
-        {suview.v === 'customer' && <Customersignup hv_handler={props.hv_handler} errorHandler={props.errorHandler}/>}
+        {suview.v === 'shipper' && <Shippersignup hv_handler={props.hv_handler} setUser={props.setUser} errorHandler={props.errorHandler}/>}
+        {suview.v === 'customer' && <Customersignup hv_handler={props.hv_handler} setUser={props.setUser} errorHandler={props.errorHandler}/>}
         </div>
       </div>
        

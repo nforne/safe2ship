@@ -448,7 +448,7 @@ module.exports = (db) => {
                 price,
                 messages,
                 time_created,
-                time_updated,)
+                time_updated)
             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING *;` ,
             values: [input.customer_id, input.size, 
                 input.weight, input.description, 
@@ -459,7 +459,7 @@ module.exports = (db) => {
         }
         return db.query(package)
                 .then(pkg => pkg.rows)
-                .catch(err => err);
+                .catch(err => console.log('this error ===>', err));
     };
     
     

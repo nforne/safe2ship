@@ -3,29 +3,29 @@ import "./package.css";
 
 export default function PackageListItem(props) {
   return (
-    <div class="row my-5">
-      <div class="col-8 mx-auto">
-        <div class="card package-list-item">
-          <div class="card-body">
-            <div class="row justify-content-between align-items-center">
-              <div class="col-md-3">
-                <div class="text-center">
+    <div className="row my-5">
+      <div className="col-8 mx-auto">
+        <div className="card package-list-item">
+          <div className="card-body">
+            <div className="row justify-content-between align-items-center">
+              <div className="col-md-3">
+                <div className="text-center">
                   <p>
-                    <i class="bi bi-box box-size-small"></i>
+                    <i className="bi bi-box box-size-small"></i>
                     <br></br>
-                    <strong>Small</strong>
+                    <strong>{props.size}</strong>
                   </p>
                   <hr></hr>
-                  <p class="price">$12.89</p>
+                  <p className="price">${props.price/100}</p>
                 </div>
               </div>
-              <div class="col-sm-12 col-md-7">
-                <p><strong>Source:</strong>&nbsp;&nbsp;123 Huntington Street, Toronto, ON</p>
-                <p><strong>Destination:</strong>&nbsp;&nbsp;111 Markham Street, Markham, ON</p>
+              <div className="col-sm-12 col-md-7">
+                <p><strong>Source:</strong>&nbsp;&nbsp; {props.source}</p>
+                <p><strong>Destination:</strong>&nbsp;&nbsp; {props.destination}</p>
               </div>
-              <div class="col-md-2 d-flex justify-content-center">
+              <div className="col-md-2 d-flex justify-content-center">
                 <div>
-                  <i class="bi bi-chevron-right"></i>
+                  <i className="bi bi-chevron-right"></i>
                 </div>
               </div>
             </div>

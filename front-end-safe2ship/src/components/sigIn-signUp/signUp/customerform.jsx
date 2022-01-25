@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from 'axios';
 
 export default function Customersignup(props) {
@@ -40,17 +40,25 @@ export default function Customersignup(props) {
     return 'good!'; //------------------------------------------
   }
 
+  // useEffect(() => {
+  //   setCstate(prev => ({...prev, customerInfo: {...customerInfo_init} }));
+  // }, []);
+
   const handleSubmit = (customerInfo, event) => {
     
     event.preventDefault();
-    // switch to pending...
-    props.hv_handler('pending')
+
     if (cinputFormValidation(customerInfo) === 'good!') {
+      
+      // switch to pending...
+      props.hv_handler('pending')
       axios.post('/api/users/signup', {...customerInfo})
         .then(userinfo => {
           console.log('this customer ===>', userinfo.data) //--------------------------------------
           setCstate(prev => ({...prev, customerInfo: {...customerInfo_init} }));
           //switch to user view with userinfo.rows and set it to state
+          props.setUser(prev => ({...prev,  ...userinfo.data }))
+          props.hv_handler('customerHome');
         })
         .catch((error) => props.errorHandler('Oop! Something went wrong. Please Consider trying again shortly!'))
 

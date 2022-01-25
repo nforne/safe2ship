@@ -9,13 +9,15 @@ module.exports = ({
 }) => {
    
     router.post('/pkgs/create', (req, res) => {
+        console.log(req.body) //---------------------------------
         postPackage(req.body)
             .then((pkgs) => {
                 res.json(pkgs);
             })
-            .catch((err) => res.json({
-                error: err.message
-            }));
+            .catch((err) => {
+                console.log('this error ===>', err) //-----------------------------------
+                res.json({error: err.message})
+            });
     });
 
     router.patch('/pkgs/update', (req, res) => {

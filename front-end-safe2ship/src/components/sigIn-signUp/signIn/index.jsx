@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from 'axios';
 
 import Scrollup from "../../scollup";
@@ -33,6 +33,11 @@ export default function SignIn(props) {
     if (signfo.password === '' || signfo.password.split('').includes(' ')) return 'Enter a password, without spaces!';
     return 'good!'; //------------------------------------------
   }
+
+  useEffect(() => {
+    setSistate(prev => ({...prev, info: {...info_init} })); 
+  }, []);
+
   const handleSubmit = (info, event) => {
     event.preventDefault();
     props.hv_handler('pending')
@@ -40,8 +45,10 @@ export default function SignIn(props) {
       axios.post('/api/users/signin', {...info})
         .then(user => {
           console.log(user.data) //---------------------------------
-          setSistate(prev => ({...prev, info: {...info_init} })); //raise state with info from here for access ot other resources
+          console.log(user.data.user.status) //---------------------------------
           //switch to user view with userinfo.rows and set it to state // or pks queue view
+          props.setUser(prev => ({...prev,  ...user.data }))
+          user.data.user.status === 'shipper' ? props.hv_handler('shipperHome') : props.hv_handler('customerHome');
         })
         .catch((error) => props.errorHandler('Oop! Something went wrong. Please Consider trying again shortly!'))
 
@@ -92,7 +99,7 @@ export default function SignIn(props) {
         
         <div>
           <hr />
-          <button onClick={() => props.hv_handler("home")} type="button" className="btn btn-primary btn-lg back-button"><i class="bi bi-arrow-left-square-fill"></i></button>
+          <button onClick={() => props.hv_handler("home")} type="button" className="btn btn-primary btn-lg back-button"><i className="bi bi-arrow-left-square-fill"></i></button>
         </div>
       </div>
       </div>

@@ -4,7 +4,7 @@ import PackageListItem from "../components/PackageListItem";
 export default function ShipperHome(props) {
   const packageList =  []; 
   for (let index = 0; index < 5; index++) {
-    packageList.push(<PackageListItem />);
+    packageList.push(<PackageListItem udata={props.udata}/>);
   }
   
   return (

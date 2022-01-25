@@ -15,8 +15,11 @@ import './App.css';
 
 
 const App = () => {
-  const [hview, setHview] = useState({v: 'packagePage', hvtracker: []})
+  
+  const user_init = {user: [{}], packages: [{}], orders:[{}]};
 
+  const [hview, setHview] = useState({v: 'home', hvtracker: []})
+  const [user, setUser] = useState({...user_init})
   const [error, setError] = useState('')
 
   const hv_handler = (view) => {
@@ -31,10 +34,19 @@ const App = () => {
     }, 120000)
   }
 
+  const props = {
+    hv_handler: hv_handler,
+    user: user.user,
+    setUser: setUser,
+    user_init: {...user_init},
+    errorHandler: errorHandler,
+    udata:{...user}
+  }
+
   return (
     <div className="App">
       
-      <Nav hv_handler={hv_handler}/>
+      <Nav {...props}/>
       <hr className='line'/>
       <br></br>
       
@@ -45,14 +57,14 @@ const App = () => {
       <hr/>
       <section className='main'>
         {hview.v === 'pending' &&  <Pending/>}
-        {hview.v === "home" &&<Home  hv_handler={hv_handler} errorHandler={errorHandler}/>}
+        {hview.v === "home" &&<Home  {...props} />}
 
-        {hview.v === "signIn" && <SignIn hv_handler={hv_handler} errorHandler={errorHandler}/>}
-        {hview.v === "signUp" && <SignUp hv_handler={hv_handler} errorHandler={errorHandler}/>}
-        {hview.v === "customerHome" && <CustomerHome />}
-        {hview.v === "shipperHome" && <ShipperHome />}
-        {hview.v === "packagePage" && <Package />}
-        {hview.v === "postPackage" && <PostPackage />}
+        {hview.v === "signIn" && <SignIn {...props}/>}
+        {hview.v === "signUp" && <SignUp {...props}/>}
+        {hview.v === "customerHome" && <CustomerHome {...props}/>}
+        {hview.v === "shipperHome" && <ShipperHome {...props}/>}
+        {hview.v === "packagePage" && <Package {...props}/>}
+        {hview.v === "postPackage" && <PostPackage {...props}/>}
       </section>
 
 
