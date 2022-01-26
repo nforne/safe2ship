@@ -19,10 +19,68 @@ const App = () => {
   
   const user_init = {user: [{}], packages: [{}], orders:[{}]};
 
-  const [hview, setHview] = useState({v: 'home', hvtracker: []})
-  const [user, setUser] = useState({...user_init})
-  const [error, setError] = useState('')
+  const [hview, setHview] = useState({v: 'home', hvtracker: []});
+  const [user, setUser] = useState({...user_init});
+  const [error, setError] = useState('');
   const [pkg, setPkg] = useState({});
+
+// for differentiated view of packages in packages and orders
+  const [ordercart, setOrdercart] = useState({delivered:[], active:[], declined:[] }); 
+  const [pkgs, setPkgs] = useState({delivered:[], active:[], declined:[] });
+
+  
+  const [pkgsview, setPkgsview] = useState([]);
+  const [ordersview, setOrdersview] = useState([]);
+
+  const sortUser = (user) => {
+    const packages = user.packages;
+    const orders = user.orders;
+
+    const updatePkgAndOders = (cb, obj, status) => {
+      cb(prev => {
+        const updating = {...prev};
+        console.log('this 1 ===>', updating); //----------------------------------------
+        console.log('this 2 ===>', updating[status]); //----------------------------------------
+        const update = updating[status];
+        update.push(obj);
+        updating[status] = update;
+        return updating;
+      })
+    }
+
+    console.log('this 1 ===>', packages) //----------------------------------------
+    console.log('this 2 ===>', orders) //----------------------------------------
+
+if (pkgs.length !== 0) {
+  packages.forEach(pkg => {
+      if (pkg.status === 'delivered') {
+        updatePkgAndOders(setPkgs, pkg, 'delivered');
+      } else if (pkg.status === 'ready'|| pkg.status === "inqueue" ) {
+        updatePkgAndOders(setPkgs, pkg, 'active');
+        console.log('this 3 ===>', pkgs.active) //----------------------------------------
+        console.log('this 4 ===>', pkgs) //----------------------------------------
+      } else if (pkg.status === 'declined') {
+        updatePkgAndOders(setPkgs, pkg, 'declined');
+      }
+    })
+  }
+
+  if (orders.length !== 0) {
+    orders.forEach(pkg => {
+      if (pkg.status === 'delivered') {
+        updatePkgAndOders(setOrdercart, pkg, 'delivered');
+      } else if (pkg.status === 'ready') {
+        updatePkgAndOders(setOrdercart, pkg, 'active');
+      } else if (pkg.status === 'declined') {
+        updatePkgAndOders(setOrdercart, pkg, 'declined');
+      }
+    })
+  }
+    setPkgsview(() => pkgs.active)
+    console.log(pkgs.active) // ----------------------------
+    setOrdersview(() => ordercart.active)
+    console.log(ordersview) //---------------------------
+  }
 
   const hv_handler = (view) => {
     setHview(prev => ({...prev, v: view }))
@@ -42,8 +100,12 @@ const App = () => {
     user_init: {...user_init},
     errorHandler: errorHandler,
     udata:{...user},
-    pkg,
-    setPkg
+    sortUser,
+    pkg, setPkg,
+    ordercart, setOrdercart,
+    pkgs, setPkgs,
+    pkgsview, setPkgsview,
+    ordersview, setOrdersview
   }
 
   return (
@@ -65,8 +127,8 @@ const App = () => {
 
         {hview.v === "signIn" && <SignIn {...props}/>}
         {hview.v === "signUp" && <SignUp {...props}/>}
-        {hview.v === "customerHome" && <CustomerHome {...props}/>}
-        {hview.v === "shipperHome" && <ShipperHome {...props}/>}
+        {hview.v === "customerHome" && <CustomerHome  {...props}/>}
+        {hview.v === "shipperHome" && <ShipperHome  {...props}/>}
         {hview.v === "packagePage" && <Package {...props}/>}
         {hview.v === "postPackage" && <PostPackage {...props}/>}
       </section>

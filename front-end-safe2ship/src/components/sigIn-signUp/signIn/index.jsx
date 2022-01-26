@@ -45,7 +45,7 @@ export default function SignIn(props) {
       axios.post('/api/users/signin', {...info})
         .then(user => {
           console.log(user.data) //---------------------------------
-          console.log(user.data.user.status) //---------------------------------
+          props.sortUser(user.data);
           //switch to user view with userinfo.rows and set it to state // or pks queue view
           props.setUser(prev => ({...prev,  ...user.data }))
           user.data.user[0].status === 'customer' ? props.hv_handler('customerHome') : props.hv_handler('shipperHome');
@@ -53,7 +53,6 @@ export default function SignIn(props) {
           console.log('this important data ===>', user.data) //---------------------------------
           //switch to user view with userinfo.rows and set it to state // or pks queue view
           // props.setUser(prev => ({...prev,  ...user.data }))
-          
           
           console.log('this important status ===>', user.data.user[0].status) //---------------------------------
       

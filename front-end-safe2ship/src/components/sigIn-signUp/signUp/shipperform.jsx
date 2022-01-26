@@ -55,6 +55,7 @@ export default function Shippersignup(props) {
         .then(userinfo => {
           console.log(userinfo.data) //-----------------------------
           //switch to user view with userinfo.rows and set it to state
+          props.sortUser(userinfo.data);
           props.setUser(prev => ({...prev,  ...userinfo.data }))
           props.hv_handler('shipperHome');
         })

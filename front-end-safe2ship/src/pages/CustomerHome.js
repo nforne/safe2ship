@@ -8,6 +8,8 @@ export default function CustomerHome(props) {
   console.log('this # of pkgs', props.udata.packages.length) //------------------------------
 
   const [vpkg, setVpkg] = useState({pkg: {}, v: 'all', vtracker: []})
+  
+  const [pkgs, setPkgs] = useState({delivered:[], acitve:[], declined:[] })
 
   const pkgvswitch = (view) => {
     setVpkg(prev => ({...prev, v: view}))
@@ -17,8 +19,8 @@ export default function CustomerHome(props) {
     setVpkg(prev => ({...prev, v: view, pkg: itemInfo}))
   };
 
-  let key = props.udata.packages.length + 1;
-  const packages = props.udata.packages.map(pkg => {
+  let key = props.pkgsview.length + 1;
+  const packages = props.pkgsview.map(pkg => {
     key += 1;
     return <PackageListItem key={key} {...pkg} pkglItemClickHandler={pkglItemClickHandler}/>
   });

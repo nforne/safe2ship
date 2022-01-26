@@ -56,6 +56,7 @@ export default function Customersignup(props) {
         .then(userinfo => {
           console.log('this customer ===>', userinfo.data) //--------------------------------------
           //switch to user view with userinfo.rows and set it to state
+          props.sortUser(userinfo.data);
           props.setUser(prev => ({...prev,  ...userinfo.data }))
           props.hv_handler('customerHome');
         })

@@ -12,6 +12,7 @@ export default function ShipperHome(props) {
   const pkgvswitch = (view) => {
     setVpkg(prev => ({...prev, v: view}))
   }
+  
 
   const pkglItemClickHandler = (itemInfo, view) => {
     setVpkg(prev => ({...prev, v: view, pkg: itemInfo}))
@@ -26,7 +27,7 @@ export default function ShipperHome(props) {
 
   const packages = [];
   let key = props.udata.packages.length;
-  props.udata.packages.forEach(pkg => {
+  props.pkgsview.forEach(pkg => {
     key += 1;
     if (pkg.status === 'ready') packages.push(
     <div key={key} className="justify-content-center">
