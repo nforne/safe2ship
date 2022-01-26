@@ -32,7 +32,7 @@ export default function ShipperHome(props) {
     <div key={key} className="justify-content-center">
         <hr/> 
         {vitem.v === 'zoomout' && <PackageListItem key={key} {...pkg} pkglItemClickHandler={pkglItemClickHandler} {...props}/>}
-        {vitem.v === 'zoomin' && <PackagePage {...pkg} {...vitem} {...vpkg.pkg}  pkgvswitch={pkgvswitch} {...props}/>}
+        {vitem.v === 'zoomin' && <PackagePage zoom={zoom} {...pkg} {...vitem} {...vpkg.pkg}  pkgvswitch={pkgvswitch} {...props}/>}
         <button type="button" onClick={() => zoom()} className="btn btn-lg btn-primary">ZOOM +/-</button>
         <hr/>
     </div>
