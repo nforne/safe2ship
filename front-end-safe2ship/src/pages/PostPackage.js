@@ -66,13 +66,17 @@ export default function PostPackage(props) {
         .then(pkginfo => {
           console.log('this feedb ===>', pkginfo.data) //--------------------------------------
           updateUserState(pkginfo.data[0]);
-  
-          if (props.user.status === 'customer')  props.hv_handler("customerHome");
-          if (props.user.status === 'shipper') props.hv_handler("shipperHome");
+          props.user[0].status === 'customer' ?   props.hv_handler("customerHome") : props.hv_handler("shipperHome");
+          // if (props.user.status === 'customer')  props.hv_handler("customerHome");
+          // if (props.user.status === 'shipper') props.hv_handler("shipperHome");
         })
-        .catch((error) => props.errorHandler('Oop! Something went wrong. Please Consider trying again shortly!'))
+        .catch((error) => {
+          props.errorHandler('Oop! Something went wrong. Please Consider trying again shortly!')
+          props.user[0].status === 'customer' ?   props.hv_handler("customerHome") : props.hv_handler("shipperHome");
+        })
     } else {
       props.errorHandler(`Oops! Something is missing or missentered: ${npkgValidation(input)}. Please verify and make sure of the right information and resubmit. Thank you!`)
+      props.user[0].status === 'customer' ?   props.hv_handler("customerHome") : props.hv_handler("shipperHome");
     }
 
   }
