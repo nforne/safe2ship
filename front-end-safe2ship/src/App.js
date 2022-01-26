@@ -28,28 +28,24 @@ const App = () => {
   const [ordercart, setOrdercart] = useState({delivered:[], active:[], declined:[] }); 
   const [pkgs, setPkgs] = useState({delivered:[], active:[], declined:[] });
 
-  
+  //for pages in current view
   const [pkgsview, setPkgsview] = useState([]);
   const [ordersview, setOrdersview] = useState([]);
+
+
+  const updatePkgAndOders = (cb, obj, status) => {
+    cb(prev => {
+      const updating = {...prev};
+      const update = updating[status];
+      update.push(obj);
+      updating[status] = update;
+      return updating;
+    })
+  }
 
   const sortUser = (user) => {
     const packages = user.packages;
     const orders = user.orders;
-
-    const updatePkgAndOders = (cb, obj, status) => {
-      cb(prev => {
-        const updating = {...prev};
-        console.log('this 1 ===>', updating); //----------------------------------------
-        console.log('this 2 ===>', updating[status]); //----------------------------------------
-        const update = updating[status];
-        update.push(obj);
-        updating[status] = update;
-        return updating;
-      })
-    }
-
-    console.log('this 1 ===>', packages) //----------------------------------------
-    console.log('this 2 ===>', orders) //----------------------------------------
 
 if (pkgs.length !== 0) {
   packages.forEach(pkg => {
@@ -57,8 +53,6 @@ if (pkgs.length !== 0) {
         updatePkgAndOders(setPkgs, pkg, 'delivered');
       } else if (pkg.status === 'ready'|| pkg.status === "inqueue" ) {
         updatePkgAndOders(setPkgs, pkg, 'active');
-        console.log('this 3 ===>', pkgs.active) //----------------------------------------
-        console.log('this 4 ===>', pkgs) //----------------------------------------
       } else if (pkg.status === 'declined') {
         updatePkgAndOders(setPkgs, pkg, 'declined');
       }
@@ -76,11 +70,11 @@ if (pkgs.length !== 0) {
       }
     })
   }
+
     setPkgsview(() => pkgs.active)
-    console.log(pkgs.active) // ----------------------------
-    setOrdersview(() => ordercart.active)
-    console.log(ordersview) //---------------------------
+    setOrdersview(() => ordercart.active) 
   }
+
 
   const hv_handler = (view) => {
     setHview(prev => ({...prev, v: view }))
@@ -105,7 +99,8 @@ if (pkgs.length !== 0) {
     ordercart, setOrdercart,
     pkgs, setPkgs,
     pkgsview, setPkgsview,
-    ordersview, setOrdersview
+    ordersview, setOrdersview,
+    updatePkgAndOders
   }
 
   return (
@@ -123,7 +118,7 @@ if (pkgs.length !== 0) {
       <section className='main'>
         {hview.v === 'pending' &&  <Pending/>}
         {hview.v === "home" &&<Home  {...props} />}
-        {hview.v === "profile" &&<Profile  {...props} />}
+        {hview.v === "profile" &&<Profile  {...user.user[0]} {...props} />}
 
         {hview.v === "signIn" && <SignIn {...props}/>}
         {hview.v === "signUp" && <SignUp {...props}/>}

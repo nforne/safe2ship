@@ -22,8 +22,12 @@ export default function Package(props) {
           .catch(err => console.log(err)) //-------------------------------
   } 
   
+  const addToOrderCartHandler = (props) => {
+    props.updatePkgAndOders(props.setOrdercart, props.pkg, 'active')
+    console.log(props.ordercart) //------------------------------------------
+  }
 
-  console.log('these props ===>',props.user[0].status) // ---------------------------------
+  console.log('these props ===>', props.user[0].status) // ---------------------------------
 
   return (
     <div className="card">
@@ -78,7 +82,7 @@ export default function Package(props) {
               <button type="button" onClick={() => props.pkgvswitch('all')} className="btn btn-lg btn-primary"><i className="bi-lg bi-reply-all"></i></button>
       </div>
       <i id='diffsquare' className="bi bi-square"></i>
-        {props.user[0].status === 'shipper' && <button type="button" className="btn btn-primary btn-lg" onClick={() => 'add package to order cart'}> Request to Deliver This Package</button>}
+        {props.user[0].status === 'shipper' && <button type="button" className="btn btn-primary btn-lg" onClick={(e) => addToOrderCartHandler(props)}> Request to Deliver This Package</button>}
         <i id='diffsquare' className="bi bi-square"></i>
         <button type="button" className="btn btn-primary btn-lg" onClick={(e) => profileviewHandler(props.customer_id)} >View Custermer(owner) Profile</button>
       </div>
