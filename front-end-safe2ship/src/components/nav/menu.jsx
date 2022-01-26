@@ -32,7 +32,7 @@ export default function Menu(props) {
         <li><button className={classNames("dropdown-item", {"disabled": c || o })} type="button" onClick={(e) => vSwitch(props.user)}> <i className="bi bi-chevron-left"></i> order History</button></li>
         <li><button className={classNames("dropdown-item", {"disabled": o })} type="button" onClick={(e) => vSwitch(props.user)}> <i className="bi bi-chevron-left"></i> package History</button></li>
         <li><button className={classNames("dropdown-item", {"disabled": o })} type="button" > <i className="bi bi-chevron-left"></i> messages</button></li>
-        <li><button className={classNames("dropdown-item", {"disabled": o })} type="button" > <i className="bi bi-chevron-left"></i> my Profile</button></li>
+        <li><button className={classNames("dropdown-item", {"disabled": o })} type="button" onClick={(e) => props.hv_handler('profile')} > <i className="bi bi-chevron-left"></i> my Profile</button></li>
         <li><button className={classNames("dropdown-item", {"disabled": o })} type="button" > <i className="bi bi-chevron-left"></i> help?</button></li>
         <li><button className={classNames("dropdown-item", {"disabled": o })} type="button" > <i className="bi bi-chevron-left"></i> safe2ship?</button></li>
         <li><button className={classNames("dropdown-item", {"disabled": o })} type="button" > <i className="bi bi-chevron-left"></i> settings</button></li>
@@ -43,4 +43,6 @@ export default function Menu(props) {
     </div>
    );
  }
+
+
 

@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import PackageListItem from "../components/PackageListItem";
 import Package from "../components/Package";
+import PackagePage from "./PackagePage";
 
 export default function ShipperHome(props) {
 
@@ -15,13 +16,27 @@ export default function ShipperHome(props) {
   const pkglItemClickHandler = (itemInfo, view) => {
     setVpkg(prev => ({...prev, v: view, pkg: itemInfo}))
   };
+ 
+  const [vitem, setVitem] = useState({v:'zoomout', vtacker:[]})
 
+  const zoom = () => {
+    if (vitem.v === 'zoomout') setVitem(prev => ({...prev, v: 'zoomin'}))
+    if (vitem.v === 'zoomin') setVitem(prev => ({...prev, v: 'zoomout'}))
+  }
 
   const packages = [];
   let key = props.udata.packages.length;
   props.udata.packages.forEach(pkg => {
     key += 1;
-    if (pkg.status === 'ready') packages.push(<PackageListItem key={key} {...pkg} pkglItemClickHandler={pkglItemClickHandler}/>);
+    if (pkg.status === 'ready') packages.push(
+    <div className="row justify-content-center m-5">
+        <hr/>
+        {vitem.v === 'zoomout' && <PackageListItem key={key} {...pkg} pkglItemClickHandler={pkglItemClickHandler}/>}
+        {vitem.v === 'zoomin' && <PackagePage key={key} {...pkg} pkglItemClickHandler={pkglItemClickHandler} {...props}/>}
+        <button type="button" onClick={() => zoom()} className="btn btn-lg btn-primary">ZOOM +/-</button>
+        <hr/>
+    </div>
+    );
   });
 
   // const packageList =  []; 
@@ -44,7 +59,6 @@ export default function ShipperHome(props) {
       </div>
     </div>
       { packages }
-
       </div>
     }
     </div>

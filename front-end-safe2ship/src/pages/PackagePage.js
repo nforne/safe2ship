@@ -7,7 +7,7 @@ import PackageListItem from "../components/PackageListItem";
 export default function PackagePage(props) {
   return (
     <div className="container my-5 py-4">
-      <h2>Package #</h2>
+      <h2>Package #{props.id}</h2>
       <div className="p-5 mb-4 bg-light rounded-3">
         <div className="container-fluid">
           <h3 className="header-info">Customer Information</h3>

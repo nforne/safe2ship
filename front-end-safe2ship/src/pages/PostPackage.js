@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import "../components/package.css";
-import ShipperHome from "./ShipperHome";
-import CustomerHome from "./CustomerHome";
 
 
 
