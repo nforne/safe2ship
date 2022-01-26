@@ -5,7 +5,7 @@ export default function Profile(props) {
   return (
     <div className="card">
       <div className="card-body">
-      <button type="button" className="btn btn-primary btn-lg" onClick={() => props.vSwitch('pkg')}><i className="bi-lg bi-reply-all"></i></button>
+      
         <div className="row g-2 align-items-center">
           <div className="col-md-3">
             <img className="img-thumbnail profile-img" src="https://image.shutterstock.com/image-vector/male-silhouette-avatar-profile-picture-260nw-199246382.jpg" alt="profile-picture"/>
@@ -26,6 +26,12 @@ export default function Profile(props) {
             <p>Bio:{ props.bio}</p>
           </div>
         </div>
+      </div>
+
+      <div>
+<hr/>
+      <i id='diffsquare' className="bi bi-square"></i>
+      <button type="button" className="btn btn-primary btn-lg" onClick={() => props.vSwitch('pkg')}><i className="bi-lg bi-reply-all"></i></button>
       </div>
     </div>
   );

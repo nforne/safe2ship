@@ -80,7 +80,7 @@ module.exports = (db) => {
 
     const getPackagesById = (id) => {
         const query = {
-            text: 'SELECT * FROM packages WHERE id = $1 AND status != $2;',
+            text: 'SELECT * FROM packages WHERE customer_id = $1 AND status != $2;',
             values: [id, 'deleted']
         };
 

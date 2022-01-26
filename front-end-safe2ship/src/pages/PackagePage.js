@@ -11,13 +11,13 @@ export default function PackagePage(props) {
       <div className="p-5 mb-4 bg-light rounded-3">
         <div className="container-fluid">
           <h3 className="header-info">Customer Information</h3>
-            <Profile />
+            <Profile {...props}/>
             <hr />
             <hr />
 
           <h3 className="header-info">Package Information</h3>
 
-            <Package />
+            <Package {...props}/>
         </div>
       </div>
     </div>

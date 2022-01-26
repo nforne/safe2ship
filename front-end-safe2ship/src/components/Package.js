@@ -1,53 +1,3 @@
-<<<<<<< HEAD
-import React from "react";
-import "./package.css";
-
-export default function Package(props) {
-  return (
-    <div class="card">
-      <div class="card-header d-flex justify-content-between">
-        <div>Package #</div>
-        <div>Current Status:&nbsp;&nbsp;<span class="badge bg-success">Ready</span></div>
-      </div>
-      <div class="card-body">
-        <div class="row justify-content-between align-items-center">
-          <div class="col">
-            <div class="text-center">
-              <p>
-                <i class="bi bi-box box-size-small"></i>
-                <br></br>
-                <strong>Small</strong>
-              </p>
-              <hr></hr>
-              <p class="price">$12.89</p>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <p><strong>Source:</strong>&nbsp;&nbsp;123 Huntington Street, Toronto, ON</p>
-            <p><strong>Destination:</strong>&nbsp;&nbsp;111 Markham Street, Markham, ON</p>
-            <div class="card border-primary mb-3">
-              <div class="card-body">
-                <h5 class="card-title">Package Details:</h5>
-                <p>Size:</p>
-                <p>Weight:</p>
-                <p>Customer Details:</p>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div>
-              <h6>Estimated Delivery Time:</h6>
-              <p>By End of Today</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="card-footer d-flex justify-content-end">
-        <button type="button" class="btn btn-primary btn-lg">Deliver This Package</button>
-      </div>
-    </div>
-  ); 
-=======
 import React, {useState} from "react";
 import Profile from "./Profile";
 import axios from "axios";
@@ -72,37 +22,37 @@ export default function Package(props) {
           .catch(err => console.log(err)) //-------------------------------
   } 
   
+
+  console.log('these props ===>',props.user[0].status) // ---------------------------------
+
   return (
-    <div class="card">
+    <div className="card">
     {view.v === "profile" &&<Profile  {...view.profile} vSwitch={vSwitch} />}
       {view.v === "pkg" && 
       <div>
-        <div className="text-center">
-              <button type="button" onClick={() => props.hv_handler(props.user[0].status === 'shipper' ? 'shipperHome': 'customerHome')} className="btn btn-lg btn-primary"><i className="bi-lg bi-reply-all"></i></button>
-      </div>
-      <div class="card-header d-flex justify-content-between">
+      <div className="card-header d-flex justify-content-between">
         <div>Package #: {props.id}</div>
-        <div>Current Status:&nbsp;&nbsp;<span class="badge bg-success">{props.status}</span></div>
+        <div>Current Status:&nbsp;&nbsp;<span className="badge bg-success">{props.status}</span></div>
       </div>
-      <div class="card-body">
-        <div class="row justify-content-between align-items-center">
-          <div class="col">
-            <div class="text-center">
+      <div className="card-body">
+        <div className="row justify-content-between align-items-center">
+          <div className="col">
+            <div className="text-center">
               <p>
-                <i class="bi bi-box box-size-small"></i>
+                <i className="bi bi-box box-size-small"></i>
                 <br></br>
                 <strong>{props.size}</strong>
               </p>
               <hr></hr>
-              <p class="price">${props.price/100}</p>
+              <p className="price">${props.price/100}</p>
             </div>
           </div>
-          <div class="col-md-6">
+          <div className="col-md-6">
             <p><strong>Source:</strong>&nbsp;&nbsp;{props.source}</p>
             <p><strong>Destination:</strong>&nbsp;&nbsp;{props.destination}</p>
-            <div class="card border-primary mb-3">
-              <div class="card-body">
-                <h5 class="card-title">Package Details:</h5>
+            <div className="card border-primary mb-3">
+              <div className="card-body">
+                <h5 className="card-title">Package Details:</h5>
                 <p>Size:{props.size}</p>
                 <p>Weight:{props.size}</p>
                 <p>Customer Details:</p>
@@ -114,7 +64,7 @@ export default function Package(props) {
 
             </div>
           </div>
-          <div class="col">
+          <div className="col">
             <div>
               <h6>Estimated Delivery Deadline:</h6>
               <p>{props.delivery_deadline}</p>
@@ -123,14 +73,17 @@ export default function Package(props) {
         </div>
       </div>
    
-      <div class="card-footer d-flex justify-content-end">
-        <button type="button" className="btn btn-primary btn-lg" onClick={() => 'add package to order cart'}>Deliver This Package</button>
+      <div className="card-footer d-flex justify-content-end">
+      <div className="text-center">
+              <button type="button" onClick={() => props.pkgvswitch('all')} className="btn btn-lg btn-primary"><i className="bi-lg bi-reply-all"></i></button>
+      </div>
+      <i id='diffsquare' className="bi bi-square"></i>
+        {props.user[0].status === 'shipper' && <button type="button" className="btn btn-primary btn-lg" onClick={() => 'add package to order cart'}> Request to Deliver This Package</button>}
         <i id='diffsquare' className="bi bi-square"></i>
-        <button type="button" className="btn btn-primary btn-lg" onClick={(e) => profileviewHandler(props.customer_id)} >View Custermer Profile</button>
+        <button type="button" className="btn btn-primary btn-lg" onClick={(e) => profileviewHandler(props.customer_id)} >View Custermer(owner) Profile</button>
       </div>
       </div>
       }
     </div>
   ); 
->>>>>>> 1c8e9f60788f23399abc587eb30087853f4171b5
 }

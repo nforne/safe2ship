@@ -50,9 +50,13 @@ export default function SignIn(props) {
           props.setUser(prev => ({...prev,  ...user.data }))
           user.data.user.status === 'shipper' ? props.hv_handler('shipperHome') : props.hv_handler('customerHome');
         })
-        .catch((error) => props.errorHandler('Oop! Something went wrong. Please Consider trying again shortly!'))
+        .catch((error) => {
+          props.hv_handler('home');
+          props.errorHandler('Oop! Something went wrong. Please Consider trying again shortly!');
+        })
 
     } else {
+      props.hv_handler('home');
       props.errorHandler(`Oops! Something is missing or missentered: ${signputFormValidation(info)}. Please verify and make sure of the right information and resubmit. Thank you!`)
     }
 

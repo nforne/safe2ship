@@ -29,8 +29,7 @@ const App = () => {
   }
 
   const errorHandler = (errorMessage) => {
-
-    setError(() => [<p key={'1'}>`${errorMessage}`</p>])
+    setError(() => ([<p key={'1'}>{errorMessage}</p>]))
     setTimeout(() => {
       setError(() => [<p key={'2'}></p>]);
     }, 120000)
