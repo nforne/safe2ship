@@ -11,7 +11,8 @@ module.exports = ({
     getSystem_ids,
     getPackagesInqueue,
     postUser,
-    getUserBySystem_id
+    getUserBySystem_id,
+    getUserById
 }) => {
    
 // ----------------------------## Routes userGET----------------------------------
@@ -138,8 +139,9 @@ module.exports = ({
 
 // ----------------------------## Routes getOtherUser-----------------------------
     router.post('/users/other', (req, res) => {
-        getUserBySystem_id(req.body)
+        getUserById(req.body.id)
             .then(otherUser => {
+                console.log(otherUser) //----------------------------
                 const { 
                     name,
                     phone,
@@ -153,9 +155,10 @@ module.exports = ({
                     status,
                     system_id,
                     web_link,
-                    work_schedule 
-                } = otherUser.rows[0];
-                if (status !== 'deleted') {  
+                    work_schedule,
+                    time_created 
+                } = otherUser[0];
+                if (otherUser[0].status !== 'deleted') {  
                     res.json({ 
                         name,
                         phone,
@@ -169,10 +172,11 @@ module.exports = ({
                         status,
                         system_id,
                         web_link,
-                        work_schedule 
+                        work_schedule,
+                        time_created 
                     })
                 } else {
-                    res.json({msg: 'Oops! Sorry, the requested user deleted the profile!'}) 
+                    res.json({msg: 'Oops! Sorry, the requested user does not exist!'}) 
                 }
             })
             .catch(err => {

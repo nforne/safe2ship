@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import "../components/package.css";
+import ShipperHome from "./ShipperHome";
+import CustomerHome from "./CustomerHome";
 
 
 
@@ -65,8 +67,8 @@ export default function PostPackage(props) {
       axios.post('/api/pkgs/create', {...input})
         .then(pkginfo => {
           console.log('this feedb ===>', pkginfo.data) //--------------------------------------
-          updateUserState(input);
-          props.hv_handler("customerHome")
+          updateUserState(pkginfo.data[0]);
+  
           if (props.user.status === 'customer')  props.hv_handler("customerHome");
           if (props.user.status === 'shipper') props.hv_handler("shipperHome");
         })
@@ -79,9 +81,17 @@ export default function PostPackage(props) {
 
   return (
     <div className="container  my-5 py-4">
+
+
+      
+      <div className="text-center">
+              <button type="button" onClick={() => props.hv_handler(props.user[0].status === 'shipper' ? 'shipperHome': 'customerHome')} className="btn btn-lg btn-primary"><i className="bi-lg bi-reply-all"></i></button>
+      </div>
+
       <h2 className="text-center">Post New Package</h2>
       <form>
       <div className="row justify-content-center">
+        
         <div className="col-sm-12 col-md-4 mb-3">
           <label htmlFor="source" className="form-label">Source</label>
           <input type="text" className="form-control" id="source" onChange={(e) => pkginfo_handler('source', e.target.value)} placeholder="123 Main Street, Toronto ON"></input>
@@ -144,7 +154,9 @@ export default function PostPackage(props) {
           <button className="btn btn-lg btn-primary" type="submit" onClick={(e) => npkgsubmitHandler(npkg, e)} >Get it Delivered</button>
         </div>
       </div>
+        
       </form>
+      
     </div>
   );
 }
