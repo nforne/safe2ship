@@ -29,10 +29,10 @@ export default function ShipperHome(props) {
   props.udata.packages.forEach(pkg => {
     key += 1;
     if (pkg.status === 'ready') packages.push(
-    <div className="row justify-content-center m-5">
-        <hr/>
-        {vitem.v === 'zoomout' && <PackageListItem key={key} {...pkg} pkglItemClickHandler={pkglItemClickHandler}/>}
-        {vitem.v === 'zoomin' && <PackagePage key={key} {...pkg} pkglItemClickHandler={pkglItemClickHandler} {...props}/>}
+    <div key={key} className="justify-content-center">
+        <hr/> 
+        {vitem.v === 'zoomout' && <PackageListItem key={key} {...pkg} pkglItemClickHandler={pkglItemClickHandler} {...props}/>}
+        {vitem.v === 'zoomin' && <PackagePage {...pkg} {...vitem} {...vpkg.pkg}  pkgvswitch={pkgvswitch} {...props}/>}
         <button type="button" onClick={() => zoom()} className="btn btn-lg btn-primary">ZOOM +/-</button>
         <hr/>
     </div>
