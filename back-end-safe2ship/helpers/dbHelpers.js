@@ -48,6 +48,35 @@ module.exports = (db) => {
             })
             .catch((err) => err);
     }
+  //-------------------------------------------------------------------  
+    const getUserById = (id) => {
+
+        const qVars = (table) => {
+            return   {
+                   text: `SELECT * FROM ${table} WHERE id = $1;` ,
+                   values: [id]
+               }
+           }
+           return db.query(qVars('shippers'))
+               .then(result1 => {
+                   if (result1.rows.length !== 0) {
+                       return result1.rows;
+                   } else {
+                       return db.query(qVars('customers'))
+                       .then(result2 => {
+                               if (result2.rows.length !== 0) {
+                                   return result2.rows;
+                               } else {
+                                   return [];                                
+                               };
+                           })
+                       .catch((err) => err);
+                   }
+               })
+               .catch((err) => err);
+    }
+
+ //------------------------------------------------------------------- 
 
     const getPackagesById = (id) => {
         const query = {
@@ -771,6 +800,7 @@ module.exports = (db) => {
   return {
     getUserByEmail,
     getUserBySystem_id,
+    getUserById,
     getPackagesById,
     getPackagesInqueue,
     getOrdersById,

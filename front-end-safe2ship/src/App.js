@@ -11,6 +11,7 @@ import Package from "./pages/PackagePage";
 import ShipperHome from "./pages/ShipperHome";
 import CustomerHome from "./pages/CustomerHome";
 import PostPackage from "./pages/PostPackage";
+import Profile from "./components/Profile";
 import './App.css';
 
 
@@ -21,6 +22,7 @@ const App = () => {
   const [hview, setHview] = useState({v: 'home', hvtracker: []})
   const [user, setUser] = useState({...user_init})
   const [error, setError] = useState('')
+  const [pkg, setPkg] = useState({});
 
   const hv_handler = (view) => {
     setHview(prev => ({...prev, v: view }))
@@ -40,7 +42,9 @@ const App = () => {
     setUser: setUser,
     user_init: {...user_init},
     errorHandler: errorHandler,
-    udata:{...user}
+    udata:{...user},
+    pkg,
+    setPkg
   }
 
   return (
@@ -58,6 +62,7 @@ const App = () => {
       <section className='main'>
         {hview.v === 'pending' &&  <Pending/>}
         {hview.v === "home" &&<Home  {...props} />}
+        {hview.v === "profile" &&<Profile  {...props} />}
 
         {hview.v === "signIn" && <SignIn {...props}/>}
         {hview.v === "signUp" && <SignUp {...props}/>}

@@ -2,8 +2,10 @@ import React from "react";
 import "./package.css";
 
 export default function PackageListItem(props) {
+
   return (
-    <div className="row my-5">
+    <div className="row my-5" >
+     
       <div className="col-8 mx-auto">
         <div className="card package-list-item">
           <div className="card-body">
@@ -25,13 +27,14 @@ export default function PackageListItem(props) {
               </div>
               <div className="col-md-2 d-flex justify-content-center">
                 <div>
-                  <i className="bi bi-chevron-right"></i>
+                  <i className="bi bi-chevron-right" onClick={() => props.pkglItemClickHandler ? props.pkglItemClickHandler(props, 'pkg') : ''}></i>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
     </div>
   );
 }
