@@ -8,7 +8,7 @@ export default function Profile(props) {
       
         <div className="row g-2 align-items-center">
           <div className="col-md-3">
-            <img className="img-thumbnail profile-img" src="https://image.shutterstock.com/image-vector/male-silhouette-avatar-profile-picture-260nw-199246382.jpg" alt="profile-picture"/>
+            <img className="img-thumbnail profile-img" src={props.photo} alt="profile-picture"/>
           </div>
           <div className="col-md-9">
             <h5 className="card-title">Name: {props.name}</h5>
