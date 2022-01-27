@@ -22,7 +22,7 @@ export default function CustomerHome(props) {
   let key = props.pkgsview.length + 1;
   const packages = props.pkgsview.map(pkg => {
     key += 1;
-    return <PackageListItem key={key} {...pkg} pkglItemClickHandler={pkglItemClickHandler}/>
+    return <PackageListItem key={key} {...pkg} listpkg={pkg} pkglItemClickHandler={pkglItemClickHandler}/>
   });
 
 // onClick={(pkg) => pkglItemClickHandler(props, 'pkg')}
@@ -40,7 +40,7 @@ export default function CustomerHome(props) {
 
   return (
       <div className="m-5">
-        {vpkg.v === 'pkg' && <Package pkg={vpkg.pkg} {...vpkg.pkg}  pkgvswitch={pkgvswitch} {...props}/>}
+        {vpkg.v === 'pkg' && <Package listpkg={vpkg.pkg} pkg={vpkg.pkg} {...vpkg.pkg}  pkgvswitch={pkgvswitch} {...props}/>}
         
         {vpkg.v === 'all' && 
           <div>

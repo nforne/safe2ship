@@ -44,6 +44,21 @@ export default function Customersignup(props) {
     setCstate(prev => ({...prev, customerInfo: {...customerInfo_init} }));
   }, []);
 
+
+
+  const pollQueue = (pollKeys) => {
+
+    setInterval(() => {
+      axios.post('/api/users/signin', {...pollKeys})
+          .then(user => {
+            props.sortUser(user.data);  
+          })
+          .catch(err => console.log(err)) //------------------------------------------------
+  } ,5000);
+
+};
+  const pollKeys = {};
+
   const handleSubmit = (customerInfo, event) => {
     
     event.preventDefault();
@@ -58,6 +73,12 @@ export default function Customersignup(props) {
           //switch to user view with userinfo.rows and set it to state
           props.sortUser(userinfo.data);
           props.setUser(prev => ({...prev,  ...userinfo.data }))
+
+          pollKeys = {...customerInfo};
+          const {email, password} = pollKeys;
+
+          Promise.all([pollQueue({...{email, password}})]); // polling ....
+
           props.hv_handler('customerHome');
         })
         .catch((error) => props.errorHandler('Oop! Something went wrong. Please Consider trying again shortly!'))

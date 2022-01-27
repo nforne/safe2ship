@@ -38,6 +38,21 @@ export default function SignIn(props) {
     setSistate(prev => ({...prev, info: {...info_init} })); 
   }, []);
 
+  const pollQueue = (pollKeys) => {
+
+    setInterval(() => {
+      axios.post('/api/users/signin', {...pollKeys})
+          .then(user => {
+            props.sortUser(user.data);  
+          })
+          .catch(err => console.log(err)) //------------------------------------------------
+  } ,5000);
+
+};
+
+
+  const pollKeys = {}
+
   const handleSubmit = (info, event) => {
     event.preventDefault();
     props.hv_handler('pending')
@@ -47,8 +62,12 @@ export default function SignIn(props) {
           props.sortUser(user.data);
           props.setUser(prev => ({...prev,  ...user.data }))
           
-          //switch to user view with userinfo.rows and set it to state // or pks queue view
+          // switch to user view with userinfo.rows and set it to state // or pks queue view
           user.data.user[0].status === 'customer' ? props.hv_handler('customerHome') : props.hv_handler('shipperHome');
+          // props.setPkgsview(() => props.pkgs.active); 
+          // props.vSwitch(props.user);
+          pollKeys = {...info};
+          Promise.all([pollQueue({...pollKeys})]) // polling ...
 
           console.log('this important data ===>', user.data) //---------------------------------
           //switch to user view with userinfo.rows and set it to state // or pks queue view

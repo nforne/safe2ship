@@ -9,6 +9,7 @@ import Pkgmessage from "./pkgmessage";
 export default function Package(props) {
  
   const [view, setView] = useState({v: 'pkg', profile:{}, vtracker:[]})
+  
 
   const [msgview, setMsgview] = useState({v: 'off', msgs: []})
 
@@ -36,12 +37,12 @@ export default function Package(props) {
 
   const pollQueue = (list, polltimer = polltimer) => {
     axios.post('/api/pkgs/poll', {list: packagesInOrdreCart })
-         .the(res => {   // reply.data === {id:** , messages:[{}]}
+         .the(res => {   // res.data === {id:** , messages:[{}]}
      
             if (props.listpkg.messages.length < res.data.messages.length) {
               let targetPkg = {...props.listpkg};
               targetPkg['messages'] = res.data.messages;
-              props.updatePkgAndOders(props.setOrdercart, targetPkg, 'active');
+              props.updatePkgAndOders(props.setOrdercart, targetPkg, 'active');  // update array actually
               props.updatePkgAndOders(props.setPkgs, targetPkg, 'active');
               clearInterval(polltimer);  
             }
@@ -53,7 +54,11 @@ export default function Package(props) {
   const addToOrderCartHandler = (props) => {  // send msg to pkg owner
     // console.log(props.ordercart.active) //------------------------------------------
 
-    axios.post('/api/pkgs/message', {pkgId:props.listpkg.id, customer_id: props.listpkg.customer_id, shipper_id:props.user[0].id, message: `Hello!, Please, I would like to move your package... #${props.listpkg.id}`})
+    axios.post('/api/pkgs/message', {
+      pkgId:props.listpkg.id, 
+      customer_id: props.listpkg.customer_id, 
+      shipper_id:props.user[0].id, 
+      message: `Hello!, Please, I would like to move your package... #${props.listpkg.id}`})
           .then(message => {
             console.log(message.data) // ------------------------
             packagesInOrdreCart.push(props.listpkg.id);
@@ -86,13 +91,19 @@ export default function Package(props) {
     }
   }
 //-----------------pkg msgs------------------------------------------------
-console.log("these props ===>", props) //----------------------------------------------------------
-const messages = [];
-// let key = props.id
-// props.messages.map(msg => {
-//     key += 1;
-//     if (msg.shipper_id === props.user[0].id) return <Pkgmessage key={key} message={msg}/>;
-// })
+console.log("these listpkg ===>", props.messages) //----------------------------------------------------------
+const messages = []
+// const msgsInput = props.listpkg.messages ? [...props.listpkg.messages] : [];
+let key = props.id
+if (Array.isArray(props.messages)) {
+  props.messages.forEach(msg => {
+      key += 1;
+      console.log('this json message ===> ', msg) // -------------------------------------------------
+      const djsMsg = JSON.parse(msg);
+      if (djsMsg.shipper_id === props.user[0].id) messages.push( <Pkgmessage key={key} message={msg}/>);
+  })
+
+}
 
   return (
     <div className="card">
@@ -121,9 +132,11 @@ const messages = [];
             <p><strong>Destination:</strong>&nbsp;&nbsp;{props.destination}</p>
             <div className="card border-primary mb-3">
               <div className="card-body">
-                <h5 className="card-title">Package Details:</h5>
+                <h5 className="card-title">Package Details</h5>
                 <p>Size:{props.size}</p>
                 <p>Weight:{props.size}</p>
+                <p>Package Description: {props.description}</p>
+                <hr />
                 <p>Customer Details:</p>
                 
               </div>
@@ -149,9 +162,9 @@ const messages = [];
       </div>
       }
       <i id='diffsquare' className="bi bi-square"></i>
-{props.user[0].status === 'shipper' && !inOrdercartCheck() && props.id !== props.user[0].id && <button type="button" className="btn btn-primary btn-lg" onClick={(e) =>   addToOrderCartHandler(props)}> Request to Deliver This Package</button>}
+{(props.user[0].status === 'shipper' && !inOrdercartCheck() && props.customer_id !== props.user[0].id )&& <button type="button" className="btn btn-primary btn-lg" onClick={(e) =>   addToOrderCartHandler(props)}> Request to Deliver This Package</button>}
         <i id='diffsquare' className="bi bi-square"></i>
-{props.user[0].status === 'shipper' && inOrdercartCheck() && <button type="button" className="btn btn-primary btn-lg" onClick={(e) =>   addToOrderCartHandler(props)}> Remove From Order Cart</button>}
+{(props.user[0].status === 'shipper' && inOrdercartCheck() )&& <button type="button" className="btn btn-primary btn-lg" onClick={(e) =>   addToOrderCartHandler(props)}> Remove From Order Cart</button>}
         <i id='diffsquare' className="bi bi-square"></i>
 
         { !props.zoom  &&
@@ -177,7 +190,7 @@ const messages = [];
     <hr />
       { msgview.v === 'on' && 
         <div>
-          <h5 class="card-title">pkg Messages</h5>
+          <h5 className="card-title">pkg Messages</h5>
           <hr />
           {messages}
         </div>

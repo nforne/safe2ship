@@ -548,6 +548,59 @@ module.exports = (db) => {
                 .then(pkg => pkg.rows)
                 .catch(err => err);
     };
+    
+    // -----------pkg poll get pkg msg--------------- 
+
+    const getPackageMsgs = (input) => {
+        // input is req.body
+        const package = {  // res.data === {id:** , messages:[{}]} send only if there is a reply messages.length? 
+            text: `SELECT * FROM packages WHERE id = $1 RETURNING *;` ,
+            values: [input.list[0]]
+        }
+        return db.query(package)
+                .then(pkg => {
+                 const {id, messages} =  pkg.rows[0]
+                 return {id, messages}
+                })
+                .catch(err => err);
+    };
+    
+    
+    // -----------pkg post pkg msg--------------- 
+
+    const postPackageMsgs = (input) => {
+        // input is req.body
+        // {pkgId:props.listpkg.id, customer_id: props.listpkg.customer_id, shipper_id:props.user[0].id, message: `Hello!, Please, I would like to move your package... #${props.listpkg.id}`}
+
+        const msg = [JSON.stringify(input)];
+
+        const package = {   
+            text: `UPDATE packages SET messages = $1s,  WHERE id = $2 RETURNING *;` ,
+            values: [msg, input.pkgId]
+        }
+
+        const getPackage = {
+            text: `SELECT * FROM packages WHERE id = $1 RETURNING *;` ,
+            values: [input.pkgId]
+        }
+
+        return db.query(getPackage)
+                 .then(res1 => {
+                     console.log(res1.rows[0].messages) //------------------------------------------------
+                     if (!res1.rows[0].messages) {
+                        return db.query(package)
+                                .then(res2 => res2.rows)
+                                .catch(err => console.log(err));  //-----------------------------------  ---
+                     } else {
+                         const msgs = [...res1.rows[0].messages];
+                         msgs.push(msg); 
+                         return db.query(package)
+                                .then(res3 => res3.rows)
+                                .catch(err => console.log(err));  //-----------------------------------  ---
+                     }
+                 })
+                .catch(err => console.log(err)); //-------------------------------------------------------
+    };
 
     
 // --------------'/api/orders'---------------------
@@ -818,7 +871,10 @@ module.exports = (db) => {
     postMessage,
     editMessage,
     deleteMessage,
-    getUsers
+    getUsers,
+
+    getPackageMsgs,
+    postPackageMsgs
     };
 };
 

@@ -46,7 +46,7 @@ export default function ShipperHome(props) {
     if (pkg.status === 'ready') packages.push(
     <div key={key} className="justify-content-center">
         <hr/> 
-        {vitem.v === 'zoomout' && <PackageListItem key={key} {...pkg} pkglItemClickHandler={pkglItemClickHandler} {...props}/>}
+        {vitem.v === 'zoomout' && <PackageListItem key={key} {...pkg} listpkg={pkg} pkglItemClickHandler={pkglItemClickHandler} {...props}/>}
         {vitem.v === 'zoomin' && <PackagePage zoom={zoom} listpkg={pkg} {...pkg} {...vitem}  pkgvswitch={pkgvswitch} {...props}/>}
         <button type="button" onClick={() => zoom()} className="btn btn-lg btn-primary">ZOOM +/-</button>
         <hr/>

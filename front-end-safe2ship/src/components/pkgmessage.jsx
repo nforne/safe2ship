@@ -1,9 +1,22 @@
 import React from "react";
 import axios from "axios";
 
+/*
+{
+  pkgId:props.listpkg.id, 
+  customer_id: props.listpkg.customer_id, 
+  shipper_id:props.user[0].id, 
+  message: `Hello!, Please, I would like to move your package... #${props.listpkg.id}`}
+
+*/
+
 export default function Pkgmessage(props) {  // delete from queue to be added
    const pkgConfirmHandler = () => {
-      axios.post('/api/pkgs/message', {...props, status:'confirmed'})
+      axios.post('/api/pkgs/message', {
+        pkgId:props.listpkg.id, 
+        customer_id: props.listpkg.customer_id, 
+        shipper_id:props.user[0].id, 
+        message: `Hi!, Sure, I'll be happy ot have you move. ...! #${props.listpkg.id}`})
            .then(fb => console.log(fb))
            .catch(error => console.log(error))
    } 
