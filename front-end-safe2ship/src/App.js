@@ -36,7 +36,7 @@ const App = () => {
   const updatePkgAndOders = (cb, obj, status) => {
     cb(prev => {
       const updating = {...prev};
-      const update = updating[status];
+      const update = [...updating[status]];
       update.push(obj);
       updating[status] = update;
       return updating;
@@ -47,32 +47,39 @@ const App = () => {
     const packages = user.packages;
     const orders = user.orders;
 
-if (pkgs.length !== 0) {
-  packages.forEach(pkg => {
-      if (pkg.status === 'delivered') {
-        updatePkgAndOders(setPkgs, pkg, 'delivered');
-      } else if (pkg.status === 'ready'|| pkg.status === "inqueue" ) {
-        updatePkgAndOders(setPkgs, pkg, 'active');
-      } else if (pkg.status === 'declined') {
-        updatePkgAndOders(setPkgs, pkg, 'declined');
-      }
-    })
-  }
+    console.log('incoming ===>',packages) //-----------------------------
 
-  if (orders.length !== 0) {
-    orders.forEach(pkg => {
-      if (pkg.status === 'delivered') {
-        updatePkgAndOders(setOrdercart, pkg, 'delivered');
-      } else if (pkg.status === 'ready') {
-        updatePkgAndOders(setOrdercart, pkg, 'active');
-      } else if (pkg.status === 'declined') {
-        updatePkgAndOders(setOrdercart, pkg, 'declined');
-      }
-    })
-  }
+    if (packages.length !== 0) {
+      packages.forEach(pkgItem => {
+          if (pkgItem.status === 'delivered') {
+            updatePkgAndOders(setPkgs, pkgItem, 'delivered');
+          } else if (pkgItem.status === 'ready'|| pkgItem.status === "inqueue" ) {
+            updatePkgAndOders(setPkgs, pkgItem, 'active');
+          } else if (pkgItem.status === 'declined') {
+            updatePkgAndOders(setPkgs, pkgItem, 'declined');
+          }
+        })
+    }
 
-    setPkgsview(() => pkgs.active)
-    setOrdersview(() => ordercart.active) 
+    if (orders.length !== 0) {
+      orders.forEach(pkgItem => {
+        if (pkg.status === 'delivered') {
+          updatePkgAndOders(setOrdercart, pkgItem, 'delivered');
+        } else if (pkgItem.status === 'ready') {
+          updatePkgAndOders(setOrdercart, pkgItem, 'active');
+        } else if (pkgItem.status === 'declined') {
+          updatePkgAndOders(setOrdercart, pkgItem, 'declined');
+        }
+      })
+    }
+
+    setPkgsview(prev => pkgs.active)
+    console.log('these active pkgs 1 ===>', pkgs.active.length) //----------------------------------------
+    console.log('these active pkgs 2 ===>', pkgsview.length) //----------------------------------------
+
+    setOrdersview(prev => ordercart.active);    
+    console.log('these active orders 3 ===>', ordercart.active.length) //----------------------------------------
+    console.log('these active orders 4 ===>', ordersview.length) //----------------------------------------
   }
 
 

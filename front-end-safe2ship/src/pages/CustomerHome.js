@@ -40,7 +40,7 @@ export default function CustomerHome(props) {
 
   return (
       <div className="m-5">
-        {vpkg.v === 'pkg' && <Package  {...vpkg.pkg}  pkgvswitch={pkgvswitch} {...props}/>}
+        {vpkg.v === 'pkg' && <Package pkg={vpkg.pkg} {...vpkg.pkg}  pkgvswitch={pkgvswitch} {...props}/>}
         
         {vpkg.v === 'all' && 
           <div>

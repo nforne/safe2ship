@@ -27,9 +27,9 @@ export default function Menu(props) {
         <li><hr className="dropdown-divider"/></li>
         <li><button className={classNames("dropdown-item danger", {"disabled": o, })} type="button" onClick={(e) => props.logoutHandler(props)} > <i className="bi bi-eject"></i>logout</button></li>
         <li><hr className="dropdown-divider"/></li>
-        <li><button className={classNames("dropdown-item", {"disabled": c || o, })} type="button" onClick={(e) => {props.setPkgsview(() => props.ordercart.active); vSwitch(props.user)}}> <i className="bi bi-chevron-left"></i> order Cart</button></li>
+        <li><button className={classNames("dropdown-item", {"disabled": c || o, })} type="button" onClick={(e) => {props.setPkgsview(() => props.ordercart.active); console.log(props.ordercart.active.length); vSwitch(props.user)}}> <i className="bi bi-chevron-left"></i> order Cart</button></li>
+        <li><button className={classNames("dropdown-item", {"disabled": c || o })} type="button" onClick={(e) => {props.setPkgsview(() => [...props.ordercart.declined, ...props.ordercart.delivered]); vSwitch(props.user)}}> <i className="bi bi-chevron-left"></i> order History</button></li>
         <li><button className={classNames("dropdown-item", {"disabled": o, })} type="button" onClick={(e) => {props.setPkgsview(() => props.pkgs.active); vSwitch(props.user)}}> <i className="bi bi-chevron-left"></i> packages</button></li>
-        <li><button className={classNames("dropdown-item", {"disabled": c || o })} type="button" onClick={(e) => vSwitch(props.user)}> <i className="bi bi-chevron-left"></i> order History</button></li>
         <li><button className={classNames("dropdown-item", {"disabled": o })} type="button" onClick={(e) => {props.setPkgsview(() => [...props.pkgs.declined, ...props.pkgs.delivered]); vSwitch(props.user)}}> <i className="bi bi-chevron-left"></i> package History</button></li>
         <li><button className={classNames("dropdown-item", {"disabled": o })} type="button" > <i className="bi bi-chevron-left"></i> messages</button></li>
         <li><button className={classNames("dropdown-item", {"disabled": o })} type="button" onClick={(e) => props.hv_handler('profile')} > <i className="bi bi-chevron-left"></i> my Profile</button></li>

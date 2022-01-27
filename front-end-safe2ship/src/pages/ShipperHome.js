@@ -12,6 +12,8 @@ export default function ShipperHome(props) {
   const pkgvswitch = (view) => {
     setVpkg(prev => ({...prev, v: view}))
   }
+
+ const [currentv, setCurrentv] = useState({v:'mine'})
   
 
   const pkglItemClickHandler = (itemInfo, view) => {
@@ -25,38 +27,49 @@ export default function ShipperHome(props) {
     if (vitem.v === 'zoomin') setVitem(prev => ({...prev, v: 'zoomout'}))
   }
 
+  // props.pkgsview
+  const myPkgs = () => {
+    const mpkgs = [];
+    for (let pkg of props.pkgs.active) {
+      if (pkg.customer_id === props.user[0].id) mpkgs.push(pkg); 
+    }
+    return mpkgs;
+  }
+
+  const Vpkgs = currentv.v === 'mine' ? myPkgs()  : props.pkgsview; //******* */
+
   const packages = [];
   let key = props.udata.packages.length;
-  props.pkgsview.forEach(pkg => {
+  console.log('these vpkgs ===>', props.pkgsview) //-------------------------------------------
+  Vpkgs.forEach(pkg => {
     key += 1;
     if (pkg.status === 'ready') packages.push(
     <div key={key} className="justify-content-center">
         <hr/> 
         {vitem.v === 'zoomout' && <PackageListItem key={key} {...pkg} pkglItemClickHandler={pkglItemClickHandler} {...props}/>}
-        {vitem.v === 'zoomin' && <PackagePage zoom={zoom} {...pkg} {...vitem} {...vpkg.pkg}  pkgvswitch={pkgvswitch} {...props}/>}
+        {vitem.v === 'zoomin' && <PackagePage zoom={zoom} listpkg={pkg} {...pkg} {...vitem}  pkgvswitch={pkgvswitch} {...props}/>}
         <button type="button" onClick={() => zoom()} className="btn btn-lg btn-primary">ZOOM +/-</button>
         <hr/>
     </div>
     );
   });
-
-  // const packageList =  []; 
-  // for (let index = 0; index < 5; index++) {
-  //   packageList.push(<PackageListItem udata={props.udata}/>);
-  // }
   
   return (
     <div>
-    {vpkg.v === 'pkg' && <Package  {...vpkg.pkg}  pkgvswitch={pkgvswitch} {...props}/>}
+    {vpkg.v === 'pkg' && <Package listpkg={vpkg.pkg} {...vpkg.pkg}  pkgvswitch={pkgvswitch} {...props}/>}
         
     {vpkg.v === 'all' && 
     <div className="m-5">
     <div className="row justify-content-center">
-    <div className="col-sm-12 col-md-6">
-              <button type="button" onClick={() => props.hv_handler("postPackage")} className="btn btn-lg btn-primary">+ Post New Package</button>
-          </div>
+    <div className="buttonz col-sm-12 col-md-6">
+        <button type="button" onClick={() => setCurrentv(prev => ({...prev, v:'mine'}))} className="btn btn-lg btn-primary">My own Packages</button>
+        <i id='diffsquare' className="bi bi-square"></i>
+        <button type="button" onClick={() => setCurrentv(prev => ({...prev, v:'all'}))} className="btn btn-lg btn-primary">Packages available for pickup</button>
+        <i id='diffsquare' className="bi bi-square"></i>
+        <button type="button" onClick={() => props.hv_handler("postPackage")} className="btn btn-lg btn-primary">+ Post New Package</button>
+        <hr/>
+        </div>
       <div className="col-12">
-        <h2>Packages available for pickup</h2>
       </div>
     </div>
       { packages }
