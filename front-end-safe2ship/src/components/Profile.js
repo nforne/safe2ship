@@ -23,7 +23,7 @@ export default function Profile(props) {
               </h6>
             </div>
             <p><strong>Member Since:</strong> {props.time_created}</p>
-            <p>Bio:{ props.bio}</p>
+            <p><strong>Bio:&nbsp;</strong>{props.bio}</p>
           </div>
         </div>
       </div>
