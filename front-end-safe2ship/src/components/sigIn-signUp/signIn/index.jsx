@@ -64,9 +64,6 @@ export default function SignIn(props) {
           
           // switch to user view with userinfo.rows and set it to state // or pks queue view
           user.data.user[0].status === 'customer' ? props.hv_handler('customerHome') : props.hv_handler('shipperHome');
-          // props.setPkgsview(() => props.pkgs.active); 
-          // props.vSwitch(props.user);
-          pollKeys = {...info};
           Promise.all([pollQueue({...pollKeys})]) // polling ...
 
           console.log('this important data ===>', user.data) //---------------------------------
