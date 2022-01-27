@@ -35,7 +35,7 @@ export default function Package(props) {
       {view.v === "pkg" && 
       <div>
       <div className="card-header d-flex justify-content-between">
-        <div>Package #: {props.id}</div>
+        <div>Package #:&nbsp;{props.id}</div>
         <div>Current Status:&nbsp;&nbsp;<span className="badge bg-success">{props.status}</span></div>
       </div>
       <div className="card-body">
@@ -57,9 +57,9 @@ export default function Package(props) {
             <div className="card border-primary mb-3">
               <div className="card-body">
                 <h5 className="card-title">Package Details:</h5>
-                <p>Size:{props.size}</p>
-                <p>Weight:{props.size}</p>
-                <p>Customer Details:</p>
+                <p><strong>Size:</strong>&nbsp;&nbsp;{props.size}</p>
+                <p><strong>Weight:</strong>&nbsp;&nbsp;{props.weight}</p>
+                <p><strong>Customer Details:</strong></p>
                 
               </div>
             <div>
@@ -70,7 +70,7 @@ export default function Package(props) {
           </div>
           <div className="col">
             <div>
-              <h6>Estimated Delivery Deadline:</h6>
+              <h6><strong>Estimated Delivery Deadline:</strong></h6>
               <p>{props.delivery_deadline}</p>
             </div>
           </div>
@@ -84,7 +84,7 @@ export default function Package(props) {
       <i id='diffsquare' className="bi bi-square"></i>
         {props.user[0].status === 'shipper' && <button type="button" className="btn btn-primary btn-lg" onClick={(e) => addToOrderCartHandler(props)}> Request to Deliver This Package</button>}
         <i id='diffsquare' className="bi bi-square"></i>
-        <button type="button" className="btn btn-primary btn-lg" onClick={(e) => profileviewHandler(props.customer_id)} >View Custermer(owner) Profile</button>
+        <button type="button" className="btn btn-primary btn-lg" onClick={(e) => profileviewHandler(props.customer_id)} >View Customer's Profile</button>
       </div>
       </div>
       }
