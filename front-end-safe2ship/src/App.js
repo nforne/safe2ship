@@ -43,7 +43,6 @@ const App = () => {
   
   const user_init = {user: [{}], packages: [{}], orders:[{}]};
 
-  const [hview, setHview] = useState({v: 'home', hvtracker: []});
   const [user, setUser] = useState({...user_init});
   const [error, setError] = useState('');
   const [pkg, setPkg] = useState({});

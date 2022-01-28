@@ -7,11 +7,11 @@
 }
 
 .userform { 
-  /* display: flex;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   justify-self:center;
-  width: inherit; */
+  width: inherit;
 
   align-items: center;
   width: 100%;
@@ -19,18 +19,18 @@
   margin: 8px 0;
   box-sizing:inherit;
   
-  border-radius: 4px;
+  border-radius: 5px;
 
-  background-color: whitesmoke;
+  background-color: gray;
   color: black;
   
   box-sizing: border-box;
-  border: 3px solid #0065AB;
+  border: 3px solid black;
   -webkit-transition: 0.5s;
   transition: 0.5s;
   outline: none;
 }
 
 .btn-primary {
-  background-color: #0065AB;
+  background-color: gray;
 }

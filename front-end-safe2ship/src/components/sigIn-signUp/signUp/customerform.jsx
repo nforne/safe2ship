@@ -154,7 +154,7 @@ export default function Customersignup(props) {
         
       </fieldset>
           <label className="form-group row" htmlFor="formSubmitButton"></label>
-          <input type="submit" name="formSubmitButton" className="btn btn-primary btn-lg" onClick={(e) => console.log("not yet customer", e)} />
+          <input type="submit" name="formSubmitButton" className="btn btn-secondary btn-lg" onClick={(e) => console.log("not yet customer", e)} />
   </form>
         
     </div>
