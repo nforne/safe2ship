@@ -48,16 +48,56 @@ module.exports = (db) => {
             })
             .catch((err) => err);
     }
+  //-------------------------------------------------------------------  
+    const getUserById = (id) => {
+
+        const qVars = (table) => {
+            return   {
+                   text: `SELECT * FROM ${table} WHERE id = $1;` ,
+                   values: [id]
+               }
+           }
+           return db.query(qVars('shippers'))
+               .then(result1 => {
+                   if (result1.rows.length !== 0) {
+                       return result1.rows;
+                   } else {
+                       return db.query(qVars('customers'))
+                       .then(result2 => {
+                               if (result2.rows.length !== 0) {
+                                   return result2.rows;
+                               } else {
+                                   return [];                                
+                               };
+                           })
+                       .catch((err) => err);
+                   }
+               })
+               .catch((err) => err);
+    }
+
+ //------------------------------------------------------------------- 
 
     const getPackagesById = (id) => {
         const query = {
-            text: 'SELECT * FROM packages WHERE id = $1 AND status != $2;',
+            text: 'SELECT * FROM packages WHERE customer_id = $1 AND status != $2;',
             values: [id, 'deleted']
         };
 
         return db.query(query)
             .then((result) => result.rows)
             .catch((err) => err);
+    };
+    
+    const getPackagesInqueue = (user) => { // --------------------------------------------------------********
+        const query = {
+            text: 'SELECT * FROM packages WHERE status = $1;',
+            values: ['ready']
+        };
+
+        return db.query(query)
+            .then((result) => result.rows)
+            .catch((err) => console.log(err)); // ----------------------------------------------------------
     };
     
     const getOrdersById = (id) => {
@@ -435,6 +475,10 @@ module.exports = (db) => {
     // -----------pkgPOST---------------    
     const postPackage = (input) => {
         // input is req.body
+        if (input.delivery_deadline === '1') input['delivery_deadline'] =  1440;
+        if (input.delivery_deadline === '2') input['delivery_deadline'] =  2880;
+        if (input.delivery_deadline === '3') input['delivery_deadline'] =  10080;
+
         const package = {
             text: `INSERT INTO packages (
                 customer_id,
@@ -448,18 +492,18 @@ module.exports = (db) => {
                 price,
                 messages,
                 time_created,
-                time_updated,)
+                time_updated)
             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING *;` ,
             values: [input.customer_id, input.size, 
                 input.weight, input.description, 
                 input.source, input.destination,
-                input.delivery_deadline, 'inqueue', 
+                new Date(Date.now() +  (input.delivery_deadline * 60)), 'ready', 
                 input.price, input.messages, 
                 new Date(Date.now()), new Date(Date.now())]
         }
         return db.query(package)
                 .then(pkg => pkg.rows)
-                .catch(err => err);
+                .catch(err => console.log('this error ===>', err));
     };
     
     
@@ -503,6 +547,59 @@ module.exports = (db) => {
         return db.query(package)
                 .then(pkg => pkg.rows)
                 .catch(err => err);
+    };
+    
+    // -----------pkg poll get pkg msg--------------- 
+
+    const getPackageMsgs = (input) => {
+        // input is req.body
+        const package = {  // res.data === {id:** , messages:[{}]} send only if there is a reply messages.length? 
+            text: `SELECT * FROM packages WHERE id = $1 RETURNING *;` ,
+            values: [input.list[0]]
+        }
+        return db.query(package)
+                .then(pkg => {
+                 const {id, messages} =  pkg.rows[0]
+                 return {id, messages}
+                })
+                .catch(err => err);
+    };
+    
+    
+    // -----------pkg post pkg msg--------------- 
+
+    const postPackageMsgs = (input) => {
+        // input is req.body
+        // {pkgId:props.listpkg.id, customer_id: props.listpkg.customer_id, shipper_id:props.user[0].id, message: `Hello!, Please, I would like to move your package... #${props.listpkg.id}`}
+
+        const msg = [JSON.stringify(input)];
+
+        const package = {   
+            text: `UPDATE packages SET messages = $1s,  WHERE id = $2 RETURNING *;` ,
+            values: [msg, input.pkgId]
+        }
+
+        const getPackage = {
+            text: `SELECT * FROM packages WHERE id = $1 RETURNING *;` ,
+            values: [input.pkgId]
+        }
+
+        return db.query(getPackage)
+                 .then(res1 => {
+                     console.log(res1.rows[0].messages) //------------------------------------------------
+                     if (!res1.rows[0].messages) {
+                        return db.query(package)
+                                .then(res2 => res2.rows)
+                                .catch(err => console.log(err));  //-----------------------------------  ---
+                     } else {
+                         const msgs = [...res1.rows[0].messages];
+                         msgs.push(msg); 
+                         return db.query(package)
+                                .then(res3 => res3.rows)
+                                .catch(err => console.log(err));  //-----------------------------------  ---
+                     }
+                 })
+                .catch(err => console.log(err)); //-------------------------------------------------------
     };
 
     
@@ -756,7 +853,9 @@ module.exports = (db) => {
   return {
     getUserByEmail,
     getUserBySystem_id,
+    getUserById,
     getPackagesById,
+    getPackagesInqueue,
     getOrdersById,
     getSystem_ids,
     postUser,
@@ -772,7 +871,10 @@ module.exports = (db) => {
     postMessage,
     editMessage,
     deleteMessage,
-    getUsers
+    getUsers,
+
+    getPackageMsgs,
+    postPackageMsgs
     };
 };
 

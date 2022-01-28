@@ -72,8 +72,8 @@ DROP TABLE IF EXISTS packages CASCADE;
 CREATE TABLE packages(
   id SERIAL PRIMARY KEY NOT NULL,
   customer_id INTEGER REFERENCES customers(id) ON DELETE CASCADE,
-  size INTEGER,
-  weight DOUBLE PRECISION,
+  size TEXT,
+  weight TEXT,
   description TEXT,
   source TEXT,
   destination TEXT,

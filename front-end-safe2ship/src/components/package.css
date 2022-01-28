@@ -28,3 +28,7 @@
 .package-list-item:hover {
   box-shadow: 0 0 11px #6495ED; 
 }
+
+.btn-primary {
+  background-color: #0065AB;
+}

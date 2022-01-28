@@ -9,8 +9,10 @@ module.exports = ({
     getPackagesById,
     getOrdersById,
     getSystem_ids,
+    getPackagesInqueue,
     postUser,
-    getUserBySystem_id
+    getUserBySystem_id,
+    getUserById
 }) => {
    
 // ----------------------------## Routes userGET----------------------------------
@@ -21,13 +23,14 @@ module.exports = ({
         getUserByEmail(req.body.email)
             .then((user) => {
                 
-                if (user.length !== 0 && user[0].satus !== 'deleted' && bcrypt.compareSync(req.body.password, user[0].password)) {
+                if (user.length !== 0 && user[0].status !== 'deleted' && bcrypt.compareSync(req.body.password, user[0].password)) {
                     req.session.user_id = user[0]['system_id'];
                     
                     let userInfo = {"user": user}
                 // ---------------------------------------------------------------------
+                    
                     Promise.all([
-                        getPackagesById(user[0].id),
+                        user[0].status === 'customer'? getPackagesById(user[0].id): getPackagesInqueue(),
                         getOrdersById(user[0].id)
                     ]).then((all) => {
                         userInfo["packages"] = all[0];
@@ -37,7 +40,7 @@ module.exports = ({
 
                 // ---------------------------------------------------------------------
 
-                } else if (user.length !== 0 && user[0].satus === 'deleted' || user.length === 0){
+                } else if (user.length !== 0 && user[0].status === 'deleted' || user.length === 0){
                     res.json({error: "The requested account does not exist. Please go to Sign-Up!", code: "xac"})
                 } else {
                     res.json({error: "incorrect passward", code: "xpw"})
@@ -136,8 +139,9 @@ module.exports = ({
 
 // ----------------------------## Routes getOtherUser-----------------------------
     router.post('/users/other', (req, res) => {
-        getUserBySystem_id(req.body)
+        getUserById(req.body.id)
             .then(otherUser => {
+                console.log(otherUser) //----------------------------
                 const { 
                     name,
                     phone,
@@ -151,9 +155,10 @@ module.exports = ({
                     status,
                     system_id,
                     web_link,
-                    work_schedule 
-                } = otherUser.rows[0];
-                if (status !== 'deleted') {  
+                    work_schedule,
+                    time_created 
+                } = otherUser[0];
+                if (otherUser[0].status !== 'deleted') {  
                     res.json({ 
                         name,
                         phone,
@@ -167,10 +172,11 @@ module.exports = ({
                         status,
                         system_id,
                         web_link,
-                        work_schedule 
+                        work_schedule,
+                        time_created 
                     })
                 } else {
-                    res.json({msg: 'Oops! Sorry, the requested user deleted the profile!'}) 
+                    res.json({msg: 'Oops! Sorry, the requested user does not exist!'}) 
                 }
             })
             .catch(err => {

@@ -9,3 +9,11 @@
   align-items: center;
   position: relative;
 }
+
+.userform {
+  margin: 4rem 0rem !important;
+}
+
+.back-button {
+  margin-bottom: 1.5rem;
+}

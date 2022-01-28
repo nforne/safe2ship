@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from 'axios';
 
 export default function Customersignup(props) {
@@ -40,17 +40,46 @@ export default function Customersignup(props) {
     return 'good!'; //------------------------------------------
   }
 
+  useEffect(() => {
+    setCstate(prev => ({...prev, customerInfo: {...customerInfo_init} }));
+  }, []);
+
+
+
+  const pollQueue = (pollKeys) => {
+
+    setInterval(() => {
+      axios.post('/api/users/signin', {...pollKeys})
+          .then(user => {
+            props.sortUser(user.data);  
+          })
+          .catch(err => console.log(err)) //------------------------------------------------
+  } ,5000);
+
+};
+  const pollKeys = {};
+
   const handleSubmit = (customerInfo, event) => {
     
     event.preventDefault();
-    // switch to pending...
-    props.hv_handler('pending')
+
     if (cinputFormValidation(customerInfo) === 'good!') {
+
+      // switch to pending...
+      props.hv_handler('pending')
       axios.post('/api/users/signup', {...customerInfo})
         .then(userinfo => {
           console.log('this customer ===>', userinfo.data) //--------------------------------------
-          setCstate(prev => ({...prev, customerInfo: {...customerInfo_init} }));
           //switch to user view with userinfo.rows and set it to state
+          props.sortUser(userinfo.data);
+          props.setUser(prev => ({...prev,  ...userinfo.data }))
+
+          pollKeys = {...customerInfo};
+          const {email, password} = pollKeys;
+
+          Promise.all([pollQueue({...{email, password}})]); // polling ....
+
+          props.hv_handler('customerHome');
         })
         .catch((error) => props.errorHandler('Oop! Something went wrong. Please Consider trying again shortly!'))
 
@@ -125,7 +154,7 @@ export default function Customersignup(props) {
         
       </fieldset>
           <label className="form-group row" htmlFor="formSubmitButton"></label>
-          <input type="submit" name="formSubmitButton" className="btn btn-secondary " onClick={(e) => console.log("not yet customer", e)} />
+          <input type="submit" name="formSubmitButton" className="btn btn-primary btn-lg" onClick={(e) => console.log("not yet customer", e)} />
   </form>
         
     </div>

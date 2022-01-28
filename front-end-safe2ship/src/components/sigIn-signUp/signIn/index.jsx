@@ -1,9 +1,10 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from 'axios';
 
 import Scrollup from "../../scollup";
-import Logo1 from "../../nav/logo.jpg";
+// import Logo1 from "../../nav/logo.jpg";
+import Logo1 from "../../nav/logo_2.png";
 import './signIn.css'
 import '../signUp/signUp.css'
 
@@ -32,19 +33,50 @@ export default function SignIn(props) {
     if (signfo.password === '' || signfo.password.split('').includes(' ')) return 'Enter a password, without spaces!';
     return 'good!'; //------------------------------------------
   }
+
+  useEffect(() => {
+    setSistate(prev => ({...prev, info: {...info_init} })); 
+  }, []);
+
+  const pollQueue = (pollKeys) => {
+
+    setInterval(() => {
+      axios.post('/api/users/signin', {...pollKeys})
+          .then(user => {
+            props.sortUser(user.data);  
+          })
+          .catch(err => console.log(err)) //------------------------------------------------
+  } ,5000);
+
+};
+
+
+  const pollKeys = {}
+
   const handleSubmit = (info, event) => {
     event.preventDefault();
     props.hv_handler('pending')
     if (signputFormValidation(info) === 'good!') {
       axios.post('/api/users/signin', {...info})
         .then(user => {
-          console.log(user.data) //---------------------------------
-          setSistate(prev => ({...prev, info: {...info_init} })); //raise state with info from here for access ot other resources
+          props.sortUser(user.data);
+          props.setUser(prev => ({...prev,  ...user.data }))
+          
+          // switch to user view with userinfo.rows and set it to state // or pks queue view
+          user.data.user[0].status === 'customer' ? props.hv_handler('customerHome') : props.hv_handler('shipperHome');
+          Promise.all([pollQueue({...pollKeys})]) // polling ...
+
+          console.log('this important data ===>', user.data) //---------------------------------
           //switch to user view with userinfo.rows and set it to state // or pks queue view
+                    
         })
-        .catch((error) => props.errorHandler('Oop! Something went wrong. Please Consider trying again shortly!'))
+        .catch((error) => {
+          props.hv_handler('home');
+          props.errorHandler('Oop! Something went wrong. Please Consider trying again shortly!');
+        })
 
     } else {
+      props.hv_handler('home');
       props.errorHandler(`Oops! Something is missing or missentered: ${signputFormValidation(info)}. Please verify and make sure of the right information and resubmit. Thank you!`)
     }
 
@@ -52,7 +84,7 @@ export default function SignIn(props) {
 
    return (
 
-      <div className="form-group">
+      <div className="form-group ">
 
             <div>
             <img src={Logo1} id="homelogoimg" className="rounded rounded-pill img-fluid" alt={"logo"}/>
@@ -65,11 +97,6 @@ export default function SignIn(props) {
             
             <div>
 
-            <div>
-              <hr />
-              <button onClick={() => props.hv_handler("home")} type="button" className="btn btn-secondary ">[ <i className="bi bi-reply-all"></i> ]</button>
-              <hr />
-            </div>
 
         <div className="userform">
           <div>
@@ -89,13 +116,15 @@ export default function SignIn(props) {
               </fieldset>
     
                 <label className="form-group row" htmlFor="formSubmitButton"></label>
-                <input type="submit"  name="formSubmitButton" className="btn btn-secondary " onClick={() => console.log('signing In...')}/>
-            <hr />
+                <input type="submit"  name="formSubmitButton" className="btn btn-primary btn-lg" onClick={() => console.log('signing In...')}/>
             </form>
           </div>
         </div>
         
-        <hr /> 
+        <div>
+          <hr />
+          <button onClick={() => props.hv_handler("home")} type="button" className="btn btn-primary btn-lg back-button"><i className="bi bi-arrow-left-square-fill"></i></button>
+        </div>
       </div>
       </div>
         </div>
