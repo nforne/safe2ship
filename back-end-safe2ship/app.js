@@ -1,3 +1,5 @@
+// const PORT = process.env.API_PORT || 8080;
+
 // load .env data into process.env
 require("dotenv").config();
 
@@ -6,13 +8,49 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const logger = require('morgan');
-// const PORT = process.env.API_PORT || 8080;
+
+const cors = require('cors');
+app.use(cors());
+app.options('*', cors());
+
+// const corsConfig = {
+//   credentials: true,
+//   origin: "http://localhost:3000",
+// };
+// app.use(cors(corsConfig));
+
+// app.use(function(req, res, next) {
+//   res.header('Access-Control-Allow-Origin', req.header('origin') );
+//   next();
+// });
+
+//---------------------------------------------------------
+
+//websocket config
+const socketio = require('socket.io');
+const http = require('http');
+const server = http.createServer(app);
+
+// server-side
+// const io =  socketio(server);
+
+const io = socketio(server, {
+  cors: {
+    origin: "http://localhost:3000",
+    credentials: false,
+  }
+});
+
+io.on('connection', (socket) => {
+  console.log('a user connected');
+});
+
+//---------------------------------------------------------
+
 
 // PG database client/connection setup
 const db = require('./db');
 const dbHelpers = require('./helpers/dbHelpers')(db);
-
-// -- const sassMiddleware = require("./lib/sass-middleware");
 
 
 
@@ -68,7 +106,10 @@ app.use('/api', ordersRouter(dbHelpers));
 app.use('/api', reviewsRouter(dbHelpers));
 
 // --------------------------------------------------
-// app.listen(PORT, () => {
+
+// console.log('this port ===>', process.env.API_PORT) //---------------------
+
+// server.listen(PORT, () => {
 //   console.log(`safe2ship is listening on port ${PORT}`);
 // });
 

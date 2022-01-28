@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import Nav from "./components/nav";
 import Home from "./components/home"
@@ -14,7 +14,30 @@ import PostPackage from "./pages/PostPackage";
 import './App.css'
 
 
+// client-side
+// import  io  from "socket.io-client";
+import  io  from "socket.io-client";
+
+const URL = "http://localhost:3001";
+
+
+
+
 const App = () => {
+
+  const [conn, setConn ] = useState('');
+  useEffect(() => {
+    
+    // const socket = io(URL, {
+    //   withCredentials: false,
+    // });
+
+    const socket = io(URL, {
+      withCredentials: false,
+    });
+
+  }, []);
+
   const [hview, setHview] = useState({v: 'home', hvtracker: []})
 
   const [error, setError] = useState('')
@@ -29,6 +52,7 @@ const App = () => {
     setTimeout(() => {
       setError(() => [<p key={'2'}></p>]);
     }, 120000)
+
   }
 
   return (

@@ -3,7 +3,6 @@
 /**
  * Module dependencies.
  */
-
 const app = require('../app');
 const debug = require('debug')('back-end-safe2ship:server');
 const http = require('http');
@@ -12,7 +11,7 @@ const http = require('http');
  * Get port from environment and store in Express.
  */
 
-const port = normalizePort(process.env.API_PORT || '3001');
+const port = normalizePort(process.env.API_PORT || '8080');
 app.set('port', port);
 
 /**
