@@ -38,17 +38,17 @@ export default function SignIn(props) {
     setSistate(prev => ({...prev, info: {...info_init} })); 
   }, []);
 
-  const pollQueue = (pollKeys) => {
+  // const pollQueue = (pollKeys) => {
 
-    setInterval(() => {
-      axios.post('/api/users/signin', {...pollKeys})
-          .then(user => {
-            props.sortUser(user.data);  
-          })
-          .catch(err => console.log(err)) //------------------------------------------------
-  } ,5000);
+  //   setInterval(() => {
+  //     axios.post('/api/users/signin', {...pollKeys})
+  //         .then(user => {
+  //           props.sortUser(user.data);  
+  //         })
+  //         .catch(err => console.log(err)) //------------------------------------------------
+  // } ,5000);
 
-};
+  // };
 
 
   const pollKeys = {}
@@ -64,7 +64,7 @@ export default function SignIn(props) {
           
           // switch to user view with userinfo.rows and set it to state // or pks queue view
           user.data.user[0].status === 'customer' ? props.hv_handler('customerHome') : props.hv_handler('shipperHome');
-          Promise.all([pollQueue({...pollKeys})]) // polling ...
+          // Promise.all([pollQueue({...pollKeys})]) // polling ...
 
           console.log('this important data ===>', user.data) //---------------------------------
           //switch to user view with userinfo.rows and set it to state // or pks queue view

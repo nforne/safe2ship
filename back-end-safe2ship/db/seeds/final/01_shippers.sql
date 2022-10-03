@@ -20,11 +20,11 @@ shippers(
 )
 VALUES
   (
-    'John Maslow',
+    'John Doe',
     '4165551847',
-    'johnmaslow@gmail.com',
+    'johndoe@example.com',
     '$2a$10$gLOuK89SbIaJcphI76XYROCUVP66U2I238kPYsQp3AKNZ0LqwVjAW',
-    'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
+    'https://www.jdl.co.uk/wp-content/uploads/2016/10/avatar-m.png',
     '1245 Sherbourne Street, Toronto, ON',
     10,
     5,

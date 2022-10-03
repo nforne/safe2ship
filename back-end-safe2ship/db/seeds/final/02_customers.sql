@@ -18,7 +18,7 @@ VALUES
     '6475569012',
     'fuller@gmail.com',
     '$2a$10$gLOuK89SbIaJcphI76XYROCUVP66U2I238kPYsQp3AKNZ0LqwVjAW',
-    'https://patch.com/img/cdn/users/127212/2012/02/raw/81d3bf0e62e9b116c1886e23769758e5.jpg',
+    'https://www.jdl.co.uk/wp-content/uploads/2016/10/avatar-m.png',
     '78 McMiller Drive, North York, ON',
     55,
     42,
