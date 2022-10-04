@@ -48,7 +48,7 @@ export default function ShipperHome(props) {
         <hr/> 
         {vitem.v === 'zoomout' && <PackageListItem key={key} {...pkg} listpkg={pkg} pkglItemClickHandler={pkglItemClickHandler} {...props}/>}
         {vitem.v === 'zoomin' && <PackagePage zoom={zoom} listpkg={pkg} {...pkg} {...vitem}  pkgvswitch={pkgvswitch} {...props}/>}
-        <button type="button" onClick={() => zoom()} className="btn btn-lg btn-primary">ZOOM +/-</button>
+        <button type="button" onClick={() => zoom()} className="btn btn-secondary btn-lg">ZOOM +/-</button>
         <hr/>
     </div>
     );
@@ -62,11 +62,11 @@ export default function ShipperHome(props) {
     <div className="m-5">
     <div className="row justify-content-center">
     <div className="buttonz col-sm-12 col-md-6">
-        <button type="button" onClick={() => setCurrentv(prev => ({...prev, v:'mine'}))} className="btn btn-lg btn-primary">My own Packages</button>
+        <button type="button" onClick={() => setCurrentv(prev => ({...prev, v:'mine'}))} className="btn btn-secondary btn-lg">My own Packages</button>
         <i id='diffsquare' className="bi bi-square"></i>
-        <button type="button" onClick={() => setCurrentv(prev => ({...prev, v:'all'}))} className="btn btn-lg btn-primary">Packages available for pickup</button>
+        <button type="button" onClick={() => setCurrentv(prev => ({...prev, v:'all'}))} className="btn btn-secondary btn-lg">Packages available for pickup</button>
         <i id='diffsquare' className="bi bi-square"></i>
-        <button type="button" onClick={() => props.hv_handler("postPackage")} className="btn btn-lg btn-primary">+ Post New Package</button>
+        <button type="button" onClick={() => props.hv_handler("postPackage")} className="btn btn-secondary btn-lg">+ Post New Package</button>
         <hr/>
         </div>
       <div className="col-12">

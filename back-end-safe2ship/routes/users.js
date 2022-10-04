@@ -17,6 +17,7 @@ module.exports = ({
    
 // ----------------------------## Routes userGET----------------------------------
     router.post('/users/signin', (req, res) => {
+        console.log(req.body) //---------------------------------------------
         if (req.body.email === '' || req.body.email.split('').includes(' ')) res.json({error: "Incorrect email", code: "xe"});
         if (req.body.password === '' || req.body.password.split('').includes(' ')) res.json({error: "Incorrect password", code: "xpw"});
         

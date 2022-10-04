@@ -77,6 +77,7 @@ CREATE TABLE packages(
   description TEXT,
   source TEXT,
   destination TEXT,
+  possible_pickup_time(s) TEXT,
   delivery_deadline TIMESTAMP,
   status VARCHAR(128),
   price INTEGER,
