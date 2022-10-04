@@ -1,0 +1,20 @@
+.scrollup {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+  align-content: space-between;
+
+  position: fixed;
+  bottom: 0;
+}
+
+#scrollup {
+  color: white;
+  z-index: 5000;
+  size: 5em;
+}
+
+#scrollup:hover {
+  color: white;
+}

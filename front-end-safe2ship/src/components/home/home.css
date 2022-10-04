@@ -1,0 +1,43 @@
+.homebtns {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  justify-items: center;
+  align-items: center;
+  position: relative;
+}
+
+.hometx-span {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  font-size: 12;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  width: 80em;
+  align-self: center;
+}
+
+#homelogoimg {
+  color: white;
+  height: inherit;
+  width: inherit;
+}
+
+.pending {
+  align-items: inherit;
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing:inherit;
+  
+  border-radius: 4px;
+
+  background-color: gray;
+  color: black;
+  
+  box-sizing: border-box;
+  border: 3px solid #ccc;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  outline: none;
+}

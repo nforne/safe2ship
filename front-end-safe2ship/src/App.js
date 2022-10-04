@@ -1,23 +1,57 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
 
-function App() {
+import Nav from "./components/nav";
+import Home from "./components/home"
+import Pending from "./components/home/pending";
+
+import SignIn from './components/sigIn-signUp/signIn';
+import SignUp from './components/sigIn-signUp/signUp';
+
+import Package from "./pages/PackagePage";
+import ShipperHome from "./pages/ShipperHome";
+import CustomerHome from "./pages/CustomerHome";
+import PostPackage from "./pages/PostPackage";
+import './App.css'
+
+
+const App = () => {
+  const [hview, setHview] = useState({v: 'home', hvtracker: []})
+
+  const [error, setError] = useState('')
+
+  const hv_handler = (view) => {
+    setHview(prev => ({...prev, v: view }))
+  }
+
+  const errorHandler = (errorMessage) => {
+
+    setError(() => [<p key={'1'}>`${errorMessage}`</p>])
+    setTimeout(() => {
+      setError(() => [<p key={'2'}></p>]);
+    }, 120000)
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      
+      <Nav hv_handler={hv_handler}/>
+      <hr className='line'/>
+      <br></br>
+      
+        <div className='errmsgs'>
+          {error}
+        </div>
+
+      <hr/>
+      <section className='main'>
+        {hview.v === 'pending' &&  <Pending/>}
+        {hview.v === "home" &&<Home  hv_handler={hv_handler} errorHandler={errorHandler}/>}
+
+        {hview.v === "signIn" && <SignIn hv_handler={hv_handler} errorHandler={errorHandler}/>}
+        {hview.v === "signUp" && <SignUp hv_handler={hv_handler} errorHandler={errorHandler}/>}
+        
+      </section>
+
     </div>
   );
 }
