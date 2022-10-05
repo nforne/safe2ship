@@ -1,8 +1,8 @@
 #logo {
   height: 25px;
   position: relative;
-  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-
+  /* font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; */
+  font-family: Goudy Old Style,Garamond,Big Caslon,Times New Roman,serif;
 }
 
 .logotag {
@@ -71,7 +71,8 @@
   justify-content: space-between;
   justify-items: center;
   align-items: baseline;
-  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  /* font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; */
+  font-family: 'Sacramento', cursive;
   height: 80px;
   background-color: rgb(56, 54, 54);
   padding-left: 1.5em;
