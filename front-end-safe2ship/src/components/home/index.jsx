@@ -1,5 +1,4 @@
 import React from "react";
-import { useState } from 'react';
 
 import Button from "./Button";
 import Logo1 from "../nav/logo.jpg";

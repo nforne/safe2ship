@@ -22,7 +22,6 @@ const URL = "http://localhost:3001";
 
 
 
-
 const App = () => {
 
   const [conn, setConn ] = useState('');
@@ -39,10 +38,10 @@ const App = () => {
   const user_init = {user: [{}], packages: [{}], orders:[{}]};
 
   const [user, setUser] = useState({...user_init});
-  const [error, setError] = useState('');
+  const [error, setError] = useState([]);
   const [pkg, setPkg] = useState({});
 
-// for differentiated view of packages in packages and orders
+  // for differentiated view of packages in packages and orders
   const [ordercart, setOrdercart] = useState({delivered:[], active:[], declined:[] }); 
   const [pkgs, setPkgs] = useState({delivered:[], active:[], declined:[] });
 
