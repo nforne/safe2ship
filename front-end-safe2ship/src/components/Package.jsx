@@ -360,28 +360,28 @@ if (Array.isArray(props.messages)) {
       <div className="card-footer d-flex justify-content-end">
         {!props.zoom &&
       <div className="text-center">
-              <button type="button" onClick={() => props.pkgvswitch('all')} className="btn btn-lg btn-primary"><i className="bi-lg bi-reply-all"></i></button>
+              <button type="button" onClick={() => props.pkgvswitch('all')} className="btn btn-secondary btn-lg"><i className="bi-lg bi-reply-all"></i></button>
       </div>
       }
       <i id='diffsquare' className="bi bi-square"></i>
-{(props.user[0].status === 'shipper' && !inOrdercartCheck() && props.customer_id !== props.user[0].id )&& <button type="button" className="btn btn-primary btn-lg" onClick={(e) =>   addToOrderCartHandler(props)}> Request to Deliver This Package</button>}
+{(props.user[0].status === 'shipper' && !inOrdercartCheck() && props.customer_id !== props.user[0].id )&& <button type="button" className="btn btn-secondary btn-lg" onClick={(e) =>   addToOrderCartHandler(props)}> Request to Deliver This Package</button>}
         <i id='diffsquare' className="bi bi-square"></i>
-{(props.user[0].status === 'shipper' && inOrdercartCheck() )&& <button type="button" className="btn btn-primary btn-lg" onClick={(e) =>   addToOrderCartHandler(props)}> Remove From Order Cart</button>}
+{(props.user[0].status === 'shipper' && inOrdercartCheck() )&& <button type="button" className="btn btn-secondary btn-lg" onClick={(e) =>   addToOrderCartHandler(props)}> Remove From Order Cart</button>}
         <i id='diffsquare' className="bi bi-square"></i>
 
         { !props.zoom  &&
-        <button type="button" className="btn btn-primary btn-lg" onClick={(e) => profileviewHandler(props.customer_id)} >View Custermer(owner) Profile</button>
+        <button type="button" className="btn btn-secondary btn-lg" onClick={(e) => profileviewHandler(props.customer_id)} >View Custermer(owner) Profile</button>
         }
 
         <i id='diffsquare' className="bi bi-square"></i>
-        <button type="button" className="btn btn-primary btn-lg" onClick={(e) => {msgsClickHandler(); console.log('pkg view messages ...')}} >Messages</button>
+        <button type="button" className="btn btn-secondary btn-lg" onClick={(e) => {msgsClickHandler(); console.log('pkg view messages ...')}} >Messages</button>
         <i id='diffsquare' className="bi bi-square"></i>
 
         { (props.user[0].id === props.id || props.user[0].status === 'customer')  &&
           <div>
-            <button type="button" className="btn btn-primary btn-lg" onClick={(e) => console.log('pkg edit messages ...')} >Edit pkg</button>
+            <button type="button" className="btn btn-secondary btn-lg" onClick={(e) => console.log('pkg edit messages ...')} >Edit pkg</button>
             <i id='diffsquare' className="bi bi-square"></i>
-            <button type="button" className="btn btn-primary btn-lg" onClick={(e) => console.log('pkg delete messages ...')} >Delete pkg</button>
+            <button type="button" className="btn btn-secondary btn-lg" onClick={(e) => console.log('pkg delete messages ...')} >Delete pkg</button>
           </div>
         }
 

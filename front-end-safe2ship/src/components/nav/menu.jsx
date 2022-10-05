@@ -21,7 +21,7 @@ export default function Menu(props) {
     <div className='menu'>
       <div className="dropdown">
       
-      <button className="btn btn-primary dropdown-toggle dropdown-toggle-split btn-lg" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false"><i className="bi bi-list"></i>&nbsp;&nbsp;</button>
+      <button className="btn btn-secondary dropdown-toggle dropdown-toggle-split btn-lg" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">[ <i className="bi bi-list"></i> ]&nbsp;&nbsp;</button>
       
       <ul className="dropdown-menu" aria-labelledby="dropdownMenu2">
         <li><hr className="dropdown-divider"/></li>

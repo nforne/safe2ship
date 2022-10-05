@@ -23,6 +23,8 @@
   height: inherit;
   width: inherit;
   max-width: 17rem;
+  padding: 0.5em;
+  border:black;
 }
 
 .pending {
@@ -34,11 +36,11 @@
   
   border-radius: 4px;
 
-  background-color: whitesmoke;
+  background-color: black;
   color: black;
   
   box-sizing: border-box;
-  border: 3px solid #0065AB;
+  border: 3px solid #515355;
   -webkit-transition: 0.5s;
   transition: 0.5s;
   outline: none;
@@ -46,8 +48,16 @@
 
 #welcome-msg {
   margin-top: 3rem;
+  color: white;
 }
 
-.btn-primary {
-  background-color: #0065AB;
+button {
+  color: #515355;
+  background-color: black;
+}
+
+.homebtns h1 {
+  color: whitesmoke;
+  /* font-style: italic; */
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import Nav from "./components/nav";
 import Home from "./components/home"
@@ -15,11 +15,29 @@ import Profile from "./components/Profile";
 import './App.css';
 
 
+// client-side
+import  io  from "socket.io-client";
+
+const URL = "http://localhost:3001";
+
+
+
+
 const App = () => {
+
+  const [conn, setConn ] = useState('');
+  useEffect(() => {
+
+    const socket = io(URL, {
+      withCredentials: false,
+    });
+
+  }, []);
+
+  const [hview, setHview] = useState({v: 'home', hvtracker: []})
   
   const user_init = {user: [{}], packages: [{}], orders:[{}]};
 
-  const [hview, setHview] = useState({v: 'home', hvtracker: []});
   const [user, setUser] = useState({...user_init});
   const [error, setError] = useState('');
   const [pkg, setPkg] = useState({});
@@ -92,6 +110,7 @@ const App = () => {
     setTimeout(() => {
       setError(() => [<p key={'2'}></p>]);
     }, 120000)
+
   }
 
   const props = {

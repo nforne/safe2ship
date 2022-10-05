@@ -48,8 +48,9 @@ export default function Customersignup(props) {
 
   const pollQueue = (pollKeys) => {
 
+    const pkeys = {...pollKeys}
     setInterval(() => {
-      axios.post('/api/users/signin', {...pollKeys})
+      axios.post('/api/users/signin', {...pkeys})
           .then(user => {
             props.sortUser(user.data);  
           })
@@ -57,7 +58,7 @@ export default function Customersignup(props) {
   } ,5000);
 
 };
-  const pollKeys = {};
+  const pollKeys = [];
 
   const handleSubmit = (customerInfo, event) => {
     
@@ -74,10 +75,10 @@ export default function Customersignup(props) {
           props.sortUser(userinfo.data);
           props.setUser(prev => ({...prev,  ...userinfo.data }))
 
-          pollKeys = {...customerInfo};
-          const {email, password} = pollKeys;
+          const {email, password} = {...customerInfo};
+          pollKeys.push({email, password})
 
-          Promise.all([pollQueue({...{email, password}})]); // polling ....
+          Promise.all([pollQueue(pollKeys[pollKeys.length - 1])]); // polling ....
 
           props.hv_handler('customerHome');
         })
@@ -154,7 +155,7 @@ export default function Customersignup(props) {
         
       </fieldset>
           <label className="form-group row" htmlFor="formSubmitButton"></label>
-          <input type="submit" name="formSubmitButton" className="btn btn-primary btn-lg" onClick={(e) => console.log("not yet customer", e)} />
+          <input type="submit" name="formSubmitButton" className="btn btn-secondary btn-lg" onClick={(e) => console.log("not yet customer", e)} />
   </form>
         
     </div>

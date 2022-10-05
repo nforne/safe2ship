@@ -3,8 +3,8 @@ import { useState, useEffect } from "react";
 import axios from 'axios';
 
 import Scrollup from "../../scollup";
-// import Logo1 from "../../nav/logo.jpg";
-import Logo1 from "../../nav/logo_2.png";
+import Logo1 from "../../nav/logo.jpg";
+// import Logo1 from "../../nav/logo_2.png";
 import './signIn.css'
 import '../signUp/signUp.css'
 
@@ -97,7 +97,7 @@ export default function SignIn(props) {
             
             <div>
 
-
+            <hr />
         <div className="userform">
           <div>
             <form  onSubmit={(e) => handleSubmit(sistate.info, e)}>
@@ -116,15 +116,13 @@ export default function SignIn(props) {
               </fieldset>
     
                 <label className="form-group row" htmlFor="formSubmitButton"></label>
-                <input type="submit"  name="formSubmitButton" className="btn btn-primary btn-lg" onClick={() => console.log('signing In...')}/>
+                <input type="submit"  name="formSubmitButton" className="btn btn-secondary btn-lg" onClick={() => console.log('signing In...')}/>
             </form>
           </div>
         </div>
-        
-        <div>
           <hr />
-          <button onClick={() => props.hv_handler("home")} type="button" className="btn btn-primary btn-lg back-button"><i className="bi bi-arrow-left-square-fill"></i></button>
-        </div>
+          <button onClick={() => props.hv_handler("home")} type="button" className="btn btn-secondary btn-lg back-button"><i class="bi bi-reply-all"></i></button>
+          <hr />
       </div>
       </div>
         </div>

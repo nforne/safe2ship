@@ -85,10 +85,15 @@ export default function PostPackage(props) {
     <div className="container  my-5 py-4">
 
 
-      
-      <div className="text-center">
-              <button type="button" onClick={() => props.hv_handler(props.user[0].status === 'shipper' ? 'shipperHome': 'customerHome')} className="btn btn-lg btn-primary"><i className="bi-lg bi-reply-all"></i></button>
-      </div>
+      <hr/>
+        <div className="row justify-content-center">
+          <div className="d-grid gap-2 col-6">
+            <button type="button" onClick={() => props.hv_handler(props.user[0].status === 'shipper' ? 'shipperHome': 'customerHome')} className="btn btn-secondary btn-lg"><i className="bi-lg bi-reply-all"></i></button>
+          </div>
+        </div>
+      <hr/>
+
+      <div style={{color: 'white'}}>
 
       <h2 className="text-center">Post New Package</h2>
       <form>
@@ -147,18 +152,24 @@ export default function PostPackage(props) {
       </div>
       <div className="row justify-content-center">
         <div className="col-md-8 mb-3">
-          <label htmlFor="description" className="form-label">Description</label>
+          <label htmlFor="description" className="form-label">Type in the package Description</label>
           <textarea className="form-control" id="description" onChange={(e) => pkginfo_handler('description', e.target.value)} rows="2"></textarea>
         </div>
       </div>
       <div className="row justify-content-center">
+      <hr/>
         <div className="d-grid gap-2 col-6">
-          <button className="btn btn-lg btn-primary" type="submit" onClick={(e) => npkgsubmitHandler(npkg, e)} >Get it Delivered</button>
+          <button className="btn  btn-secondary btn-lg" type="submit" onClick={(e) => npkgsubmitHandler(npkg, e)} >Get it Delivered (Post/Submit2Q)</button>
         </div>
+        <i id='diffsquare' className="bi bi-square"></i>
+      <hr/>
       </div>
         
       </form>
-      
+
+
+      </div> 
+
     </div>
   );
 }
