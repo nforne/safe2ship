@@ -97,8 +97,13 @@ const App = () => {
   }
 
   const errorHandler = (errorMessage) => {
-    setError((prev) => ([...prev, <p key={'1'}>{errorMessage}</p>]))
-    setTimeout(() => { setError(() => []); }, 10000)
+    setError((prev) => ([...prev, <p key={'1'}>{errorMessage}</p>]));
+    setTimeout(() => { setError(() => []); }, 10000);
+    Window.scroll({
+      top: 1,
+      left: 1,
+      behavior: 'smooth'
+    });
   }
 
   const props = {
@@ -122,7 +127,7 @@ const App = () => {
       <Nav {...props}/>
       <hr className='line'/>
       <br/><hr/>
-      
+
       {error.length > 0 &&  <div className='errmsgs'> {error} </div>}
     
       <hr/>
