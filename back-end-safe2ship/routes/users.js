@@ -17,13 +17,13 @@ module.exports = ({
    
 // ----------------------------## Routes userGET----------------------------------
     router.post('/users/signin', (req, res) => {
-        console.log(req.body) //---------------------------------------------
+        
         if (req.body.email === '' || req.body.email.split('').includes(' ')) res.json({error: "Incorrect email", code: "xe"});
         if (req.body.password === '' || req.body.password.split('').includes(' ')) res.json({error: "Incorrect password", code: "xpw"});
         
         getUserByEmail(req.body.email)
             .then((user) => {
-                
+                user.length !== 0 ? console.log(JSON.stringify(user)) : console.log('=> this sign-in fail ...'); //------------------------------------------
                 if (user.length !== 0 && user[0].status !== 'deleted' && bcrypt.compareSync(req.body.password, user[0].password)) {
                     req.session.user_id = user[0]['system_id'];
                     

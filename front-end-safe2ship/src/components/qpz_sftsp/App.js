@@ -43,62 +43,91 @@ const App = () => {
 
   // for differentiated view of packages in packages and orders
   const [ordercart, setOrdercart] = useState({delivered:[], active:[], declined:[] }); 
-  const [pkgs, setPkgs] = useState({delivered:[], active:[], declined:[]});
+  const [pkgs, setPkgs] = useState({delivered:[], active:[], declined:[] });
 
   //for pages in current view
   const [pkgsview, setPkgsview] = useState([]);
   const [ordersview, setOrdersview] = useState([]);
 
 
+  // const updatePkgAndOders = (cb, obj, status) => {
+  //   cb(prev => {
+  //     const updating = {...prev};
+  //     const update = [...updating[status]];
+  //     update.push(obj);
+  //     updating[status] = update;
+  //     return updating;
+  //   })
+  // }
+
   const sortUser = (user) => {
 
     let pkgList = {delivered:[], active:[], declined:[] };
     let ordList = {delivered:[], active:[], declined:[] };
 
-    const updateList = (object, element, status) => {
-      object[status] = [...object[status], element];
-    }
-
     if (user.packages.length !== 0) {
-      for (let pkg of user.packages) {
+      for (let pkg in packages) {
         if (pkg.status === 'delivered') {
-          updateList(pkgList, pkg, 'delivered')
+          pkgList.delivered.push(pkg)
         } else if (pkg.status === 'inqueue' || pkg.status === 'ready') {
-          updateList(pkgList, pkg, 'active')
+          pkgList.active.push(pkg)
         } else if (pkg.status === 'declined') {
-          updateList(pkgList, pkg, 'declined')
+          pkgList.declined.push(pkg)
         }
       }
       setPkgs(prev => ({...prev, ...pkgList}))
-      console.log('this # active ==>', pkgs.active.length) //----------------------------------------------------------
       pkgList = {delivered:[], active:[], declined:[] };
-      console.log('these pkgs ==>', JSON.stringify(pkgs)) //-------------------------------------
+      console.log(JSON.stringify('these pkgs ==>', pkgs)) //---------------------------------------------------
     }
 
     if (user.orders.length !== 0) {
-      for (let ord of user.orders) {
+      for (let ord in packages) {
         if (ord.status === 'delivered') {
-          updateList(ordList, ord, 'delivered')
-        } else if (ord.status === 'inqueue' || ord.status === 'ready') {
-          updateList(ordList, ord, 'active')
-        } else if (ord.status === 'declined') {
-          updateList(ordList, ord, 'declined')
+          ordList.delivered.push(ord)
+        } else if (ord.status === 'inqueue') {
+          ordList.active.push(ord)
+        } else if (ord.status === 'declined' || ord.status === 'ready') {
+          ordList.declined.push(ord)
         }
       }
       setOrdercart(prev => ({...prev, ...ordList}))
       ordList = {delivered:[], active:[], declined:[] };
+      console.log(JSON.stringify('this ordercart ==>', ordercart)) //---------------------------------------------------
     }
 
     setUser(prev => ({...prev, ...user}))
-    
 
-    setPkgsview(prev => ([...prev, ...pkgs.active]))
-    // console.log('these active pkgs 1 ===>', pkgs.active.length) //----------------------------------------
-    // console.log('these active pkgs 2 ===>', pkgsview.length) //----------------------------------------
+    // if (packages.length !== 0) {
+    //   packages.forEach(pkgItem => {
+    //       if (pkgItem.status === 'delivered') {
+    //         updatePkgAndOders(setPkgs, pkgItem, 'delivered');
+    //       } else if (pkgItem.status === 'ready'|| pkgItem.status === "inqueue" ) {
+    //         updatePkgAndOders(setPkgs, pkgItem, 'active');
+    //       } else if (pkgItem.status === 'declined') {
+    //         updatePkgAndOders(setPkgs, pkgItem, 'declined');
+    //       }
+    //     })
+    // }
 
-    setOrdersview(prev => ([...prev, ...ordercart.active]));    
-    // console.log('these active orders 3 ===>', ordercart.active.length) //----------------------------------------
-    // console.log('these active orders 4 ===>', ordersview.length) //----------------------------------------
+    // if (orders.length !== 0) {
+    //   orders.forEach(pkgItem => {
+    //     if (pkg.status === 'delivered') {
+    //       updatePkgAndOders(setOrdercart, pkgItem, 'delivered');
+    //     } else if (pkgItem.status === 'ready') {
+    //       updatePkgAndOders(setOrdercart, pkgItem, 'active');
+    //     } else if (pkgItem.status === 'declined') {
+    //       updatePkgAndOders(setOrdercart, pkgItem, 'declined');
+    //     }
+    //   })
+    // }
+
+    setPkgsview(prev => pkgs.active)
+    console.log('these active pkgs 1 ===>', pkgs.active.length) //----------------------------------------
+    console.log('these active pkgs 2 ===>', pkgsview.length) //----------------------------------------
+
+    setOrdersview(prev => ordercart.active);    
+    console.log('these active orders 3 ===>', ordercart.active.length) //----------------------------------------
+    console.log('these active orders 4 ===>', ordersview.length) //----------------------------------------
   }
 
 
@@ -126,7 +155,8 @@ const App = () => {
     ordercart, setOrdercart,
     pkgs, setPkgs,
     pkgsview, setPkgsview,
-    ordersview, setOrdersview
+    ordersview, setOrdersview,
+    // updatePkgAndOders
   }
 
   return (

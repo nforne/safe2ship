@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import Profile from "./Profile";
+import Profile from "../Profile";
 import axios from "axios";
 import "./package.css";
 

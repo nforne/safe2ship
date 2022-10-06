@@ -45,23 +45,7 @@ export default function Customersignup(props) {
   }, []);
 
 
-
-  const pollQueue = (pollKeys) => {
-
-    const pkeys = {...pollKeys}
-    setInterval(() => {
-      axios.post('/api/users/signin', {...pkeys})
-          .then(user => {
-            props.sortUser(user.data);  
-          })
-          .catch(err => console.log(err)) //------------------------------------------------
-  } ,5000);
-
-};
-  const pollKeys = [];
-
   const handleSubmit = (customerInfo, event) => {
-    
     event.preventDefault();
 
     if (cinputFormValidation(customerInfo) === 'good!') {
@@ -71,14 +55,9 @@ export default function Customersignup(props) {
       axios.post('/api/users/signup', {...customerInfo})
         .then(userinfo => {
           console.log('this customer ===>', userinfo.data) //--------------------------------------
-          //switch to user view with userinfo.rows and set it to state
+          //switch to user view with userinfo.data and set it to state
           props.sortUser(userinfo.data);
           props.setUser(prev => ({...prev,  ...userinfo.data }))
-
-          const {email, password} = {...customerInfo};
-          pollKeys.push({email, password})
-
-          Promise.all([pollQueue(pollKeys[pollKeys.length - 1])]); // polling ....
 
           props.hv_handler('customerHome');
         })

@@ -4,9 +4,8 @@ import { useState } from "react";
 import Shippersignup from "./shipperform";
 import Customersignup from "./customerform";
 import Button from "./buttons";
-import Scrollup from "../../scollup";
+import Scrollup from "../../scrollup";
 import Logo1 from "../../nav/logo.jpg";
-// import Logo1 from "../../nav/logo_2.svg";
 
 import './signUp.css'
 

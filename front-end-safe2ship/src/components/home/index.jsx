@@ -2,7 +2,6 @@ import React from "react";
 
 import Button from "./Button";
 import Logo1 from "../nav/logo.jpg";
-// import Logo1 from "../nav/logo_2.png";
 
 import "./home.css";
 

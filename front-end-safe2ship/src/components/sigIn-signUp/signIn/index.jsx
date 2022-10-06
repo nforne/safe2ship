@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import axios from 'axios';
 
-import Scrollup from "../../scollup";
+import Scrollup from "../../scrollup";
 import Logo1 from "../../nav/logo.jpg";
 import './signIn.css'
 import '../signUp/signUp.css'
@@ -33,20 +33,28 @@ export default function SignIn(props) {
     return 'good!';
   }
 
-  // useEffect(() => {
-  //   setSistate(prev => ({...prev, info: {...info_init} })); 
-  // }, []);
+  useEffect(() => {
+    setSistate(prev => ({...prev, info: {...info_init} })); 
+  }, []);
 
   const handleSubmit = (info, event) => {
     event.preventDefault();
+    
     if (signputFormValidation(info) === 'good!') {
-      
+      props.hv_handler('pending')
       axios.post('/api/users/signin', {...info})
         .then(user => {
-          console.log('this important data ===>', JSON.stringify(user.data)) //---------------------------------
-          props.sortUser(user.data);
-          props.setUser(prev => ({...prev,  ...user.data }))
+          // console.log('this important data ===> user', JSON.stringify(user.data.user)) //---------------------------------
+          // console.log('this important data ===> packages', JSON.stringify(user.data.packages)) //---------------------------------
+          // console.log('this important data ===> orders', JSON.stringify(user.data.orders)) //---------------------------------
           
+          props.sortUser(user.data);
+
+          // props.setUser(prev => ({...prev,  ...user.data }))
+          // console.log('this important user ===>', JSON.stringify({user: props.user})) //---------------------------------
+          // console.log('this important ordercart ===>', JSON.stringify({orders: props.ordercart})) //---------------------------------
+          // console.log('this important pkgs ===>', JSON.stringify([{pkgs:props.pkgs}])) //---------------------------------
+
           // switch to user view with userinfo.rows and set it to state // or pks queue view
           user.data.user[0].status === 'customer' ? props.hv_handler('customerHome') : props.hv_handler('shipperHome');      
         })
@@ -96,7 +104,7 @@ export default function SignIn(props) {
               </fieldset>
     
                 <label className="form-group row" htmlFor="formSubmitButton"></label>
-                <input type="submit"  name="formSubmitButton" className="btn btn-secondary btn-lg" onClick={(e) => props.hv_handler('pending')}/>
+                <input type="submit"  name="formSubmitButton" className="btn btn-secondary btn-lg" onClick={(e) => console.log('sign-in ...')}/>
             </form>
           </div>
         </div>
