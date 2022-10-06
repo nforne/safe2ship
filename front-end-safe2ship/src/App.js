@@ -50,7 +50,7 @@ const App = () => {
   const [ordersview, setOrdersview] = useState([]);
 
 
-  const sortUser = (user) => {
+  const sortUser = (data) => {
 
     let pkgList = {delivered:[], active:[], declined:[] };
     let ordList = {delivered:[], active:[], declined:[] };
@@ -59,8 +59,8 @@ const App = () => {
       object[status] = [...object[status], element];
     }
 
-    if (user.packages.length !== 0) {
-      for (let pkg of user.packages) {
+    if (data.packages.length !== 0) {
+      for (let pkg of data.packages) {
         if (pkg.status === 'delivered') {
           updateList(pkgList, pkg, 'delivered')
         } else if (pkg.status === 'inqueue' || pkg.status === 'ready') {
@@ -70,13 +70,11 @@ const App = () => {
         }
       }
       setPkgs(prev => ({...prev, ...pkgList}))
-      console.log('this # active ==>', pkgs.active.length) //----------------------------------------------------------
       pkgList = {delivered:[], active:[], declined:[] };
-      console.log('these pkgs ==>', JSON.stringify(pkgs)) //-------------------------------------
     }
 
-    if (user.orders.length !== 0) {
-      for (let ord of user.orders) {
+    if (data.orders.length !== 0) {
+      for (let ord of data.orders) {
         if (ord.status === 'delivered') {
           updateList(ordList, ord, 'delivered')
         } else if (ord.status === 'inqueue' || ord.status === 'ready') {
@@ -88,17 +86,9 @@ const App = () => {
       setOrdercart(prev => ({...prev, ...ordList}))
       ordList = {delivered:[], active:[], declined:[] };
     }
-
-    setUser(prev => ({...prev, ...user}))
-    
-
+    setUser(prev => ({...prev, ...data}))
     setPkgsview(prev => ([...prev, ...pkgs.active]))
-    // console.log('these active pkgs 1 ===>', pkgs.active.length) //----------------------------------------
-    // console.log('these active pkgs 2 ===>', pkgsview.length) //----------------------------------------
-
-    setOrdersview(prev => ([...prev, ...ordercart.active]));    
-    // console.log('these active orders 3 ===>', ordercart.active.length) //----------------------------------------
-    // console.log('these active orders 4 ===>', ordersview.length) //----------------------------------------
+    setOrdersview(prev => ([...prev, ...ordercart.active]));
   }
 
 
@@ -107,11 +97,8 @@ const App = () => {
   }
 
   const errorHandler = (errorMessage) => {
-    setError(() => ([<p key={'1'}>{errorMessage}</p>]))
-    setTimeout(() => {
-      setError(() => [<p key={'2'}></p>]);
-    }, 120000)
-
+    setError((prev) => ([...prev, <p key={'1'}>{errorMessage}</p>]))
+    setTimeout(() => { setError(() => []); }, 10000)
   }
 
   const props = {
@@ -134,12 +121,10 @@ const App = () => {
       
       <Nav {...props}/>
       <hr className='line'/>
-      <br></br>
+      <br/><hr/>
       
-        <div className='errmsgs'>
-          {error}
-        </div>
-
+      {error.length > 0 &&  <div className='errmsgs'> {error} </div>}
+    
       <hr/>
       <section className='main'>
         {hview.v === 'pending' &&  <Pending/>}
@@ -153,8 +138,6 @@ const App = () => {
         {hview.v === "packagePage" && <Package {...props}/>}
         {hview.v === "postPackage" && <PostPackage {...props}/>}
       </section>
-
-
 
     </div>
   );

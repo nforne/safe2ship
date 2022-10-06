@@ -53,3 +53,7 @@
   border-color: white;
   height: 0.5em;
 }
+
+.errmsgs {
+  color: yellow;
+}

@@ -1,6 +1,5 @@
 
 .signin {
-
   display: flex;
   flex-direction: row;
   justify-content:center;
@@ -8,6 +7,7 @@
   justify-items: center;
   align-items: center;
   position: relative;
+  width: 30%;
 }
 
 .userform {
@@ -16,4 +16,16 @@
 
 .back-button {
   margin-bottom: 1.5rem;
+  align-self: center;
+}
+
+.signin-btns {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  align-items: center;
+  align-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: 15%;
 }

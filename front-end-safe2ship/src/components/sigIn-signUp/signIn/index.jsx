@@ -43,17 +43,8 @@ export default function SignIn(props) {
     if (signputFormValidation(info) === 'good!') {
       props.hv_handler('pending')
       axios.post('/api/users/signin', {...info})
-        .then(user => {
-          // console.log('this important data ===> user', JSON.stringify(user.data.user)) //---------------------------------
-          // console.log('this important data ===> packages', JSON.stringify(user.data.packages)) //---------------------------------
-          // console.log('this important data ===> orders', JSON.stringify(user.data.orders)) //---------------------------------
-          
+        .then(user => {          
           props.sortUser(user.data);
-
-          // props.setUser(prev => ({...prev,  ...user.data }))
-          // console.log('this important user ===>', JSON.stringify({user: props.user})) //---------------------------------
-          // console.log('this important ordercart ===>', JSON.stringify({orders: props.ordercart})) //---------------------------------
-          // console.log('this important pkgs ===>', JSON.stringify([{pkgs:props.pkgs}])) //---------------------------------
 
           // switch to user view with userinfo.rows and set it to state // or pks queue view
           user.data.user[0].status === 'customer' ? props.hv_handler('customerHome') : props.hv_handler('shipperHome');      
@@ -72,50 +63,56 @@ export default function SignIn(props) {
 
    return (
 
-      <div className="form-group ">
+    <div className="form-group ">
 
+        <div>
+        <img src={Logo1} id="homelogoimg" className="rounded rounded-pill img-fluid" alt={"logo"}/>
+        </div>
+
+      <center>
+        <div className="signin">
+          <hr />
+          <div className="userform">
             <div>
-            <img src={Logo1} id="homelogoimg" className="rounded rounded-pill img-fluid" alt={"logo"}/>
+              <form  onSubmit={(e) => handleSubmit(sistate.info, e)}>
+                <fieldset >
+                
+                    <p>
+                      <label className="form-group row" htmlFor="email">Email:</label>
+                      <input type="email" name='email' id="email" onChange={(e) => signfo_handler('email', e.target.value)} placeholder="test@example.com"/>
+                    </p>
+                    
+                    <p>
+                      <label className="form-group row" htmlFor="password">Password:</label>
+                      <input type="password" name='password' id="password" onChange={(e) => signfo_handler('password', e.target.value)} placeholder="x42x58s5d4s898"/>
+                    </p>
+                
+                </fieldset>
+                  <center>
+                  <hr />
+                    <div className="signin-btns">
+                      <div>
+                        <label className="form-group row" htmlFor="formSubmitButton"></label>
+                        <input type="submit"  name="formSubmitButton" className="btn btn-secondary btn-lg" onClick={(e) => console.log('sign-in ...')}/>
+                      </div>
+                      
+                      <div style={{display: 'flex', flexDirection: 'row'}}><div style={{visibility: 'hidden'}}>--</div><h1>|</h1><div style={{visibility: 'hidden'}}>--</div></div>
+
+                      <div>
+                        <div style={{color:'#47B5FF'}}>______</div>
+                        <button onClick={() => props.hv_handler("home")} type="button" className="btn btn-secondary btn-lg back-button"><i className="bi bi-reply-all"></i></button>
+                      </div>
+
+                    </div>
+                  </center>
+              </form>
+              
             </div>
-
-            <div>
-
-
-            <div className="signin">
-            
-            <div>
-
-            <hr />
-        <div className="userform">
-          <div>
-            <form  onSubmit={(e) => handleSubmit(sistate.info, e)}>
-              <fieldset >
-              
-                  <p>
-                    <label className="form-group row" htmlFor="email">Email:</label>
-                    <input type="email" name='email' id="email" onChange={(e) => signfo_handler('email', e.target.value)} placeholder="test@example.com"/>
-                  </p>
-                  
-                  <p>
-                    <label className="form-group row" htmlFor="password">Password:</label>
-                    <input type="password" name='password' id="password" onChange={(e) => signfo_handler('password', e.target.value)} placeholder="x42x58s5d4s898"/>
-                  </p>
-              
-              </fieldset>
-    
-                <label className="form-group row" htmlFor="formSubmitButton"></label>
-                <input type="submit"  name="formSubmitButton" className="btn btn-secondary btn-lg" onClick={(e) => console.log('sign-in ...')}/>
-            </form>
           </div>
         </div>
-          <hr />
-          <button onClick={() => props.hv_handler("home")} type="button" className="btn btn-secondary btn-lg back-button"><i className="bi bi-reply-all"></i></button>
-          <hr />
-      </div>
-      </div>
-        </div>
+      </center>
       <Scrollup/> 
-     </div>
+    </div>
 
   );
 
