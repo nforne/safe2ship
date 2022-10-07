@@ -4,8 +4,8 @@ import { useState } from "react";
 import Shippersignup from "./shipperform";
 import Customersignup from "./customerform";
 import Button from "./buttons";
-import Scrollup from "../../scrollup";
-import Logo1 from "../../nav/logo.jpg";
+import Logo from "../../nav/logo.jpg";
+import Default from './default.jpg'
 
 import './signUp.css'
 
@@ -16,11 +16,11 @@ export default function SignUp(props) {
 
   const [state, setState] = useState('off')
 
-  const suhandler = (suview) => {
-    if (state === 'off') {
+  const suhandler = (view) => {
+    if (state === 'off' || suview.v !== view) {
       setState(prev => 'on')
-      setSuview(prev => ({...prev, v: suview}));
-    } else if (state === 'on') {
+      setSuview(prev => ({...prev, v: view}));
+    } else if (state === 'on' || suview.v === view) {
       setState(prev => 'off')
       setSuview(prev => ({...prev, v:''}));
     }
@@ -29,7 +29,7 @@ export default function SignUp(props) {
    return (
     <div className="signupbtns">
         <div>
-          <img src={Logo1} id="homelogoimg" className="rounded rounded-pill img-fluid" alt={"logo"}/>
+          <img src={Logo} id="homelogoimg" className="rounded rounded-pill img-fluid" alt={"logo"}/>
         </div>
 
         <div className="form-u">
@@ -42,12 +42,13 @@ export default function SignUp(props) {
         {suview.v === 'customer' && <Customersignup {...props} />}
       </div>}
         
+        {suview.v === '' && <img style={{borderRadius: '10px'}} src={Default} alt={"default"}/>}
+        
       </div>
        
       
         <hr />
-       
-      <Scrollup/>      
+     
     </div>
    );
  }

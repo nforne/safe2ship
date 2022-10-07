@@ -2,6 +2,7 @@ import React from "react";
 
 import Button from "./Button";
 import Logo1 from "../nav/logo.jpg";
+import Default from './default.jpg'
 
 import "./home.css";
 
@@ -15,6 +16,9 @@ export default function Home(props) {
           <h1 id="welcome-msg">Welcome!</h1>
           <Button hv_handler={props.hv_handler}/>
        </div>
+       <hr />
+       <img style={{borderRadius: '10px'}}src={Default} alt={"default"}/>
+       <hr />
         <div className="hometx-span">
           <hr />
           <span>

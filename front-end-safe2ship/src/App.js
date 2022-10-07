@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Nav from "./components/nav";
 import Home from "./components/home"
 import Pending from "./components/home/pending";
+import Scrollup from "./components/scrollup";
 
 import SignIn from './components/sigIn-signUp/signIn';
 import SignUp from './components/sigIn-signUp/signUp';
@@ -143,7 +144,7 @@ const App = () => {
         {hview.v === "packagePage" && <Package {...props}/>}
         {hview.v === "postPackage" && <PostPackage {...props}/>}
       </section>
-
+      <Scrollup/> 
     </div>
   );
 }

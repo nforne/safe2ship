@@ -48,17 +48,14 @@
 
 #welcome-msg {
   margin-top: 3rem;
-  color: white;
+  color: #bee0f7;
+  /* font-style: italic; */
+  font-family: 'Sacramento', cursive;
+  font-size: 10em;
+  width: 100%;
 }
 
 button {
   color: #515355;
   background-color: black;
-}
-
-.homebtns h1 {
-  color: whitesmoke;
-  /* font-style: italic; */
-  /* font-family: Verdana, Geneva, Tahoma, sans-serif; */
-  font-family: 'Sacramento', cursive;
 }
