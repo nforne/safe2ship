@@ -1,36 +1,57 @@
 .signupbtns {
-  
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+  position: relative;
 }
 
 .userform { 
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  justify-self:center;
-  width: inherit;
 
   align-items: center;
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
-  box-sizing:inherit;
-  
+    
   border-radius: 5px;
 
   background-color: gray;
   color: black;
   
-  box-sizing: border-box;
   border: 3px solid black;
   -webkit-transition: 0.5s;
   transition: 0.5s;
-  outline: none;
 }
 
 .btn-primary {
   background-color: gray;
+  border: black;
+}
+
+.form-group {
+  width: 25%;
+}
+
+.form label {
+  display: block;
+  text-align: start;
+}
+
+
+.form input {
+  width: 80%;
+  border: 2px solid #DFF6FF;
+  border-radius: 4px;
+}
+
+.form input:hover {
+  border: 2px solid #07b2f6;
+}
+
+.form input[type=submit] {
+  border: 2px solid green !important;
+}
+
+.form input[type=submit]:hover {
+  border: 2px solid rgb(169, 253, 2) !important;
 }

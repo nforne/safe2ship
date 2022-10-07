@@ -62,19 +62,18 @@ export default function SignIn(props) {
   }
 
    return (
-
-    <div className="form-group ">
-
+    <div className="form-i">
+      
         <div>
         <img src={Logo1} id="homelogoimg" className="rounded rounded-pill img-fluid" alt={"logo"}/>
         </div>
-
-      <center>
+        <br />
         <div className="signin">
-          <hr />
+      <div style={{width: '100%'}}>
+        <hr />
           <div className="userform">
             <div>
-              <form  onSubmit={(e) => handleSubmit(sistate.info, e)}>
+              <form  className="form" onSubmit={(e) => handleSubmit(sistate.info, e)}>
                 <fieldset >
                 
                     <p>
@@ -88,32 +87,31 @@ export default function SignIn(props) {
                     </p>
                 
                 </fieldset>
-                  <center>
+                  
                   <hr />
+                  
                     <div className="signin-btns">
-                      <div>
-                        <label className="form-group row" htmlFor="formSubmitButton"></label>
-                        <input type="submit"  name="formSubmitButton" className="btn btn-secondary btn-lg" onClick={(e) => console.log('sign-in ...')}/>
-                      </div>
+                      
+                      <label className="form-group row" htmlFor="formSubmitButton"></label>
+                      <input type="submit"  name="formSubmitButton" className="btn btn-secondary btn-lg" onClick={(e) => console.log('sign-in ...')}/>
+                    
                       
                       <div style={{display: 'flex', flexDirection: 'row'}}><div style={{visibility: 'hidden'}}>--</div><h1>|</h1><div style={{visibility: 'hidden'}}>--</div></div>
 
-                      <div>
+                      <div style={{marginRight: '10%'}}>
                         <div style={{color:'#47B5FF'}}>______</div>
                         <button onClick={() => props.hv_handler("home")} type="button" className="btn btn-secondary btn-lg back-button"><i className="bi bi-reply-all"></i></button>
                       </div>
 
-                    </div>
-                  </center>
+                    </div>      
               </form>
-              
             </div>
           </div>
+     <hr />
+     </div>
         </div>
-      </center>
       <Scrollup/> 
     </div>
-
   );
 
  }

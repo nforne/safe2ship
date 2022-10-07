@@ -14,8 +14,16 @@ export default function SignUp(props) {
  
   const [suview, setSuview] = useState({v:'', vtracker: []})
 
+  const [state, setState] = useState('off')
+
   const suhandler = (suview) => {
-    setSuview(prev => ({...prev, v: suview}));
+    if (state === 'off') {
+      setState(prev => 'on')
+      setSuview(prev => ({...prev, v: suview}));
+    } else if (state === 'on') {
+      setState(prev => 'off')
+      setSuview(prev => ({...prev, v:''}));
+    }
   }
    
    return (
@@ -24,19 +32,21 @@ export default function SignUp(props) {
           <img src={Logo1} id="homelogoimg" className="rounded rounded-pill img-fluid" alt={"logo"}/>
         </div>
 
-        <div className="form-group">
+        <div className="form-u">
         <hr />
 
         <Button handlers={{suhandler: suhandler, hv_handler: props.hv_handler, view: suview.v}}/>
         <hr />
-        <div>
+      {(suview.v === 'shipper' || suview.v === 'customer') && <div>
         {suview.v === 'shipper' && <Shippersignup {...props} />}
         {suview.v === 'customer' && <Customersignup {...props} />}
-        </div>
+      </div>}
+        
       </div>
        
       
         <hr />
+       
       <Scrollup/>      
     </div>
    );

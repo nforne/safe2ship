@@ -1,18 +1,22 @@
 .scrollup {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content:flex-start;
   align-items: baseline;
-  align-content: space-between;
-
-  position: fixed;
+  align-content:space-around;
+  height: 5px;
+  width: 5px;
+  z-index: 1000;
+  position: fixed; /* Set the navbar to fixed position */
+  width: 100%; /* Full width */
+  left: 0;
   bottom: 0;
 }
 
 #scrollup {
-  color: white;
-  z-index: 5000;
-  size: 5em;
+  color: black;
+  z-index: 1000;
+  size: 100%;
 }
 
 #scrollup:hover {

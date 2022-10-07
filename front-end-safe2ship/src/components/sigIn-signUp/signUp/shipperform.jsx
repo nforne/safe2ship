@@ -72,7 +72,7 @@ export default function Shippersignup(props) {
 
       <div className="userform">
           
-        <form onSubmit={event =>  handleSubmit(sstate.shipperInfo, event)}>
+        <form className="form" onSubmit={event =>  handleSubmit(sstate.shipperInfo, event)}>
 
           <fieldset>
       
