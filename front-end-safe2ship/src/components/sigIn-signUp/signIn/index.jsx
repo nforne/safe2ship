@@ -93,12 +93,12 @@ export default function SignIn(props) {
                     <div className="signin-btns">
                       
                       <label className="form-group row" htmlFor="formSubmitButton"></label>
-                      <input type="submit"  name="formSubmitButton" className="btn btn-secondary btn-lg" onClick={(e) => console.log('sign-in ...')}/>
+                      <input style={{zIndex:'1000'}} type="submit"  name="formSubmitButton" className="btn btn-secondary btn-lg" onClick={(e) => console.log('sign-in ...')}/>
                     
                       
                       <div style={{display: 'flex', flexDirection: 'row'}}><div style={{visibility: 'hidden'}}>--</div><h1>|</h1><div style={{visibility: 'hidden'}}>--</div></div>
 
-                      <div style={{marginRight: '10%'}}>
+                      <div style={{marginRight: '10%', zIndex:'1000'}}>
                         <div style={{color:'#47B5FF'}}>______</div>
                         <button onClick={() => props.hv_handler("home")} type="button" className="btn btn-secondary btn-lg back-button"><i className="bi bi-reply-all"></i></button>
                       </div>
@@ -110,7 +110,7 @@ export default function SignIn(props) {
      <hr />
      </div>
         </div>
-      <Scrollup/> 
+      
     </div>
   );
 

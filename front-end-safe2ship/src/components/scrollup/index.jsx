@@ -1,24 +1,17 @@
 import React from "react";
+import Scroll from './scroll.png'
+import { ScrollTo } from "react-scroll-to";
+
 import './scrollup.css';
 
 
-export default function Scrollup(props) {
+export default function Scrollup() {
 
-  const clickHandler = () => {
-    Window.scroll({
-      top: 1,
-      left: 1,
-      behavior: 'smooth'
-    });
-  }
-   
    return (
     <div className="scrollup">
-      <hr />
-      <div className="col-md-3 col-sm-4" onClick={() => clickHandler()}>
-        <i  id="scrollup" className="bi bi-arrow-up-circle fa-10x" ></i>
-      </div>
-
+      <ScrollTo>
+        {({ scroll }) => (<img id='scrollup' onClick={() => scroll({ x: 1, y:1, smooth: true })} src={Scroll} alt="scroll" />)}
+      </ScrollTo>
     </div>
    );
  }

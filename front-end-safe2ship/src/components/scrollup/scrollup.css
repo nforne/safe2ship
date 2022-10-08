@@ -4,21 +4,27 @@
   justify-content:flex-start;
   align-items: baseline;
   align-content:space-around;
-  height: 5px;
-  width: 5px;
-  z-index: 1000;
+  background-color: transparent;
+  height: 5em;
   position: fixed; /* Set the navbar to fixed position */
   width: 100%; /* Full width */
   left: 0;
-  bottom: 0;
+  bottom: 15px;
+  margin-bottom: 15px;
+  z-index: 500;
 }
 
+
 #scrollup {
-  color: black;
-  z-index: 1000;
-  size: 100%;
+  color: #47B5FF;
+  background-color: transparent;
+  margin-left: 85%;
+  box-shadow: 20px 20px 50px 15px grey;
+  border-radius: 20px;
+  color:transparent;
 }
 
 #scrollup:hover {
-  color: white;
+  visibility: visible;
+  box-shadow: 20px 20px 50px 15px aqua;
 }
