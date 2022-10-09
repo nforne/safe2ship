@@ -142,7 +142,7 @@ export default function Shippersignup(props) {
 
         </fieldset>
             <label className="form-group row" htmlFor="formSubmitButton"></label>
-            <input type="submit" name="formSubmitButton" className="btn btn-secondary btn-lg" onClick={(e) => console.log("not yet shipper", e)}/>
+            <input style={{zIndex:'1000'}} type="submit" name="formSubmitButton" className="btn btn-secondary btn-lg" onClick={(e) => console.log("not yet shipper", e)}/>
        </form>
 
 

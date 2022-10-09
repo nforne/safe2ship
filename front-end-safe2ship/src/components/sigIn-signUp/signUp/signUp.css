@@ -14,7 +14,7 @@
   margin: 8px 0;
     
   border-radius: 5px;
-
+  
   background-color: gray;
   color: black;
   
@@ -37,11 +37,11 @@
   text-align: start;
 }
 
-
 .form input {
   width: 80%;
   border: 2px solid #DFF6FF;
   border-radius: 4px;
+  z-index: 1000;
 }
 
 .form input:hover {
@@ -49,7 +49,7 @@
 }
 
 .form input[type=submit] {
-  border: 2px solid green !important;
+  border: 2px solid aqua !important;
 }
 
 .form input[type=submit]:hover {

@@ -49,16 +49,21 @@
 
 #welcome-msg {
   margin-top: 3rem;
-  color: black;
+  color: #06283D;
   /* font-style: italic; */
   font-family: 'Sacramento', cursive;
   font-size: 10em;
   width: 100%;
 }
 
-button {
-  color: #515355;
-  background-color: black;
+.homebtns button {
+  /* color: #515355; */
+  border: 2px solid aqua;
+}
+
+.homebtns button:hover {
+  border: 2px solid greenyellow;
+  box-shadow: 20px 20px 50px 15px aqua;
 }
 
 #default {

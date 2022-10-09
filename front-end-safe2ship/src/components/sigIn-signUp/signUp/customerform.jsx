@@ -57,7 +57,7 @@ export default function Customersignup(props) {
           console.log('this customer ===>', userinfo.data) //--------------------------------------
           //switch to user view with userinfo.data and set it to state
           props.sortUser(userinfo.data);
-          props.setUser(prev => ({...prev,  ...userinfo.data }))
+          // props.setUser(prev => ({...prev,  ...userinfo.data }))
 
           props.hv_handler('customerHome');
         })
@@ -134,7 +134,7 @@ export default function Customersignup(props) {
         
       </fieldset>
           <label className="form-group row" htmlFor="formSubmitButton"></label>
-          <input type="submit" name="formSubmitButton" className="btn btn-secondary btn-lg" onClick={(e) => console.log("not yet customer", e)} />
+          <input style={{zIndex:'1000'}} type="submit" name="formSubmitButton" className="btn btn-secondary btn-lg" onClick={(e) => console.log("not yet customer", e)} />
   </form>
         
     </div>

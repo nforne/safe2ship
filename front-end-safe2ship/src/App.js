@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { ScrollTo } from "react-scroll-to";
 
 import Nav from "./components/nav";
 import Home from "./components/home"
@@ -130,6 +131,9 @@ const App = () => {
       <br/><hr/>
 
       {error.length > 0 &&  <div className='errmsgs'> {error} </div>}
+      <ScrollTo>
+        {({ scroll }) => error.length > 0 || hview.v === "signUp" ? scroll({ x: 1, y:1, smooth: true }): '' }
+      </ScrollTo>
     
       <hr/>
       <section className='main'>

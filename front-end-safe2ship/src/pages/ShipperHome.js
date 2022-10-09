@@ -53,25 +53,24 @@ export default function ShipperHome(props) {
     </div>
     );
   });
-  
+ 
   return (
     <div>
     {vpkg.v === 'pkg' && <Package listpkg={vpkg.pkg} {...vpkg.pkg}  pkgvswitch={pkgvswitch} {...props}/>}
         
     {vpkg.v === 'all' && 
     <div className="m-5">
-    <div className="row justify-content-center">
-    <div className="buttonz col-sm-12 col-md-6">
-        <button type="button" onClick={() => setCurrentv(prev => ({...prev, v:'mine'}))} className="btn btn-secondary btn-lg">My own Packages</button>
-        <i id='diffsquare' className="bi bi-square"></i>
-        <button type="button" onClick={() => setCurrentv(prev => ({...prev, v:'all'}))} className="btn btn-secondary btn-lg">Packages available for pickup</button>
-        <i id='diffsquare' className="bi bi-square"></i>
-        <button type="button" onClick={() => props.hv_handler("postPackage")} className="btn btn-secondary btn-lg">+ Post New Package</button>
-        <hr/>
+      <div className="row justify-content-center">
+        <div className="buttonz col-sm-12 col-md-6">
+          
+          <button type="button" style={currentv.v === 'mine'? {boxShadow:'20px 20px 50px 15px aqua'} : {}} onClick={() => setCurrentv(prev => ({...prev, v:'mine'}))} className="btn btn-secondary btn-lg">Packages [MINE]</button>
+          <i id='diffsquare' className="bi bi-square"></i>
+          <button type="button" style={currentv.v === 'all'? {boxShadow:'20px 20px 50px 15px aqua'} : {}} onClick={() => setCurrentv(prev => ({...prev, v:'all'}))} className="btn btn-secondary btn-lg">Packages [SHIP-READY]</button>
+          <i id='diffsquare' className="bi bi-square"></i>
+          <button type="button" onClick={() => props.hv_handler("postPackage")} className="btn btn-secondary btn-lg">+ Package [POST NEW]</button>
+          
         </div>
-      <div className="col-12">
       </div>
-    </div>
       { packages }
       </div>
     }
