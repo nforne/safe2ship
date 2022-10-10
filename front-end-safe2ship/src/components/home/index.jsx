@@ -11,13 +11,13 @@ export default function Home(props) {
 
    return (
     <div className="homebtns">
-       <img style={{zIndex:'50', position:'relative'}} src={Logo1} id="homelogoimg" className="rounded rounded-pill img-fluid" alt={"logo"}/>
+       <img style={{zIndex:'50', position:'absolute', visibility: 'hidden'}} src={Logo1} id="homelogoimg" className="rounded rounded-pill img-fluid" alt={"logo"}/>
        <div style={{hieght: '15%', zIndex:'100', position:'absolute'}}>
           <h1 id="welcome-msg">Welcome!</h1>
           <Button hv_handler={props.hv_handler}/>
        </div>
        <hr />
-       <img id='default' style={{borderRadius:'10px' }} src={Default} alt={"default"}/>
+       <img id='default' className="rounded rounded-pill" style={{borderRadius:'10px' }} src={Default} alt={"default"}/>
        <hr />
         <div className="hometx-span">
           <hr />

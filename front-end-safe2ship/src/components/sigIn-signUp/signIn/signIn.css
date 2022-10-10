@@ -26,6 +26,10 @@
   align-items: center;
 }
 
+.form {
+  box-shadow: 20px 20px 50px 15px gray;
+}
+
 .form input {
   width: 80%;
   border: 2px solid #DFF6FF;

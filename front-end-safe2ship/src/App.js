@@ -40,8 +40,9 @@ const App = () => {
   const user_init = {user: [{}], packages: [{}], orders:[{}]};
 
   const [user, setUser] = useState({...user_init});
-  const [error, setError] = useState([]);
   const [pkg, setPkg] = useState({});
+  const [error, setError] = useState([]);
+  const [errorstate, setErrorstate] = useState([]);
 
   // for differentiated view of packages in packages and orders
   const [ordercart, setOrdercart] = useState({delivered:[], active:[], declined:[] }); 
@@ -98,14 +99,25 @@ const App = () => {
     setHview(prev => ({...prev, v: view }))
   }
 
-  const errorHandler = (errorMessage) => {
-    setError((prev) => ([...prev, <p key={'1'}>{errorMessage}</p>]));
-    setTimeout(() => { setError(() => []); }, 10000);
-    Window.scroll({
-      top: 1,
-      left: 1,
-      behavior: 'smooth'
-    });
+ const set = {timeout: ''};
+ const errorHandler = (errorMessage) => {
+   const timeoutHandler = (a) => { // a === 1 to set and a === 0 to unset the timeout
+     if (a === 1) {
+        set['timeout'] = setTimeout(() => {setError(() => []); setErrorstate(() => [])}, 10000);
+      } else if (a === 0) {
+        const { timeout } = set;
+        clearTimeout(timeout);
+      }
+    }
+
+    if (!errorstate.includes(errorMessage)) {
+      if (errorstate.length !== 0) timeoutHandler(0);
+      setErrorstate((prev) => ([...prev, errorMessage]));
+      setError((prev) => ([...prev, <p key={errorstate.length + 1}>{errorMessage}</p>]));
+    } else if (errorstate.includes(errorMessage)) {
+      timeoutHandler(0);
+    }
+    timeoutHandler(1)
   }
 
   const props = {

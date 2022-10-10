@@ -1,3 +1,6 @@
+html {
+  background-image: url('./logo.svg');
+}
 
 .App {
   display: flex;
@@ -7,8 +10,8 @@
   text-align: center;
   color: black;
   backface-visibility: visible;
-  background-image: url('./logo.svg');
-  background-color: rgb(71, 68, 68);
+  /* background-image: url('./logo.svg'); */
+  /* background-color: rgb(71, 68, 68); */
   height: 100%;
   position:relative;
 }
@@ -55,5 +58,9 @@
 }
 
 .errmsgs {
-  color: yellow;
+  color: black;
+  background-color: red;
+  align-self: center;
+  border-radius: 20px;
+  width: 80%;
 }
