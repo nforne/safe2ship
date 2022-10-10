@@ -19,7 +19,6 @@
   flex-direction: column;
   text-align: center;
   font-size: 12;
-  /* font-family: Verdana, Geneva, Tahoma, sans-serif; */
   font-family: 'Times New Roman', Times, serif;
   width: 80em;
   align-self: center;
@@ -32,7 +31,8 @@
   max-width: 17rem;
   padding: 0.5em;
   border:black;
-  box-shadow: 20px 20px 50px 15px grey;
+  box-shadow: 20px 20px 50px 15px gray;
+  position: relative;
 }
 
 .pending {
@@ -54,6 +54,7 @@
   font-family: 'Sacramento', cursive;
   font-size: 10em;
   width: 100%;
+  /* color: aqua; */
 }
 
 .homebtns button {
@@ -68,4 +69,5 @@
 
 #default {
   box-shadow: 20px 20px 50px 15px grey;
+  position: relative;
 }

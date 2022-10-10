@@ -25,7 +25,7 @@ export default function Nav(props) {
         <div>
 
           {props.user[0].email && 
-          <button type="button" className="btn btn-outline-success btn-lg"><i className="bi bi-unlock-fill"></i>: {props.user[0].name}</button>
+          <button id='id' type="button" className="btn btn-outline-success btn-lg"><i className="bi bi-unlock-fill"></i>: {props.user[0].name}</button>
           }
 
         </div>

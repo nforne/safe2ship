@@ -9,7 +9,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  box-shadow: 20px 20px 50px 15px grey;
+  /* box-shadow: 20px 20px 50px 15px grey; */
   align-items: center;
   /* background-color: whitesmoke; */
   border-color: aqua;
@@ -28,6 +28,7 @@
 .logo h1 {
   color: whitesmoke;
   font-style: italic;
+  /* font-family: 'Sacramento', cursive; */
 }
 
 .circle {
@@ -91,6 +92,9 @@
 .nav:hover {
   box-shadow: 20px 20px 50px 15px aqua;
 } 
+.nav {
+  box-shadow: 0px 0px 2px 0px aqua;
+}
 
 .btn-primary {
   background-color: silver;
@@ -107,4 +111,10 @@
 
 .dropdown-item:hover {
   box-shadow: 20px 20px 50px 15px aqua;
+}
+
+.menu #id {
+  background-color: transparent;
+  border-color: aqua;
+  color: white;
 }
