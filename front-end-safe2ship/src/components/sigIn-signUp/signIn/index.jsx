@@ -56,7 +56,7 @@ export default function SignIn(props) {
 
     } else {
       props.hv_handler('home');
-      props.errorHandler(`Oops! Something is missing or missentered: ${signputFormValidation(info)}. Please verify and make sure of the right information and resubmit. Thank you!`)
+      props.errorHandler(`Oops! Something is missing or missentered: ${signputFormValidation(info)}. Please verify to make sure of the right information and resubmit. Thank you!`)
     }
 
   }

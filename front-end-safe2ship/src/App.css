@@ -10,8 +10,8 @@ html {
   text-align: center;
   color: black;
   backface-visibility: visible;
-  /* background-image: url('./logo.svg'); */
-  /* background-color: rgb(71, 68, 68); */
+  background-image: url('./logo.svg');
+  background-color: rgb(71, 68, 68);
   height: 100%;
   position:relative;
 }
@@ -58,9 +58,11 @@ html {
 }
 
 .errmsgs {
-  color: black;
+  color: white;
   background-color: red;
   align-self: center;
   border-radius: 20px;
-  width: 80%;
+  width: 90%;
+  box-shadow: 20px 20px 50px 15px grey;
+  border: 0.1em dashed black;
 }

@@ -107,7 +107,7 @@ const App = () => {
       } else if (a === 0) {
         const { timeout } = set;
         clearTimeout(timeout);
-      }
+      } 
     }
 
     if (!errorstate.includes(errorMessage)) {
@@ -142,7 +142,8 @@ const App = () => {
       <hr className='line'/>
       <br/><hr/>
 
-      {error.length > 0 &&  <div className='errmsgs'> {error} </div>}
+      {error.length > 0 &&  <div className='errmsgs'>{error}</div>}
+      
       <ScrollTo>
         {({ scroll }) => error.length > 0 || hview.v === "signUp" ? scroll({ x: 1, y:1, smooth: true }): '' }
       </ScrollTo>
@@ -150,7 +151,7 @@ const App = () => {
       <hr/>
       <section className='main'>
         {hview.v === 'pending' &&  <Pending/>}
-        {hview.v === "home" &&<Home  {...props} />}
+        {hview.v === "home" && <Home  {...props} />}
         {hview.v === "profile" &&<Profile  {...user.user[0]} {...props} />}
 
         {hview.v === "signIn" && <SignIn {...props}/>}

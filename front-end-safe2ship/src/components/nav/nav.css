@@ -79,6 +79,7 @@
   align-items: baseline;
   font-family: 'Times New Roman', Times, serif;
   height: 80px;
+  box-shadow: 20px 20px 50px 15px grey;
   background-color: rgb(51, 48, 48);
   padding-left: 1.5em;
   padding-right: 1.5em;
