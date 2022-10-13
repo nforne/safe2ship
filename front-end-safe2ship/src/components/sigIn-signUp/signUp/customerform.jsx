@@ -71,9 +71,9 @@ export default function Customersignup(props) {
    
  
    return (
+<div className="signUpForms">
 
-
-    <div className="userform">
+    <div className="userform view_a">
         
       <form className="form" onSubmit={event =>  handleSubmit(cstate.customerInfo, event)}>
         <fieldset>
@@ -123,7 +123,7 @@ export default function Customersignup(props) {
         </p>    
         <hr />
         <p>
-          <label className="form-group row" htmlFor="ccard_info">ccard_info:</label>
+          <label className="form-group row" htmlFor="ccard_info">Payment_Method:</label>
           <input type="button" name='ccard_info' id="ccard_info" onClick={(e) => cv_handler('ccard_info')} />
         </p>
         
@@ -134,11 +134,13 @@ export default function Customersignup(props) {
         
       </fieldset>
           <label className="form-group row" htmlFor="formSubmitButton"></label>
-          <input style={{zIndex:'1000'}} type="submit" name="formSubmitButton" className="btn btn-secondary btn-lg" onClick={(e) => console.log("not yet customer", e)} />
+          <input type="submit" name="formSubmitButton" className="btn btn-secondary btn-lg" onClick={(e) => console.log("not yet customer", e)} />
   </form>
-        
+      <hr />  
     </div>
-  
-
+    <div className="subForms view_b">
+            
+    </div>
+    </div>
    );
  }

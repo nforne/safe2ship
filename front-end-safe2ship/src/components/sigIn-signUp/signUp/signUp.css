@@ -1,9 +1,10 @@
 .signupbtns {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content:space-between ;
   align-items: center;
-  position: relative;
+  /* position: relative; */
+  width: 100%;
 }
 
 .userform { 
@@ -21,11 +22,16 @@
   border: 3px solid black;
   -webkit-transition: 0.5s;
   transition: 0.5s;
+  z-index: 200;
 }
 
 .btn-primary {
   background-color: gray;
   border: black;
+}
+
+.form {
+  width: 40em;
 }
 
 .form-group {
@@ -55,3 +61,14 @@
 .form input[type=submit]:hover {
   border: 2px solid rgb(169, 253, 2) !important;
 }
+
+.signUpForms {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items:baseline;
+  align-self: center;
+  align-content: space-between;
+  width: 100%;
+}
+

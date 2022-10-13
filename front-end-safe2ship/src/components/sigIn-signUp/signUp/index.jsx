@@ -29,19 +29,18 @@ export default function SignUp(props) {
    return (
     <div className="signupbtns">
         <div>
-          <img src={Logo} id="homelogoimg" className="rounded rounded-pill img-fluid" alt={"logo"}/>
+          <img src={Logo} className="rounded rounded-pill img-fluid homelogoimg" alt={"logo"}/>
         </div>
 
-        <div className="form-u">
+      <div className="form-u">
         <hr />
+        <Button {...{suhandler: suhandler, hv_handler: props.hv_handler, view: suview.v}}/>
+        <hr />
+        
 
-        <Button handlers={{suhandler: suhandler, hv_handler: props.hv_handler, view: suview.v}}/>
-        <hr />
-      {(suview.v === 'shipper' || suview.v === 'customer') && <div>
         {suview.v === 'shipper' && <Shippersignup {...props} />}
         {suview.v === 'customer' && <Customersignup {...props} />}
-      </div>}
-        
+          
         {suview.v === '' && <img style={{borderRadius: '10px'}} src={Default} alt={"default"}/>}
         
       </div>

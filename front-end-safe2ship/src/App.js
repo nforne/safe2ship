@@ -145,7 +145,7 @@ const App = () => {
       {error.length > 0 &&  <div className='errmsgs'>{error}</div>}
       
       <ScrollTo>
-        {({ scroll }) => error.length > 0 || hview.v === "signUp" ? scroll({ x: 1, y:1, smooth: true }): '' }
+        {({ scroll }) => error.length > 0 ? scroll({ x: 1, y:1, smooth: true }): '' }
       </ScrollTo>
     
       <hr/>

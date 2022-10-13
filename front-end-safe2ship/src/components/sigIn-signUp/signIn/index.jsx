@@ -50,12 +50,11 @@ export default function SignIn(props) {
           user.data.user[0].status === 'customer' ? props.hv_handler('customerHome') : props.hv_handler('shipperHome');      
         })
         .catch((error) => {
-          props.hv_handler('home');
-          props.errorHandler('Oop! Something went wrong. Please Consider trying again shortly!');
+          props.hv_handler('signIn')
+          props.errorHandler(`Oop! Something went wrong. ${error} Please Consider trying again shortly!`);
         })
 
     } else {
-      props.hv_handler('home');
       props.errorHandler(`Oops! Something is missing or missentered: ${signputFormValidation(info)}. Please verify to make sure of the right information and resubmit. Thank you!`)
     }
 
@@ -65,7 +64,7 @@ export default function SignIn(props) {
     <div className="form-i">
       
         <div>
-        <img src={Logo1} id="homelogoimg" className="rounded rounded-pill img-fluid" alt={"logo"}/>
+        <img src={Logo1} className="rounded rounded-pill img-fluid homelogoimg" alt={"logo"}/>
         </div>
         <br />
         <div className="signin">

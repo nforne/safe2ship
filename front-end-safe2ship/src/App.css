@@ -1,5 +1,6 @@
-html {
+body {
   background-image: url('./logo.svg');
+  background-color: rgb(71, 68, 68);
 }
 
 .App {
@@ -10,8 +11,6 @@ html {
   text-align: center;
   color: black;
   backface-visibility: visible;
-  background-image: url('./logo.svg');
-  background-color: rgb(71, 68, 68);
   height: 100%;
   position:relative;
 }
@@ -65,4 +64,5 @@ html {
   width: 90%;
   box-shadow: 20px 20px 50px 15px grey;
   border: 0.1em dashed black;
+  font-size: 1.2em;
 }
