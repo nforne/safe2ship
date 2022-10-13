@@ -74,7 +74,8 @@ export default function Customersignup(props) {
 <div className="signUpForms">
 
     <div className="userform view_a">
-        
+    <h5>[ Customer Sign-Up ]</h5>
+    <hr />
       <form className="form" onSubmit={event =>  handleSubmit(cstate.customerInfo, event)}>
         <fieldset>
 

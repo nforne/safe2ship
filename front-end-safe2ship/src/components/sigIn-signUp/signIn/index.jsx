@@ -61,16 +61,17 @@ export default function SignIn(props) {
   }
 
    return (
-    <div className="form-i">
+    <div className="signinform">
       
         <div>
         <img src={Logo1} className="rounded rounded-pill img-fluid homelogoimg" alt={"logo"}/>
         </div>
         <br />
         <div className="signin">
-      <div style={{width: '100%'}}>
-        <hr />
+        
           <div className="userform">
+          <h5>[ Sign-In ]</h5>
+          <hr />
             <div>
               <form  className="form" onSubmit={(e) => handleSubmit(sistate.info, e)}>
                 <fieldset >
@@ -108,9 +109,8 @@ export default function SignIn(props) {
           </div>
      <hr />
      </div>
-        </div>
-      
     </div>
+
   );
 
  }

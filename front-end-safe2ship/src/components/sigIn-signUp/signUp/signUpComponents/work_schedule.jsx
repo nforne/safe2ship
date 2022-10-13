@@ -46,7 +46,8 @@ const Work_schedule = (props) => {
   return(
   <div>
     <div className="userform">
-      
+      <h5>[ Create Work_Schedule ]</h5>
+      <hr />
         <form  className="form" onSubmit={(e) => handleSubmit(wstate.winfo, e)}>
           <fieldset >
           
@@ -57,7 +58,7 @@ const Work_schedule = (props) => {
               
               <p>
                 <label className="form-group row" htmlFor="password">Password:</label>
-                <input type="password" name='password' id="password" onChange={(e) => winfo_handler('password', e.target.value)} placeholder="x42x58s5d4s898"/>
+                <input type="password" name='password' id="password"  onChange={(e) => winfo_handler('password', e.target.value)} placeholder="x42x58s5d4s898"/>
               </p>
           
           </fieldset>
@@ -86,4 +87,4 @@ const Work_schedule = (props) => {
   );
 }
 
-export default Work_schedule
+export default Work_schedule;

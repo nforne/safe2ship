@@ -3,14 +3,14 @@
   flex-direction: column;
   justify-content:space-between ;
   align-items: center;
-  /* position: relative; */
+  position: relative;
   width: 100%;
 }
 
 .userform { 
 
   align-items: center;
-  width: 100%;
+  
   padding: 12px 20px;
   margin: 8px 0;
     

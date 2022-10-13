@@ -7,6 +7,8 @@ import Pending from "../../home/pending";
 import { ScrollTo } from "react-scroll-to";
 import axios from 'axios';
 
+import { objectEquals } from "./signUpComponents/helpers";
+
 
 export default function Shippersignup(props) {
 
@@ -76,48 +78,11 @@ export default function Shippersignup(props) {
 
 //--------------------------------------------------------------------------------------------
   // for subforms
-  const objectEquals = (obj1, obj2) => {
-    let outPut = true
-    if (Array.isArray(obj1) && Array.isArray(obj2)) {
-      if (obj1.length !== obj2.length) {
-          outPut = false;
-      } else {
-        for (let i = 0; i < obj1.length; i++) {
-          if (Array.isArray(obj1[i]) || typeof obj1[i] === 'object') {
-            outPut = objectEquals(obj1[i], obj2[i])
-          } else if (obj1[i] !== obj2[i]) {
-            outPut = false;
-            break;
-          }
-        }
-      }; 
-    } else if (typeof obj1 === 'object' && typeof obj2 === 'object') {
-      const arrayObj1Keys = Object.keys(obj1);
-      const arrayObj2Keys = Object.keys(obj2);
-      if (arrayObj1Keys.length !== arrayObj2Keys.length) {
-        outPut = false;
-      } else {
-        for (let key of arrayObj1Keys) {
-          if ((typeof obj1[key] === typeof obj2[key] && typeof obj1[key] === 'object') || (typeof obj1[key] === typeof obj2[key] && Array.isArray(obj1[key]))) {
-            outPut = objectEquals(obj1[key], obj2[key]);
-          } else if (!arrayObj2Keys.includes(key) || obj1[key] !== obj2[key]) {
-            outPut = false;
-            break;
-          }
-        }
-      }
-    } else {
-      outPut = false;
-    }
-    return outPut;
-  }
-  
-  //--------------------------------------------------------------------------------------------
 
   const subFormsCss = (btnView) => { // to style subForm button when it has been selected for filling and when it has already been filled.
-    if (sstate.view === btnView ) return {border: '2px solid #07b2f6', backgroundColor: '#07b2f6'};
+    if (sstate.view === btnView ) return {border: '2px solid #07b2f6' , backgroundColor: '#07b2f6' };
     if (!objectEquals(sstate.shipperInfo[btnView], {})) {
-      return {border: '2px solid rgb(169, 253, 2)', backgroundColor: 'rgb(169, 253, 2)'};
+      return {border: '2px solid rgb(169, 253, 2)'  , backgroundColor: 'rgb(169, 253, 2)' };
     }
   }
 
@@ -145,8 +110,9 @@ export default function Shippersignup(props) {
         {({ scroll }) => ['ccard_info', 'company_information', 'driving_record', 'work_schedule'].includes(sstate.view) ? scroll({ x: 1, y:1, smooth: true }): '' }
         </ScrollTo>
 
-        <div style={sstate.view !== 'shipper' ? {visibility: 'hidden', position: 'relative', zIndex: '50'} : {}} className="userform view_a">
-          
+        <div  className="userform view_a">
+        <h5>[ Shipper Sign-Up ]</h5>
+        <hr />
           <form className="form" onSubmit={event =>  handleSubmit(sstate.shipperInfo, event)}>
   
             <fieldset>
@@ -197,7 +163,7 @@ export default function Shippersignup(props) {
    <hr />
             <p>
               <label className="form-group row" htmlFor="ccard_info">Payment_method:</label>
-              <input style={subFormsCss('ccard_info')} type="button" name='ccard_info'  id="ccard_info" onClick={(e) => sv_handler('ccard_info')} />
+              <input style={subFormsCss('ccard_info')} type="button" name='ccard_info'   onClick={(e) => sv_handler('ccard_info')} id="ccard_info" />
             </p>
             
             <p>
@@ -216,6 +182,7 @@ export default function Shippersignup(props) {
             </p>
   
           </fieldset>
+          <hr />
               <label className="form-group row" htmlFor="formSubmitButton"></label>
               <input type="submit" name="formSubmitButton" className="btn btn-secondary btn-lg" onClick={(e) => console.log("not yet shipper", e)}/>
          </form>
@@ -223,7 +190,7 @@ export default function Shippersignup(props) {
           <hr />
         </div>
 
-          <div style={sstate.view === 'shipper' ? {visibility: 'hidden', position: 'relative', zIndex: '50'} : {}} className="subForms view_b">
+          <div style={sstate.view === 'shipper' ? {visibility: 'hidden', position: 'relative'} : {}} className="subForms view_b">
             {subForms(sstate.view)}
           </div>
       </div>

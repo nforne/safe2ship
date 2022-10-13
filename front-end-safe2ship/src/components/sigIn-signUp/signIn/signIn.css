@@ -1,18 +1,19 @@
 
-.form-i {
+.signinform {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+ 
   align-self: center;
-  position: relative;
+  align-content: space-between;
+  width: 100%;
 }
 
 .signin {
   display: flex;
   flex-direction: row;
   align-self: center;
-  width: 30%;
 }
-
 
 .back-button {
   margin-bottom: 1.5rem;
