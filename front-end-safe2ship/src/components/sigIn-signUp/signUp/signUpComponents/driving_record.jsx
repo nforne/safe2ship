@@ -35,9 +35,9 @@ const Driving_record = (props) => {
   const handleSubmit = (drinfo, event) => {
     event.preventDefault();
     if (driving_recordFormValidation(drinfo) === 'good!') {
-      props.sv_handler('pending')
-      props.sinfo_handler('driving_record', drinfo)
-      props.sv_handler('shipper')
+      props.v_handler('pending')
+      props.info_handler('driving_record', drinfo)
+      props.v_handler('shipper')
     } else {
       props.errorHandler('Oops! Check your work schedule info and resubmit!🤦‍♂️')
     }
@@ -80,7 +80,7 @@ const Driving_record = (props) => {
 
                 <div style={{marginRight: '10%', zIndex:'1000'}}>
                   <div style={{color:'#47B5FF'}}>______</div>
-                  <button onClick={() => props.sv_handler("shipper")} type="button" className="btn btn-secondary btn-lg back-button"><i className="bi bi-reply-all"></i></button>
+                  <button onClick={() => props.v_handler("shipper")} type="button" className="btn btn-secondary btn-lg back-button"><i className="bi bi-reply-all"></i></button>
                 </div>
 
               </div>      

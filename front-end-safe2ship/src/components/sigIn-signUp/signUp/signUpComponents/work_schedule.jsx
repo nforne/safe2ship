@@ -35,9 +35,9 @@ const Work_schedule = (props) => {
   const handleSubmit = (winfo, event) => {
     event.preventDefault();
     if (work_scheduleFormValidation(winfo) === 'good!') {
-      props.sv_handler('pending')
-      props.sinfo_handler('work_schedule', winfo)
-      props.sv_handler('shipper')
+      props.v_handler('pending')
+      props.info_handler('work_schedule', winfo)
+      props.v_handler('shipper')
     } else {
       props.errorHandler('Oops! Check your work schedule info and resubmit!🤦‍♂️')
     }
@@ -75,7 +75,7 @@ const Work_schedule = (props) => {
 
                 <div style={{marginRight: '10%', zIndex:'1000'}}>
                   <div style={{color:'#47B5FF'}}>______</div>
-                  <button onClick={() => props.sv_handler("shipper")} type="button" className="btn btn-secondary btn-lg back-button"><i className="bi bi-reply-all"></i></button>
+                  <button onClick={() => props.v_handler("shipper")} type="button" className="btn btn-secondary btn-lg back-button"><i className="bi bi-reply-all"></i></button>
                 </div>
 
               </div>      

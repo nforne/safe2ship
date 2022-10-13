@@ -41,7 +41,7 @@ export default function SignUp(props) {
         {suview.v === 'shipper' && <Shippersignup {...props} />}
         {suview.v === 'customer' && <Customersignup {...props} />}
           
-        {suview.v === '' && <img style={{borderRadius: '10px'}} src={Default} alt={"default"}/>}
+        {suview.v === '' && <img style={{borderRadius: '15px'}} src={Default} alt={"default"}/>}
         
       </div>
        

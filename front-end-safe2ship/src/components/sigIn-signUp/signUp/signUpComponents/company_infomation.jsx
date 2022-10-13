@@ -35,9 +35,9 @@ const Company_info = (props) => {
   const handleSubmit = (coinfo, event) => {
     event.preventDefault();
     if (company_infoFormValidation(coinfo) === 'good!') {
-      props.sv_handler('pending')
-      props.sinfo_handler('company_information', coinfo)
-      props.sv_handler('shipper')
+      props.v_handler('pending')
+      props.info_handler('company_information', coinfo)
+      props.v_handler('shipper')
     } else {
       props.errorHandler('Oops! Check your work schedule info and resubmit!🤦‍♂️')
     }
@@ -80,7 +80,7 @@ const Company_info = (props) => {
 
                 <div style={{marginRight: '10%', zIndex:'1000'}}>
                   <div style={{color:'#47B5FF'}}>______</div>
-                  <button onClick={() => props.sv_handler("shipper")} type="button" className="btn btn-secondary btn-lg back-button"><i className="bi bi-reply-all"></i></button>
+                  <button onClick={() => props.v_handler("shipper")} type="button" className="btn btn-secondary btn-lg back-button"><i className="bi bi-reply-all"></i></button>
                 </div>
 
               </div>      

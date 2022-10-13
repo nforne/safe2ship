@@ -3,6 +3,7 @@ import Ccard_info from './signUpComponents/ccard_info';
 import Company_info from './signUpComponents/company_infomation';
 import Driving_record from './signUpComponents/driving_record';
 import Work_schedule from "./signUpComponents/work_schedule";
+import Confirm from '../../home/confirm'
 import Pending from "../../home/pending";
 import { ScrollTo } from "react-scroll-to";
 import axios from 'axios';
@@ -52,7 +53,7 @@ export default function Shippersignup(props) {
   }, []);
 
   const handleSubmit = (shipperInfo, event) => {
-    event.preventDefault();
+    // event.preventDefault();
 
     if (sinputFormValidation(shipperInfo) === 'good!') {
       // switch to pending...
@@ -77,6 +78,16 @@ export default function Shippersignup(props) {
   }
 
 //--------------------------------------------------------------------------------------------
+  // for confirm
+
+  const confirm = {
+    confirmMessage: [<p key={1} >[ By clicking to subscibe, you agree to the terms and conditions in place for the use of this platform! ]</p>],
+    confirmHandler: handleSubmit,
+    data: sstate.shipperInfo,
+    v_handler: sv_handler
+  }
+
+//--------------------------------------------------------------------------------------------
   // for subforms
 
   const subFormsCss = (btnView) => { // to style subForm button when it has been selected for filling and when it has already been filled.
@@ -87,33 +98,32 @@ export default function Shippersignup(props) {
   }
 
   const handlers =  { // props for subForms
-    sinfo_handler: sinfo_handler,
-    sv_handler: sv_handler,
+    info_handler: sinfo_handler,
+    v_handler: sv_handler,
     errorHandler: props.errorHandler
   }
 
   const subForms = (element) => {
-    if (element === 'ccard_info') return [<Ccard_info {...handlers}/>];
-    if (element === 'company_information') return [<Company_info {...handlers}/>];
-    if (element === 'driving_record') return [<Driving_record {...handlers}/>];
-    if (element === 'work_schedule') return [<Work_schedule {...handlers}/>];
-    if (element === 'pending') return [<Pending/>];
+    if (element === 'ccard_info') return [<Ccard_info key={1} {...handlers}/>];
+    if (element === 'company_information') return [<Company_info key={1} {...handlers}/>];
+    if (element === 'driving_record') return [<Driving_record key={1} {...handlers}/>];
+    if (element === 'work_schedule') return [<Work_schedule key={1} {...handlers}/>];
+    if (element === 'confirm') return [<Confirm key={1} {...confirm}/>];
+    if (element === 'pending') return [<Pending key={1}/>];
     return [];
   } 
-
- //--------------------------------------------------------------------------------------------
 
    return (
       <div className="signUpForms">
         
         <ScrollTo>
-        {({ scroll }) => ['ccard_info', 'company_information', 'driving_record', 'work_schedule'].includes(sstate.view) ? scroll({ x: 1, y:1, smooth: true }): '' }
+        {({ scroll }) => ['confirm', 'ccard_info', 'company_information', 'driving_record', 'work_schedule'].includes(sstate.view) ? scroll({ x: 1, y:10, smooth: true }): '' }
         </ScrollTo>
-
-        <div  className="userform view_a">
+    {sstate.view !== 'confirm' && 
+        <div  style={sstate.view === 'confirm' ? {visibility: 'hidden', position: 'relative'} : {}} className="userform view_a">
         <h5>[ Shipper Sign-Up ]</h5>
         <hr />
-          <form className="form" onSubmit={event =>  handleSubmit(sstate.shipperInfo, event)}>
+          <form className="form" onSubmit={event =>  event.preventDefault() /* handleSubmit(sstate.shipperInfo, event) */}>
   
             <fieldset>
         
@@ -165,12 +175,7 @@ export default function Shippersignup(props) {
               <label className="form-group row" htmlFor="ccard_info">Payment_method:</label>
               <input style={subFormsCss('ccard_info')} type="button" name='ccard_info'   onClick={(e) => sv_handler('ccard_info')} id="ccard_info" />
             </p>
-            
-            <p>
-              <label className="form-group row" htmlFor="company_infomation">Company_infomation:</label>
-              <input style={subFormsCss('company_information')} type="button" name='company_infomation' onClick={(e) => sv_handler('company_information')} id="company_infomation" />
-            </p>
-            
+                        
             <p>
               <label className="form-group row" htmlFor="driving_record">Driving_record:</label>
               <input style={subFormsCss('driving_record')} type="button" name='driving_record' onClick={(e) => sv_handler('driving_record')} id="driving_record" />
@@ -180,16 +185,23 @@ export default function Shippersignup(props) {
               <label className="form-group row" htmlFor="work_schedule">Work_schedule:</label>
                <input style={subFormsCss('work_schedule')} type="button" name='work_schedule' id="work_schedule"  onClick={(e) => sv_handler('work_schedule')} placeholder="click to enter your swork schedule. Optional!"/>
             </p>
+
+            <hr />
+            <h6>[ If Apllicable: ]</h6>
+            <p>
+              <label className="form-group row" htmlFor="company_information">Company_infomation:</label>
+              <input style={subFormsCss('company_information')} type="button" name='company_information' onClick={(e) => sv_handler('company_information')} id="company_infomation" />
+            </p>
   
           </fieldset>
           <hr />
               <label className="form-group row" htmlFor="formSubmitButton"></label>
-              <input type="submit" name="formSubmitButton" className="btn btn-secondary btn-lg" onClick={(e) => console.log("not yet shipper", e)}/>
+              <input type="submit" name="formSubmitButton" className="btn btn-secondary btn-lg" onClick={(e) => sv_handler('confirm')}/>
          </form>
   
           <hr />
         </div>
-
+    }
           <div style={sstate.view === 'shipper' ? {visibility: 'hidden', position: 'relative'} : {}} className="subForms view_b">
             {subForms(sstate.view)}
           </div>
