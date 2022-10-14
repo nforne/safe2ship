@@ -84,16 +84,15 @@
   align-items: baseline;
   font-family: 'Times New Roman', Times, serif;
   height: 80px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  background-color: rgb(51, 48, 48);
+  /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+  background-color: rgb(98, 93, 93);
   padding-left: 1.5em;
   padding-right: 1.5em;
   z-index: 5000;
   position: fixed; /* Set the navbar to fixed position */
   top: 0; /* Position the navbar at the top of the page */
   width: 100%; /* Full width */
-  left: 0;
-  padding-bottom: 0.5em aqua;
+  
 }
 
 .nav:hover {

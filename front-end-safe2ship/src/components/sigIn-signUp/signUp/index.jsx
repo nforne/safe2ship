@@ -33,6 +33,7 @@ export default function SignUp(props) {
         </div>
 
       <div className="form-u">
+      <h1 > 🌷| __🚚__🚚__ |🌼 </h1>
         <hr />
         <Button {...{suhandler: suhandler, hv_handler: props.hv_handler, view: suview.v}}/>
         <hr />

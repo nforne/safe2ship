@@ -119,6 +119,7 @@ export default function Shippersignup(props) {
         <ScrollTo>
         {({ scroll }) => ['confirm', 'ccard_info', 'company_information', 'driving_record', 'work_schedule'].includes(sstate.view) ? scroll({ x: 1, y:10, smooth: true }): '' }
         </ScrollTo>
+        
     {sstate.view !== 'confirm' && 
         <div  style={sstate.view === 'confirm' ? {visibility: 'hidden', position: 'relative'} : {}} className="userform view_a">
         <h5>[ Shipper Sign-Up ]</h5>

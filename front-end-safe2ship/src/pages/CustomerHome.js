@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import {React, useState} from "react";
 import PackageListItem from "../components/PackageListItem";
 import Package from "../components/Package";
 import "./customerHome.css";
@@ -46,10 +46,10 @@ export default function CustomerHome(props) {
           <div>
         <div className="row justify-content-end">
           <div className="col-sm-12 col-md-6">
-            <h2>My Packages</h2>
+            <h2>Packages [MINE]</h2>
           </div>
           <div className="col-sm-12 col-md-6">
-              <button type="button" onClick={() => props.hv_handler("postPackage")} className="btn btn-lg btn-primary">+ Post New Package</button>
+              <button type="button" onClick={() => props.hv_handler("postPackage")} className="btn btn-lg btn-primary">+ Package [POST NEW]</button>
           </div>
         </div>
         {packages}

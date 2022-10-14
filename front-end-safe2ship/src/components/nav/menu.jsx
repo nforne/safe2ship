@@ -25,19 +25,19 @@ export default function Menu(props) {
       
       <ul className="dropdown-menu" aria-labelledby="dropdownMenu2">
         <li><hr className="dropdown-divider"/></li>
-        <li><button className={classNames("dropdown-item danger", {"disabled": o, })} type="button" onClick={(e) => props.logoutHandler(props)} > <i className="bi bi-eject"></i>logout</button></li>
+        <li><button className={classNames("dropdown-item danger", {"disabled": o, })} type="button" onClick={(e) => props.logoutHandler(props)} > <i className="bi bi-eject"></i> - -[🚧Logout🌷]</button></li>
         <li><hr className="dropdown-divider"/></li>
-        <li><button className={classNames("dropdown-item", {"disabled": c || o, })} type="button" onClick={(e) => {props.setPkgsview(() => props.ordercart.active); console.log(props.ordercart.active.length); vSwitch(props.user)}}> <i className="bi bi-chevron-left"></i> order Cart</button></li>
-        <li><button className={classNames("dropdown-item", {"disabled": c || o })} type="button" onClick={(e) => {props.setPkgsview(() => [...props.ordercart.declined, ...props.ordercart.delivered]); vSwitch(props.user)}}> <i className="bi bi-chevron-left"></i> order History</button></li>
-        <li><button className={classNames("dropdown-item", {"disabled": o, })} type="button" onClick={(e) => {props.setPkgsview(() => props.pkgs.active); vSwitch(props.user)}}> <i className="bi bi-chevron-left"></i> packages</button></li>
-        <li><button className={classNames("dropdown-item", {"disabled": o })} type="button" onClick={(e) => {props.setPkgsview(() => [...props.pkgs.declined, ...props.pkgs.delivered]); vSwitch(props.user)}}> <i className="bi bi-chevron-left"></i> package History</button></li>
-        <li><button className={classNames("dropdown-item", {"disabled": o })} type="button" > <i className="bi bi-chevron-left"></i> messages</button></li>
-        <li><button className={classNames("dropdown-item", {"disabled": o })} type="button" onClick={(e) => props.hv_handler('profile')} > <i className="bi bi-chevron-left"></i> my Profile</button></li>
-        <li><button className={classNames("dropdown-item", {"disabled": o })} type="button" > <i className="bi bi-chevron-left"></i> help?</button></li>
-        <li><button className={classNames("dropdown-item", {"disabled": o })} type="button" > <i className="bi bi-chevron-left"></i> safe2ship?</button></li>
-        <li><button className={classNames("dropdown-item", {"disabled": o })} type="button" > <i className="bi bi-chevron-left"></i> settings</button></li>
+        <li><button className={classNames("dropdown-item", {"disabled": c || o, })} type="button" onClick={(e) => {props.setPkgsview(() => props.ordercart.active); console.log(props.ordercart.active.length); vSwitch(props.user)}}> <i className="bi bi-chevron-left"></i> [ Order Cart ]</button></li>
+        <li><button className={classNames("dropdown-item", {"disabled": c || o })} type="button" onClick={(e) => {props.setPkgsview(() => [...props.ordercart.declined, ...props.ordercart.delivered]); vSwitch(props.user)}}> <i className="bi bi-chevron-left"></i> [ Order History ]</button></li>
+        <li><button className={classNames("dropdown-item", {"disabled": o, })} type="button" onClick={(e) => {props.setPkgsview(() => props.pkgs.active); vSwitch(props.user)}}> <i className="bi bi-chevron-left"></i>[ Packages ]</button></li>
+        <li><button className={classNames("dropdown-item", {"disabled": o })} type="button" onClick={(e) => {props.setPkgsview(() => [...props.pkgs.declined, ...props.pkgs.delivered]); vSwitch(props.user)}}> <i className="bi bi-chevron-left"></i> [ Package History ]</button></li>
+        <li><button className={classNames("dropdown-item", {"disabled": o })} type="button" > <i className="bi bi-chevron-left"></i>[ Messages ]</button></li>
+        <li><button className={classNames("dropdown-item", {"disabled": o })} type="button" onClick={(e) => props.hv_handler('profile')} > <i className="bi bi-chevron-left"></i> [ Profile ] </button></li>
+        <li><button className={classNames("dropdown-item", {"disabled": o })} type="button" > <i className="bi bi-chevron-left"></i> [ Help? ]</button></li>
+        <li><button className={classNames("dropdown-item", {"disabled": o })} type="button" > <i className="bi bi-chevron-left"></i> [ safe2ship? ]</button></li>
+        <li><button className={classNames("dropdown-item", {"disabled": o })} type="button" > <i className="bi bi-chevron-left"></i> [ Settings ]</button></li>
         <li><hr className="dropdown-divider"/></li>
-        <li><button className={classNames("dropdown-item", {"disabled": c || s || o,})} type="button" > <i className="bi bi-chevron-left"></i> Admin</button></li>
+        <li><button className={classNames("dropdown-item", {"disabled": c || s || o,})} type="button" > <i className="bi bi-chevron-left"></i> [ Admin ]</button></li>
       </ul>
       </div>  
     </div>

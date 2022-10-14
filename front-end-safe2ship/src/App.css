@@ -50,9 +50,10 @@ body {
   }
 }
 
-.line {
-  top: 80px;
-  border-color: white;
+.H-line {
+  position: relative;
+  top: 81px;
+  border-color: aquamarine;
   height: 0.5em;
 }
 
@@ -65,4 +66,5 @@ body {
   box-shadow: 20px 20px 50px 15px grey;
   border: 0.1em dashed black;
   font-size: 1.2em;
+  margin-top: 80px;
 }

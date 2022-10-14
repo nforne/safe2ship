@@ -2,12 +2,25 @@
 .homebtns {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  justify-items: center;
-  align-items: center;
   position: relative;
-  margin: 3rem;
+  align-self: center;
   font-family: 'Times New Roman', Times, serif;
+  background-color: wheat;
+  border-radius: 20px;
+  box-shadow: 20px 20px 50px 15px gray;
+  padding: 5em;
+  margin: 0em 1em 1em 0.75em;
+  width: fit-content;
+  line-height: normal;
+  max-height: min-content;
+  z-index: 0;
+}
+
+.dt-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 150;
 }
 
 .hometx-span {
@@ -18,9 +31,8 @@
   font-family: 'Times New Roman', Times, serif;
   width: 90%;
   align-self: center;
-  color: aqua;
-  z-index: 100;
   position: relative;
+  color:black;
 }
 
 #welcome-msg-box {
@@ -45,10 +57,14 @@
   box-shadow: 20px 20px 50px 15px gray;
   position: relative;
   align-self: flex-start;
+  z-index: 50;
+}
+
+#H-img {
+  position: absolute !important;
 }
 
 .pending {
-  
   width: 100%;
   height: 100%;
   position:relative;
@@ -60,7 +76,6 @@
 }
 
 .homebtns button {
-  /* color: #515355; */
   border: 2px solid aqua;
 }
 
@@ -70,8 +85,9 @@
 }
 
 #default {
-  box-shadow: 20px 20px 50px 15px grey;
+  box-shadow: 20px 20px 50px 15px gray;
   padding: 0.5em;
-  position: absolute;
+  position: relative;
   border-radius: 30px;
+  border:black;
 }

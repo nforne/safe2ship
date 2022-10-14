@@ -19,6 +19,7 @@ export default function Nav(props) {
   }
     
    return (
+    <div >
      <nav className="nav">
       <Logo hv_handler={props.hv_handler} logoutHandler={logoutHandler}/>
       <div className="menu">
@@ -34,7 +35,12 @@ export default function Nav(props) {
           <Menu {...props} logoutHandler={logoutHandler}/>
         </div>
      </div>
+     
      </nav>
+     <div>
+      <br className='H-line'/>
+     </div>
+    </div>
      
    );
  }

@@ -139,8 +139,9 @@ const App = () => {
     <div className="App">
       
       <Nav {...props}/>
-      <hr className='line'/>
-      <br/><hr/>
+      
+      <hr className='H-line'/>
+      
 
       {error.length > 0 &&  <div className='errmsgs'>{error}</div>}
       

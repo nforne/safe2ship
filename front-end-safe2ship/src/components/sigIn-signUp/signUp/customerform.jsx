@@ -11,7 +11,7 @@ import { objectEquals } from "./signUpComponents/helpers";
 
 export default function Customersignup(props) {
 
-  const ref = useRef('.view_b');
+  const ref = useRef(''); //------------------------------------------
 
   const customerInfo_init = {status:'customer',
     number_of_packages: 0, rating_sum:0, 
