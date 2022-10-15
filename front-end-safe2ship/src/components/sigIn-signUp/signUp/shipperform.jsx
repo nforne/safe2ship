@@ -197,7 +197,7 @@ export default function Shippersignup(props) {
           </fieldset>
           <hr />
               <label className="form-group row" htmlFor="formSubmitButton"></label>
-              <input type="submit" name="formSubmitButton" className="btn btn-secondary btn-lg" onClick={(e) => sv_handler('confirm')}/>
+              <input type="submit" name="formSubmitButton" value="Submit" className="btn btn-secondary btn-lg" onClick={(e) => sv_handler('confirm')}/>
          </form>
   
           <hr />

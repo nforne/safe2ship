@@ -73,7 +73,7 @@ const Company_info = (props) => {
               <div className="signin-btns">
                 
                 <label className="form-group row" htmlFor="formSubmitButton"></label>
-                <input type="submit"  name="formSubmitButton" className="btn btn-secondary btn-lg" onClick={(e) => console.log('coinfo ...')}/>
+                <input type="submit"  name="formSubmitButton" value="Submit" className="btn btn-secondary btn-lg" onClick={(e) => console.log('coinfo ...')}/>
               
                 
                 <div style={{display: 'flex', flexDirection: 'row'}}><div style={{visibility: 'hidden'}}>--</div><h1>|</h1><div style={{visibility: 'hidden'}}>--</div></div>

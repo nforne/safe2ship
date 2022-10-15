@@ -94,7 +94,7 @@ export default function SignIn(props) {
                     <div className="signin-btns">
                       
                       <label className="form-group row" htmlFor="formSubmitButton"></label>
-                      <input style={{zIndex:'1000'}} type="submit"  name="formSubmitButton" className="btn btn-secondary btn-lg" onClick={(e) => console.log('sign-in ...')}/>
+                      <input style={{zIndex:'1000'}} type="submit"  name="formSubmitButton" value="Submit" className="btn btn-secondary btn-lg" onClick={(e) => console.log('sign-in ...')}/>
                     
                       
                       <div style={{display: 'flex', flexDirection: 'row'}}><div style={{visibility: 'hidden'}}>--</div><h1>|</h1><div style={{visibility: 'hidden'}}>--</div></div>
