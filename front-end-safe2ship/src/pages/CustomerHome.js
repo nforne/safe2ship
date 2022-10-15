@@ -1,41 +1,53 @@
 import {React, useState} from "react";
 import PackageListItem from "../components/PackageListItem";
 import Package from "../components/Package";
+import PackagePage from "./PackagePage";
 import "./customerHome.css";
 
 export default function CustomerHome(props) {
 
-  console.log('this # of pkgs', props.udata.packages.length) //------------------------------
-
   const [vpkg, setVpkg] = useState({pkg: {}, v: 'all', vtracker: []})
   
-  const [pkgs, setPkgs] = useState({delivered:[], acitve:[], declined:[] })
-
   const pkgvswitch = (view) => {
     setVpkg(prev => ({...prev, v: view}))
   }
+  
+  // const [currentv, setCurrentv] = useState({v:'active', pkgs: 'packages'}) // raise state
 
   const pkglItemClickHandler = (itemInfo, view) => {
     setVpkg(prev => ({...prev, v: view, pkg: itemInfo}))
   };
 
-  let key = props.pkgsview.length + 1;
-  const packages = props.pkgsview.map(pkg => {
-    key += 1;
-    return <PackageListItem key={key} {...pkg} listpkg={pkg} pkglItemClickHandler={pkglItemClickHandler}/>
-  });
+  const [vitem, setVitem] = useState({v:'zoomout', vtacker:[], key: ''})
 
-// onClick={(pkg) => pkglItemClickHandler(props, 'pkg')}
-// const pkgp = {
-//   status:props.status,
-//   id : props.id,
-//   size: props.size,
-//   price : props.price,
-//   source: props.source,
-//   destination: props.destination,
-//   delivery_deadline: props.delivery_deadline,
-//   customer_id: props.customer_id
-// }
+  const zoom = (key) => {
+    if (vitem.v === 'zoomout') setVitem(prev => ({...prev, v: 'zoomin', key: key}))
+    if (vitem.v === 'zoomin') setVitem(prev => ({...prev, v: 'zoomout', key: ''}))
+  }
+
+  // pkg view = [active, delivered, declined]
+  // pkgs = orders/packages
+
+  const pkgsInView = (currentvPkgs, status) => {
+    const packages = currentvPkgs === 'packages' ? props.pkgs : props.orders;
+    if (status === 'active') return packages.active;
+    if (status === 'delivered') return packages.delivered;
+    if (status === 'declined') return packages.declined;
+  }
+
+  let key = props.pkgsview.length + 1;
+  const packages = pkgsInView(props.currentv.pkgs, props.currentv.v).map(pkg => {
+    key += 1;
+  return (
+    <div key={key} className="justify-content-center">
+        <hr/> 
+        { [key][0] !== vitem.key && <PackageListItem zoom={zoom} key={key} vpkg={vpkg} vitem={vitem} itemKey={[key][0]} {...pkg} listpkg={pkg} pkglItemClickHandler={pkglItemClickHandler} {...props}/>}
+        { [key][0] === vitem.key && <PackagePage zoom={zoom} key={key} vpkg={vpkg} vitem={vitem} itemKey={[key][0]} listpkg={pkg} {...pkg} {...vitem}  pkgvswitch={pkgvswitch} {...props}/>}
+        <hr/>
+    </div>
+  )
+    
+  });
 
 
   return (
@@ -46,20 +58,13 @@ export default function CustomerHome(props) {
           <div>
         <div className="row justify-content-end">
           <div className="col-sm-12 col-md-6">
-            <h2>Packages [MINE]</h2>
+          <button type="button" style={{boxShadow:'20px 20px 50px 15px aqua'}} onClick={() => {}} className="btn btn-secondary btn-lg">Packages [MINE]</button>
           </div>
           <div className="col-sm-12 col-md-6">
-              <button type="button" onClick={() => props.hv_handler("postPackage")} className="btn btn-lg btn-primary">+ Package [POST NEW]</button>
+              <button type="button" onClick={() => props.hv_handler("postPackage")} className="btn btn-secondary btn-lg">+ Package [POST NEW]</button>
           </div>
         </div>
         {packages}
-        <div className="row">
-          <div className="col-12">
-            <h2>Shipper Request Messages</h2>
-            
-          </div>
-        </div>
-
         </div>
         }
 

@@ -4,7 +4,8 @@ import "./package.css";
 export default function PackageListItem(props) {
 
   return (
-    <div className="row my-5" onClick={() => props.pkglItemClickHandler ? props.pkglItemClickHandler(props, 'pkg') : ''}>
+    
+    <div className="row my-5" onClick={() => {}}>
      
       <div className="col-8 mx-auto">
         <div className="card package-list-item">
@@ -28,13 +29,28 @@ export default function PackageListItem(props) {
               <div className="col-md-2 d-flex justify-content-center">
                 <div>
                   <i className="bi bi-chevron-right" ></i>
+                  
+                  <div className="pkgListItemButtons">
+                    
+                    <button type="button" onClick={() => props.zoom(props.itemKey)} className="btn btn-secondary btn-lg">ZOOM +/-</button>
+                    <i id='diffsquare' className="bi bi-square"></i>
+                    <button type="button" onClick={() => props.pkglItemClickHandler ? props.pkglItemClickHandler(props, 'pkg') : ''} className="btn btn-secondary btn-lg">DETAILS</button>
+                    
+                  </div>
+                  
                 </div>
               </div>
             </div>
           </div>
         </div>
+
+      
+
       </div>
 
+     
     </div>
+
+    
   );
 }

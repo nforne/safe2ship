@@ -36,14 +36,16 @@ const App = () => {
   }, []);
 
   const [hview, setHview] = useState({v: 'home', hvtracker: []})
+
+  const [currentv, setCurrentv] = useState({v:'active', pkgs: 'packages'}) // for the user home views
   
   const user_init = {user: [{}], packages: [{}], orders:[{}]};
 
   const [user, setUser] = useState({...user_init});
-  const [pkg, setPkg] = useState({});
   const [error, setError] = useState([]);
   const [errorstate, setErrorstate] = useState([]);
-
+  const [pkg, setPkg] = useState({}); // when a new package is created, return to view it on the home----------------------------------- ?
+  
   // for differentiated view of packages in packages and orders
   const [ordercart, setOrdercart] = useState({delivered:[], active:[], declined:[] }); 
   const [pkgs, setPkgs] = useState({delivered:[], active:[], declined:[]});
@@ -122,6 +124,7 @@ const App = () => {
 
   const props = {
     hv_handler: hv_handler,
+    hview: hview,
     user: user.user,
     setUser: setUser,
     user_init: {...user_init},
@@ -132,7 +135,8 @@ const App = () => {
     ordercart, setOrdercart,
     pkgs, setPkgs,
     pkgsview, setPkgsview,
-    ordersview, setOrdersview
+    ordersview, setOrdersview,
+    currentv, setCurrentv
   }
 
   return (
@@ -159,8 +163,15 @@ const App = () => {
         {hview.v === "signUp" && <SignUp {...props}/>}
         {hview.v === "customerHome" && <CustomerHome  {...props}/>}
         {hview.v === "shipperHome" && <ShipperHome  {...props}/>}
-        {hview.v === "packagePage" && <Package {...props}/>}
+        {hview.v === "packagePage" && <Package {...props}/> /* // when a new package is created, return to view it on the home */} 
         {hview.v === "postPackage" && <PostPackage {...props}/>}
+
+        {/* ## --Working Notes-- ##
+            -Each package carries a messaging platform client like Whatsapp
+            -Profile on the main view(here home) and on the package view
+            -Perhaps no package on the main view
+        */}
+
       </section>
       <Scrollup/> 
     </div>

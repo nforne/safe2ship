@@ -358,30 +358,32 @@ if (Array.isArray(props.messages)) {
       </div>
    
       <div className="card-footer d-flex justify-content-end">
-        {!props.zoom &&
+      {props.vpkg.v !== 'pkg' && <button type="button" onClick={() => props.zoom(props.itemKey)} className="btn btn-secondary btn-lg">ZOOM +/-</button>}
+      <i id='diffsquare' className="bi bi-square"></i>
+        {(!(props.vitem.key === props.itemKey)  || props.hview.v === 'packagePage') &&
       <div className="text-center">
-              <button type="button" onClick={() => props.pkgvswitch('all')} className="btn btn-secondary btn-lg"><i className="bi-lg bi-reply-all"></i></button>
+              <button type="button" onClick={() => props.hview.v === 'packagePage' ? props.hv_handler(props.user[0].status) : props.pkgvswitch('all')} className="btn btn-secondary btn-lg"><i className="bi-lg bi-reply-all"></i></button>
       </div>
       }
       <i id='diffsquare' className="bi bi-square"></i>
-{(props.user[0].status === 'shipper' && !inOrdercartCheck() && props.customer_id !== props.user[0].id )&& <button type="button" className="btn btn-secondary btn-lg" onClick={(e) =>   addToOrderCartHandler(props)}> Request to Deliver This Package</button>}
+{(props.user[0].status === 'shipper' && !inOrdercartCheck() && props.customer_id !== props.user[0].id ) && <button type="button" className="btn btn-secondary btn-lg" onClick={(e) =>   addToOrderCartHandler(props)}> Add [ To Order Cart : Request To Deliver ]</button>}
         <i id='diffsquare' className="bi bi-square"></i>
-{(props.user[0].status === 'shipper' && inOrdercartCheck() )&& <button type="button" className="btn btn-secondary btn-lg" onClick={(e) =>   addToOrderCartHandler(props)}> Remove From Order Cart</button>}
+{(props.user[0].status === 'shipper' && inOrdercartCheck() )&& <button type="button" className="btn btn-secondary btn-lg" onClick={(e) =>   addToOrderCartHandler(props)}> Remove [From Order Cart]</button>}
         <i id='diffsquare' className="bi bi-square"></i>
 
-        { !props.zoom  &&
-        <button type="button" className="btn btn-secondary btn-lg" onClick={(e) => profileviewHandler(props.customer_id)} >View Custermer(owner) Profile</button>
+        {props.itemKey  &&
+        <button type="button" className="btn btn-secondary btn-lg" onClick={(e) => profileviewHandler(props.customer_id)} > Profile [Owner's]</button>
         }
 
         <i id='diffsquare' className="bi bi-square"></i>
-        <button type="button" className="btn btn-secondary btn-lg" onClick={(e) => {msgsClickHandler(); console.log('pkg view messages ...')}} >Messages</button>
+        <button type="button" className="btn btn-secondary btn-lg" onClick={(e) => {msgsClickHandler(); console.log('pkg view messages ...')}} > [ Messages ]</button>
         <i id='diffsquare' className="bi bi-square"></i>
 
         { (props.user[0].id === props.id || props.user[0].status === 'customer')  &&
           <div>
-            <button type="button" className="btn btn-secondary btn-lg" onClick={(e) => console.log('pkg edit messages ...')} >Edit pkg</button>
+            <button type="button" className="btn btn-secondary btn-lg" onClick={(e) => console.log('pkg edit messages ...')} >Edit</button>
             <i id='diffsquare' className="bi bi-square"></i>
-            <button type="button" className="btn btn-secondary btn-lg" onClick={(e) => console.log('pkg delete messages ...')} >Delete pkg</button>
+            <button type="button" className="btn btn-secondary btn-lg" onClick={(e) => console.log('pkg delete messages ...')} >Delete</button>
           </div>
         }
 
@@ -392,7 +394,7 @@ if (Array.isArray(props.messages)) {
     <hr />
       { msgview.v === 'on' && 
         <div>
-          <h5 className="card-title">pkg Messages</h5>
+          <h5 className="card-title"> Messages [ Package ]</h5>
           <hr />
           {messages}
         </div>

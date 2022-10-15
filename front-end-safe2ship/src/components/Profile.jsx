@@ -32,7 +32,7 @@ export default function Profile(props) {
       <div>
         <hr/>
         <i id='diffsquare' className="bi bi-square"></i>
-        {!props.zoom && <button type="button" className="btn btn-secondary btn-lg" onClick={() => {props.vSwitch('pkg'); if (props.v === 'zoomin') props.zoom();}}><i className="bi-lg bi-reply-all"></i></button>}
+        {(!props.zoom || props.hview.v === 'packagePage' ) && <button type="button" className="btn btn-secondary btn-lg" onClick={() => {props.vSwitch('pkg'); if (props.v === 'zoomin') props.zoom();}}><i className="bi-lg bi-reply-all"></i></button>}
       </div>
     </div>
   );

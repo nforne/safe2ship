@@ -40,14 +40,14 @@ export default function PackagePage(props) {
       <h2>Package #{props.id}</h2>
       <div className="p-5 mb-4 bg-light rounded-3">
         <div className="container-fluid">
-          <h3 className="header-info">Customer Information</h3>
-           {props.v === 'zoomin' && <Profile {...props} {...view.profile} vSwitch={vSwitch} /> }
+          <h3 className="header-info"> Owner's Profile </h3>
+           { (props.v === 'zoomin' || props.hview.v === 'packagePage') && <Profile {...props} {...view.profile} vSwitch={vSwitch} /> }
             <hr />
             <hr />
 
           <h3 className="header-info">Package Information</h3>
 
-           { props.v === 'zoomin' && <Package {...props}/> }
+           { (props.v === 'zoomin' || props.hview.v === 'packagePage') && <Package {...props}/> }
         </div>
       </div>
     </div>

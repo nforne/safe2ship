@@ -32,3 +32,10 @@
 .btn-primary {
   background-color: #0065AB;
 }
+
+.pkgListItemButtons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: space-between;
+}

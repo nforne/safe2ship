@@ -44,12 +44,16 @@ export default function PostPackage(props) {
   }
 
   const updateUserState = (newpkg) => {
-    props.setUser(prev => {
-      const updating = {...prev};
-      const pkgs = [...updating.packages];
-      pkgs.push(newpkg);
-      updating['packages'] = pkgs;
-      return updating});
+    const update = (prev, list) => {
+        const updating = {...prev};
+        const pkgs = [...updating[list], newpkg];
+        updating[list] = pkgs;
+        return updating
+    } 
+    props.setUser(prev => update(prev, 'packages'));
+    props.setOrdercart(prev => update(prev, 'active'));
+    props.setPkgs(prev => update(prev, 'active'));
+    props.setPkg(prev => { return {...prev, ...newpkg} }); //----------------------------------
   }
 
   useEffect(() => {
@@ -66,17 +70,20 @@ export default function PostPackage(props) {
         .then(pkginfo => {
           console.log('this feedb ===>', pkginfo.data) //--------------------------------------
           updateUserState(pkginfo.data[0]);
-          props.user[0].status === 'customer' ?   props.hv_handler("customerHome") : props.hv_handler("shipperHome");
+          
+          props.hv_handler('packagePage') // from here return to the customer or shipper home
+
+          // props.user[0].status === 'customer' ?   props.hv_handler("customerHome") : props.hv_handler("shipperHome");
           // if (props.user.status === 'customer')  props.hv_handler("customerHome");
           // if (props.user.status === 'shipper') props.hv_handler("shipperHome");
         })
         .catch((error) => {
-          props.errorHandler('Oop! Something went wrong. Please Consider trying again shortly!')
+          props.errorHandler(`Oops! Something went wrong. ${error}. Please consider trying again later!`)
           props.user[0].status === 'customer' ?   props.hv_handler("customerHome") : props.hv_handler("shipperHome");
         })
     } else {
       props.errorHandler(`Oops! Something is missing or missentered: ${npkgValidation(input)}. Please verify and make sure of the right information and resubmit. Thank you!`)
-      props.user[0].status === 'customer' ?   props.hv_handler("customerHome") : props.hv_handler("shipperHome");
+      // props.user[0].status === 'customer' ?   props.hv_handler("customerHome") : props.hv_handler("shipperHome");
     }
 
   }
