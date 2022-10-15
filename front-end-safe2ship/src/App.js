@@ -44,7 +44,7 @@ const App = () => {
   const [user, setUser] = useState({...user_init});
   const [error, setError] = useState([]);
   const [errorstate, setErrorstate] = useState([]);
-  const [pkg, setPkg] = useState({}); // when a new package is created, return to view it on the home----------------------------------- ?
+  const [pkg, setPkg] = useState({}); // when a new package is created, return to view it on the home here ----------------------------------- ?
   
   // for differentiated view of packages in packages and orders
   const [ordercart, setOrdercart] = useState({delivered:[], active:[], declined:[] }); 
@@ -193,6 +193,7 @@ const App = () => {
             -add subscription brackground verification service
             -account creation pending background verification service results and notification - creation declined or accepted and messaging
             -Upgrade style, APIs, ux
+            -add 'a set path for the day' map feature for the shipper, to be used to sort available packages around and along that path and show them as available, if not, sort available with last map.
         */}
 
       </section>
