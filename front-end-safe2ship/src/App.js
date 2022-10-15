@@ -194,6 +194,7 @@ const App = () => {
             -account creation pending background verification service results and notification - creation declined or accepted and messaging
             -Upgrade style, APIs, ux
             -add 'a set path for the day' map feature for the shipper, to be used to sort available packages around and along that path and show them as available, if not, sort available with last map.
+            -write unit, integration and E2E tests for code coverage - TDD was strongly prescribed
         */}
 
       </section>
