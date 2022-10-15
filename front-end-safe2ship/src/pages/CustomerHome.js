@@ -12,7 +12,7 @@ export default function CustomerHome(props) {
     setVpkg(prev => ({...prev, v: view}))
   }
   
-  // const [currentv, setCurrentv] = useState({v:'active', pkgs: 'packages'}) // raise state
+  // const [currentv, setCurrentv] = useState({v:'active', pkgs: 'packages'}) // raised state
 
   const pkglItemClickHandler = (itemInfo, view) => {
     setVpkg(prev => ({...prev, v: view, pkg: itemInfo}))
@@ -29,7 +29,7 @@ export default function CustomerHome(props) {
   // pkgs = orders/packages
 
   const pkgsInView = (currentvPkgs, status) => {
-    const packages = currentvPkgs === 'packages' ? props.pkgs : props.orders;
+    const packages = currentvPkgs === 'packages' ? props.pkgs : props.ordercart;
     if (status === 'active') return packages.active;
     if (status === 'delivered') return packages.delivered;
     if (status === 'declined') return packages.declined;

@@ -29,7 +29,7 @@ export default function ShipperHome(props) {
   // pkg view = [mine, availableForShipping, active, delivered, declined]
   
   const pkgsInView = (currentvPkgs, status) => {
-    const packages = currentvPkgs === 'packages' ? props.pkgs : props.orders;
+    const packages = currentvPkgs === 'packages' ? props.pkgs : props.ordercart;
     const dbPkgs = (status) => {
       const myPkgs = [];
       const otherPkgs = []
