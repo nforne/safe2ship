@@ -197,6 +197,7 @@ const App = () => {
             -write unit, integration and E2E tests for code coverage - TDD was strongly prescribed
             -make site responsive and build mobile version
             -design deployment plan/architecture pub/sub, containers, ...etc
+            -add a pkg tracking view
         */}
 
       </section>
