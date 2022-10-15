@@ -170,6 +170,29 @@ const App = () => {
             -Each package carries a messaging platform client like Whatsapp
             -Profile on the main view(here home) and on the package view
             -Perhaps no package on the main view
+            ---------------------------------------------------------------------------------------
+            -user profile update or upgrade
+            -package edit - available only when package is not yet shipped.
+            -uploads, subforms, pkg messaging platform service, backend and data storage, websocket
+            -security, ssl, cleenup props and refactor
+            -Every created package carries a group chat room with stati available, dilivered, shipped, canceled, declined - in which case it comes back to availabe or canceled depending on owners choice
+            -each request to ship subsribes to the group chatroom and carries a button to Accept? and button to the shipper's(requester's) profile
+            -once a shipping request is accepted the group chat room is temporally frozen and all other participants notified by and package status change to shipped.
+            -the accpepted request now oppens into a private chatroom with the chipper. A status appears on it as shipped and changes to delivered when it is done. 
+            -delivery time is tracked and indicated with green for before or in time or red for late.
+            -The private chatroom opens by the apperance of a message button on the request message and the disapperance or freeze of the accept buttton.
+            -if the shipper declines the package, buttons appear to cancel it or repost it - in which case a new group chatroom is opened. within 24hours after which its automatically canceled and automated messages sent to both parties on whats next., 
+            -there will also be a status to show if a user is online or not.
+            -on the shipper side, once in charge of a package, button appears to indicate diliverd. on press, status light becomes orange from green pending owner confirmation.
+            -on owner side once delivered, a button appears to confirm delivery in which case the light changes blue for delivered.
+            -there should be a view to lodge a complain or querry and messenging to indicate regularised.
+            -add mapping service on the packages
+            -add search service for shipper depending on location/area
+            -add monetizing scheme service
+            -add public authority and security service connection
+            -add subscription brackground verification service
+            -account creation pending background verification service results and notification - creation declined or accepted and messaging
+            -Upgrade style, APIs, ux
         */}
 
       </section>
