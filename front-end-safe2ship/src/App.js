@@ -198,6 +198,9 @@ const App = () => {
             -make site responsive and build mobile version
             -design deployment plan/architecture pub/sub, containers, ...etc
             -add a pkg tracking view
+            -a package 'really becomes' an order only when a shipping confirmation has been established at which point it is saved to the db and all parties duely notified.
+            -a newly created package sits in the packages view. Delivered and declined go package history
+            -a newly requested order sits in the order cart. delivered and declined go to order history
         */}
 
       </section>
