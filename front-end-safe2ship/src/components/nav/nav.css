@@ -11,12 +11,10 @@
   justify-content: space-between;
   /* box-shadow: 20px 20px 50px 15px grey; */
   align-items: center;
-  /* background-color: whitesmoke; */
+  background-color: black;
   border-color: aqua;
   padding: 0.5em;
   border-style:ridge;
-  border-radius: 2%;
-  align-self: baseline;
   height: inherit;
   top: 0.5em;
 }
@@ -81,17 +79,19 @@
   flex-direction: row;
   justify-content: space-between;
   justify-items: center;
-  align-items: baseline;
+  align-items: center;
   font-family: 'Times New Roman', Times, serif;
   height: 80px;
-  /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   background-color: rgb(98, 93, 93);
   padding-left: 1.5em;
   padding-right: 1.5em;
+  padding-bottom: 0.5em;
   z-index: 5000;
   position: fixed; /* Set the navbar to fixed position */
   top: 0; /* Position the navbar at the top of the page */
   width: 100%; /* Full width */
+  border-bottom: 0.25em solid black;
   
 }
 
@@ -114,6 +114,10 @@
 
 .dropdown-item:hover {
   box-shadow: 20px 20px 50px 15px aqua;
+}
+
+.dropdown-menu li {
+  width: 10.9em;
 }
 
 .menu #id {

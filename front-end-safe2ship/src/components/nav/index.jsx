@@ -21,7 +21,7 @@ export default function Nav(props) {
    return (
     <div >
      <nav className="nav">
-      <Logo hv_handler={props.hv_handler} logoutHandler={logoutHandler}/>
+      <Logo hv_handler={props.hv_handler} logoutHandler={logoutHandler} {...props}/>
       <div className="menu">
         <div>
 
