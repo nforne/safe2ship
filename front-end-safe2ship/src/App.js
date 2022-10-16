@@ -171,7 +171,7 @@ const App = () => {
             -Profile on the main view(here home) and on the package view
             -Perhaps no package on the main view
             ---------------------------------------------------------------------------------------
-            -add the admin, help, and documentation views
+            -add the admin, messages, help, and documentation views. the messeges view to view inbox or mail
             -user profile update or upgrade
             -package edit - available only when package is not yet shipped.
             -uploads, subforms, pkg messaging platform service, backend and data storage, websocket
