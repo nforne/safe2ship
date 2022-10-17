@@ -62,4 +62,4 @@ npm run storybook
 -	Abdullah Khan - abdullahshamskhan@gmail.com
 -	Martin Nforne - wnforne@gmail.com
 
-[Github Repo](https://github.com/nforne/safe2ship)
+[Github Repo](https://github.com/nforne/safe2ship/tree/feature/merge-feature-branches)
