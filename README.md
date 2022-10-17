@@ -55,7 +55,7 @@ npm run storybook
 ## Final Product
 
 ![Screenshot1](/docs/safe2ship_1.png)
-![Screenshot1](/docs/safe2ship_2.png)
+![Screenshot1](/docs/safe2ship_2.jpg)
 
 ## Team members
 
