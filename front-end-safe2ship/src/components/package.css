@@ -39,3 +39,11 @@
   justify-content: center;
   align-content: space-between;
 }
+
+.pkgPostbuttons {
+  display: flex;
+  flex-direction: row;
+  align-items:center;
+  justify-content:flex-end;
+  align-content: space-between;
+}

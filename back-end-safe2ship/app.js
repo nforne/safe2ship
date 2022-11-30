@@ -1,13 +1,13 @@
-// const PORT = process.env.API_PORT || 8080;
-
-// load .env data into process.env
-require("dotenv").config();
-
 // Web server config
 const express = require('express');
 const app = express();
 const path = require('path');
 const logger = require('morgan');
+
+// load .env data into process.env
+require("dotenv").config();
+
+const PORT = process.env.API_PORT || 8080;
 
 const cors = require('cors');
 app.use(cors());
@@ -24,29 +24,8 @@ app.options('*', cors());
 //   next();
 // });
 
-//---------------------------------------------------------
-
-//websocket config
-const socketio = require('socket.io');
-const http = require('http');
-const server = http.createServer(app);
-
-// server-side
-// const io =  socketio(server);
-
-const io = socketio(server, {
-  cors: {
-    origin: "http://localhost:3000",
-    credentials: false,
-  }
-});
-
-io.on('connection', (socket) => {
-  console.log('a user connected');
-});
 
 //---------------------------------------------------------
-
 
 // PG database client/connection setup
 const db = require('./db');
@@ -77,17 +56,25 @@ app.use(methodOverride('_method'))  // override with POST having ?_method=DELETE
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
-//         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
+// The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
 app.use(logger('dev'));
 
 // -- app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 
+//---------------------------------------------------------
+
+//websocket config
+const http = require('http');
+const server = http.createServer(app);
+const websocket = require('./websocket/websocket.js')
+      websocket({server})
+
 // --------------------------------------------------
 
 // Separated Routes for each Resource
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users'); //----------------------------------- split route(s) to customer and shipper
+const usersRouter = require('./routes/users');
 const packagesRouter = require('./routes/packages');
 const messagesRouter = require('./routes/messages');
 const ordersRouter = require('./routes/orders');
@@ -107,10 +94,9 @@ app.use('/api', reviewsRouter(dbHelpers));
 
 // --------------------------------------------------
 
-// console.log('this port ===>', process.env.API_PORT) //---------------------
+server.listen(PORT, () => {
+  console.log(`safe2ship is listening on port ${PORT}`);
+});
 
-// server.listen(PORT, () => {
-//   console.log(`safe2ship is listening on port ${PORT}`);
-// });
 
-module.exports = app;
+module.exports = websocket;
