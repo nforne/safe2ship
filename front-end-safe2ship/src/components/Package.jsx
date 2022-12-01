@@ -134,14 +134,14 @@ if (Array.isArray(props.messages)) {
               <div className="card-body">
                 <h5 className="card-title">Package Details</h5>
                 <p>Size:{props.size}</p>
-                <p>Weight:{props.size}</p>
+                <p>Weight:{props.weight}</p>
                 <p>Package Description: {props.description}</p>
                 <hr />
                 <p>Customer Details:</p>
                 
               </div>
             <div>
-              <p>Customer ID: {props.customer_id}</p>
+              <p>Customer ID: {props.owner_id}</p>
             </div>
 
             </div>
